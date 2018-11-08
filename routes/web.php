@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('customer/register','AuthCustomer\RegisterCustomerController@showFormRegister')->name('customer.register.form');
+Route::post('customer/register','AuthCustomer\RegisterCustomerController@register')->name('customer.register');
