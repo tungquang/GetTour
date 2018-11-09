@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::prefix('customer')->group(function(){
+  Route::get('/', 'CustomerController@index')->name('customer');
+  Route::get('/register','AuthCustomer\RegisterCustomerController@showFormRegister')->name('customer.register.form');
+  Route::post('/register','AuthCustomer\RegisterCustomerController@register')->name('customer.register');
+  Route::get('/login','AuthCustomer\LoginCustomerController@showFormCustomerLogin')->name('customer.login.form');
+  Route::post('/login','AuthCustomer\LoginCustomerController@loginCustomer')->name('customer.login');
+  Route::post('/logout','AuthCustomer\LoginCustomerController@logoutCustomer')->name('customer.logout');
+});
