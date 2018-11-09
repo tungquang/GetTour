@@ -46,7 +46,7 @@ class LoginCustomerController extends Controller
     public function __construct()
     {
 
-        $this->middleware('customer')->except('logout');
+        $this->middleware('customer')->except('logoutCustomer');
 
     }
 
@@ -69,7 +69,8 @@ class LoginCustomerController extends Controller
     }
     public function logoutCustomer()
     {
-      return Auth::guard('customer')->logout();
+       Auth::guard('customer')->logout();
+       return redirect()->route('customer.login.form');
     }
 
 

@@ -16,7 +16,7 @@ class RedirectCustomerifAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        // dd(Auth::guard('customer')->check());
+
         if (Auth::guard('customer')->check()) {
           return redirect('/customer');
         }
