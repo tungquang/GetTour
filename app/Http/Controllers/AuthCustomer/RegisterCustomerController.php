@@ -31,7 +31,7 @@ class RegisterCustomerController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/customer';
 
     /**
      * Create a new controller instance.
@@ -40,7 +40,7 @@ class RegisterCustomerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:customer');
+        $this->middleware('customer');
     }
 
     public function showFormRegister()
@@ -80,11 +80,15 @@ class RegisterCustomerController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
+        try {
+            event(new Registered($user = $this->create($request->all())));
+        } catch (\Exception $e) {
 
-        event(new Registered($user = $this->create($request->all())));
+          return redirect('customer/register');
+        }
 
         if (Auth::guard('customer')->attempt(['email'=>$request->email,'password'=>$request->password],$request->remember)) {
-          return redirect($redirectTo);
+          return redirect($this->redirectTo);
         }
         return redirect('customer/register');
 

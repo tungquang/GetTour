@@ -1,4 +1,4 @@
-@extends('auth.layout')
+@extends('authcustomer.layout')
 @section('content')
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -9,7 +9,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="{{route('login')}}" method="post">
+    <form action="{{route('customer.login')}}" method="post">
       @csrf
       <div class="form-group has-feedback">
         <input type="email" name="email" class="form-control" placeholder="Email">
@@ -56,7 +56,7 @@
     <!-- /.social-auth-links -->
 
     <a href="#">I forgot my password</a><br>
-    <a href="{{route('register')}}" class="text-center">Register a new membership</a>
+    <a href="{{route('customer.register.form')}}" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -64,11 +64,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script src="js/jquery.min.js"></script>
+<script src="{{asset('js/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="js/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
-<script src="js/icheck.min.js"></script>
+<script src="{{asset('js/icheck.min.js')}}"></script>
 <script>
   $(function () {
     $('input').iCheck({

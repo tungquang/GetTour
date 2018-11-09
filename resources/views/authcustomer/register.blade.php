@@ -84,7 +84,7 @@
         Google+</a>
     </div>
 
-    <a href="{{route('login')}}" class="text-center">I already have a membership</a>
+    <a href="{{route('customer.login.form')}}" class="text-center">I already have a membership</a>
   </div>
   <!-- /.form-box -->
 </div>

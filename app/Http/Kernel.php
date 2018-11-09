@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\RedirectCustomerifAuthenticated::class,
+        // \App\Http\Middleware\CusteomerAuth::class,
     ];
 
     /**
@@ -62,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'customer' => \App\Http\Middleware\RedirectCustomerifAuthenticated::class,
+        'customer-auth' => \App\Http\Middleware\CusteomerAuth::class,
     ];
 }
