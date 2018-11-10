@@ -17,9 +17,10 @@ class CusteomerAuth
     public function handle($request, Closure $next)
     {
 
-        if (!Auth::guard('customer')->check()) {
-          return redirect('customer/login');
+        if (Auth::guard('customer')->check() || Auth::guard()->check()) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('customer/login');
+
     }
 }
