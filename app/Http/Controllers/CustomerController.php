@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Interfaces\CustomerInterface;
+use App\Model\Customer;
 
 class CustomerController extends Controller
 {
       public function __construct()
       {
-        $this->middleware('customer-auth')->only(['shown','update']);
-        // $this->middleware('auth')->expect('shown');
+        $this->middleware('customer-auth')->only(['shown','update','index']);
+        $this->middleware('auth')->except(['show','update','index']);
       }
 
     /**
@@ -19,7 +21,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('admin.customer.customer-list');
+        $list = Customer::all();
+        return view('admin.customer.customer-list')
+              ->with(['list' => $list]);
     }
 
     /**
