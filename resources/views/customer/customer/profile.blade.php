@@ -1,5 +1,4 @@
-@extends('admin.layout')
-@section('content')
+
 <section class="content-header">
   <h1>
     Cá nhân
@@ -308,63 +307,35 @@
               <label for="inputName" class="col-sm-2 control-label">Name</label>
 
               <div class="col-sm-10">
-                <input type="name" class="form-control" id="inputName" value="{{$customer->name}}">
+                <input type="email" class="form-control" id="inputName" placeholder="Name">
               </div>
             </div>
             <div class="form-group">
-              <label for="email" class="col-sm-2 control-label" >Email</label>
+              <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" value="{{$customer->email}}">
+                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
               </div>
             </div>
             <div class="form-group">
-              <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ"
-                  @if($customer->detal)
-                  value="$customer->detal->address"
-                  @endif
-                >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputExperience" class="col-sm-2 control-label">Giới tính</label>
-              <div class="col-sm-10">
-                 Nam <input type="checkbox" name="sex">
-                 Nữ  <input type="checkbox" name="sex">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="phone" class="col-sm-2 control-label">Số điện thoại</label>
+              <label for="inputName" class="col-sm-2 control-label">Name</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="phone" placeholder="0123456789"
-                 @if($customer->detal)
-                  value="$customer->detal->phone"
-                  @endif>
+                <input type="text" class="form-control" id="inputName" placeholder="Name">
               </div>
             </div>
             <div class="form-group">
-              <label for="passport" class="col-sm-2 control-label">CMT/ Hộ chiếu</label>
+              <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="passport"  name="passport" placeholder="0123456789"
-                 @if($customer->detal)
-                  value="$customer->detal->passport"
-                  @endif>
+                <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
               </div>
             </div>
             <div class="form-group">
-              <label for="passport" class="col-sm-2 control-label">Tỉnh</label>
+              <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
 
               <div class="col-sm-10">
-                <select class="" name="id_country">
-                  <option value="">Hà Nội</option>
-                  <option value="">Hà Nội2</option>
-                  <option value="">Hà Nội3</option>
-                  <option value="">Hà Nội4</option>
-                </select>
+                <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
               </div>
             </div>
             <div class="form-group">
@@ -395,4 +366,3 @@
 
 </section>
 <!-- /.content -->
-@endsection

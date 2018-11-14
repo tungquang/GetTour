@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\CustomerInterface;
-use App\Responstories\toDoCustomer;
+use App\Interfaces\CustomerServiceInterface;
+use App\Services\CustomerService;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(
-          CustomerInterface::class,
-          toDoCustomer::class
+          CustomerServiceInterface::class,
+          CustomerService::class
         );
     }
 }

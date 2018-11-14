@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use App\Model\Customer;
 
 class LoginCustomerController extends Controller
 {
@@ -43,9 +44,9 @@ class LoginCustomerController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Customer $customer)
     {
-
+        $this->customer = $customer;
         $this->middleware('customer')->except('logoutCustomer');
 
     }
@@ -53,11 +54,18 @@ class LoginCustomerController extends Controller
     public function loginCustomer(Request $request)
     {
         $this->validator($request->all())->validate();
-
-
-        if (Auth::guard('customer')->attempt(['email'=>$request->email,'password'=>$request->password],$request->remember)) {
-          return redirect($this->redirectTo);
+        $flag = $this->customer->checkExists([
+          'email' => $request->email,
+          'status' => 1,
+        ]);
+        if($flag)
+        {
+          if (Auth::guard('customer')->attempt(['email'=>$request->email,'password'=>$request->password],$request->remember)) {
+            $id = $this->customer->where('email',$request->email)->first()->id;
+            return redirect($this->redirectTo.'/'.$id);
+          }
         }
+
         return redirect()->back()->withInput($request->only('email','remember'));
 
 

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Interfaces\CustomerInterface;
-use App\Model\Customer;
+use App\Interfaces\CustomerServiceInterface;
+
 
 class CustomerController extends Controller
 {
-      public function __construct()
+      public function __construct(CustomerServiceInterface $response)
       {
-        $this->middleware('customer-auth')->only(['shown','update','index']);
-        $this->middleware('auth')->except(['show','update','index']);
+        $this->middleware('customer-auth')->only(['show','update']);
+        $this->middleware('auth')->except(['show','update']);
+        $this->response = $response;
       }
 
     /**
@@ -21,9 +22,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $list = Customer::all();
-        return view('admin.customer.customer-list')
-              ->with(['list' => $list]);
+        return $this->response->index();
     }
 
     /**
@@ -55,7 +54,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return view('admin.customer.profile');
+        return $this->response->show($id);
+
     }
 
     /**
@@ -80,7 +80,6 @@ class CustomerController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -89,6 +88,6 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->response->destroy($id);
     }
 }

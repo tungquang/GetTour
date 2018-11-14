@@ -60,9 +60,7 @@
                 </thead>
                 <tbody>
                   @foreach($list as $customer)
-                  <a href="{{url('customer')}}/{{$customer->id}}">
                     <tr class="customer" id={{$customer->id}}>
-
                       <td>{{$customer->name}}</td>
                       <td>{{$customer->email}}</td>
                       <td>{{$customer->created_at}}</td>
@@ -91,7 +89,6 @@
                           </div>
                       </td>
                     </tr>
-                    </a>
                   @endforeach
                 </tbody>
                 <tfoot>
@@ -131,7 +128,22 @@
     $('.customer').dblclick(function(){
       var $id = $(this).attr('id');
       if ($id) {
-        window.location.replace("{{url('customer')}}/"+$id);
+
+        $.ajax({
+          url :"{{url('customer')}}/"+ $id,
+          type:'GET',
+          success:function($data)
+          {
+            if (($data.erros)) {
+
+              toastr.warning('Tài khoản không tồn tại');
+            }
+            else {
+              $('#content').html('');
+              $('#content').append($data);
+            }
+          }
+        });
       }
       else{
         alert('Không ton tai tai khoan hoac id khong dung');
