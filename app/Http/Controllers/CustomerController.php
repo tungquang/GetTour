@@ -54,6 +54,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+    
         return $this->response->show($id);
 
     }

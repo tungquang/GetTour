@@ -54,6 +54,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+
         return $this->response->show($id);
     }
 
@@ -65,7 +66,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -88,6 +89,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
         return $this->response->destroy($id);
     }
 }

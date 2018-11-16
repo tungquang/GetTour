@@ -16,10 +16,33 @@
    {
      $this->staff = $staff;
    }
+   protected function validator(array $data,$rules)
+   {
+     return Validator::make($data,$rules);
+   }
+   protected function rulesAccount()
+   {
+     return [
+       'email' => 'required|string|email|max:255',
+       'name'  => 'required|string|min:4',
+       'password' => 'required|string|min:6',
 
+      ];
+   }
+   protected function rulesDetail()
+   {
+     return [
+       'id'       => 'required',
+       'address'  => 'required',
+       'age'      => 'required',
+       'phone'    => 'required|min:9',
+       'passport' => 'required|min:9',
+       'id_country' => 'required',
+     ];
+   }
    public function index()
    {
-     $list = $this->staff->all();
+     $list = $this->staff->getAll();
      $user = Auth::user();
 
      return View('admin.staff.staff-list')
@@ -31,10 +54,26 @@
    // public function store(Request $request);
    public function show($id)
    {
+     $staff = $this->staff->getbyIdOrfind($id);
+     $user = Auth::guard()->user();
 
+     if ($staff) {
+
+       return view('admin.staff.profile')
+                       ->with(
+                         [
+                           'staff' => $staff,
+                           'user'     => $user,
+                       ]);
+
+     }
+     $errors = ['account' => 'Tài khoản không tồn tại !'];
+     return Response::json(['erros' => $errors]);
    }
    public function update($request, $id){
 
    }
-   public function destroy($id){}
+   public function destroy($id){
+     dd('xx');
+   }
  }

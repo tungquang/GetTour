@@ -22,7 +22,7 @@
       <div class="box-body box-profile">
         <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-        <h3 class="profile-username text-center">{{$customer->name}}</h3>
+        <h3 class="profile-username text-center">{{$staff->name}}</h3>
 
         <p class="text-muted text-center">Software Engineer</p>
 
@@ -50,13 +50,13 @@
         <h3 class="box-title">Thông tin</h3>
       </div>
       <!-- /.box-header -->
-      @if($customer->detail)
+      @if($staff->detail)
 
       <div class="box-body">
         <strong><i class="fa fa-book margin-r-5"></i> Địa chỉ </strong>
 
         <p class="text-muted">
-          {{$customer->detail->address}}
+          {{$staff->detail->address}}
         </p>
 
         <hr>
@@ -64,7 +64,7 @@
         <strong><i class="margin-r-5"></i> Giới tính</strong>
 
         <p class="text-muted">
-          @if($customer->detail->sex)
+          @if($staff->detail->sex)
             Nam
           @else
            Nữ
@@ -75,7 +75,7 @@
 
         <strong><i class="margin-r-5"></i> Số điện thoại</strong>
 
-        <p class="text-muted">{{$customer->detail->phone}}</p>
+        <p class="text-muted">{{$staff->detail->phone}}</p>
 
         <hr>
 
@@ -309,29 +309,29 @@
         <!-- /.tab-pane -->
 
         <div class="tab-pane" id="settings">
-          <form class="form-horizontal" action="{{url('customer/'.$customer->id)}}" method="POST">
+          <form class="form-horizontal" action="{{url('staff/'.$staff->id)}}" method="POST">
             @method('put')
             @csrf
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Name</label>
 
               <div class="col-sm-10">
-                <input type="name" name="name" required class="form-control" id="inputName" value="{{$customer->name}}">
+                <input type="name" name="name" required class="form-control" id="inputName" value="{{$staff->name}}">
               </div>
             </div>
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label" >Email</label>
 
               <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" required id="email" value="{{$customer->email}}">
+                <input type="email" name="email" class="form-control" required id="email" value="{{$staff->email}}">
               </div>
             </div>
             <div class="form-group">
               <label for="address" class="col-sm-2 control-label">Ngày sinh</label>
               <div class="col-sm-10">
                 <input type="date" required class="form-control" id="age" name="age" placeholder="Địa chỉ"
-                  @if($customer->detail)
-                    value="{{$customer->detail->age}}"
+                  @if($staff->detail)
+                    value="{{$staff->detail->age}}"
                   @endif"
                 >
               </div>
@@ -340,8 +340,8 @@
               <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
               <div class="col-sm-10">
                 <input type="text" required class="form-control" id="address" name="address" placeholder="Địa chỉ"
-                @if($customer->detail)
-                 value="{{$customer->detail->address}}"
+                @if($staff->detail)
+                 value="{{$staff->detail->address}}"
                  @endif
                  >
               </div>
@@ -351,8 +351,8 @@
               <label for="inputExperience" class="col-sm-2 control-label">Giới tính</label>
               <div class="col-sm-10">
                   <input type="text" name="gender"  class="hidden"
-                  @if($customer->detail)
-                   value="{{$customer->detail->sex}}"
+                  @if($staff->detail)
+                   value="{{$staff->detail->sex}}"
                    @endif
                    >
                    Nữ  <input type="radio" name="sex" value="0" />
@@ -366,8 +366,8 @@
 
               <div class="col-sm-10">
                 <input required type="text" name="phone" class="form-control" id="phone" placeholder="0123456789"
-                 @if($customer->detail)
-                  value="{{$customer->detail->phone}}"
+                 @if($staff->detail)
+                  value="{{$staff->detail->phone}}"
                   @endif>
               </div>
             </div>
@@ -376,8 +376,8 @@
 
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="passport"  name="passport" placeholder="0123456789"
-                 @if($customer->detail)
-                  value="{{$customer->detail->passport}}"
+                 @if($staff->detail)
+                  value="{{$staff->detail->passport}}"
                   @endif >
               </div>
             </div>
@@ -387,8 +387,8 @@
               <div class="col-sm-10">
                 <select
 
-                @if($customer->detail)
-                 class="{{$customer->detail->id_country}}"
+                @if($staff->detail)
+                 class="{{$staff->detail->id_country}}"
                  @endif
                   name="id_country">
                   <option value="0">Hà Nội</option>

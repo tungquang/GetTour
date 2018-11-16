@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Validator;
      {
        $user = Auth::guard()->user();
      }
-     else
+     if
      {
        $user = Auth::guard('customer')->user();
      }

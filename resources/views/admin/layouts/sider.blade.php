@@ -40,7 +40,7 @@
         </ul>
       </li>
       <li class="">
-        <a href="{{route('admin.index')}}">
+        <a href="{{route('staff.index')}}">
           <i class="fa fa-files-o"></i>
           <span>Quản lý nhân viên</span>
           <span class="pull-right-container">
