@@ -29,4 +29,7 @@ Route::prefix('customer')->group(function(){
   Route::post('/logout','AuthCustomer\LoginCustomerController@logoutCustomer')->name('customer.logout');
 });
 
-Route::resource('customer','CustomerController');
+Route::resources([
+            'customer' => 'CustomerController',
+            'admin'   => 'UserController',
+          ]);

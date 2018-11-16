@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
           CustomerServiceInterface::class,
           CustomerService::class
         );
+
     }
 }
