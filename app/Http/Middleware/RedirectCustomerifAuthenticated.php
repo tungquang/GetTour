@@ -14,15 +14,16 @@ class RedirectCustomerifAuthenticated
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = 'customer')
     {
-
-        if (Auth::guard('customer')->check()) {
-          return redirect('/customer');
-        }
-
-        return $next($request);
-
+      if ( Auth::guard('web')->check()) {
+        return redirect('/customer');
+      }
+      if (Auth::guard('customer')->check())
+      {
+          return redirect('customer/'.Auth::guard('customer')->user()->id);
+      }
+      return $next($request);
 
     }
 }

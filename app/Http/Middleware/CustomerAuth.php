@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class CusteomerAuth
+class CustomerAuth
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,11 @@ class CusteomerAuth
      */
     public function handle($request, Closure $next)
     {
-
-        if (!Auth::guard('customer')->check()) {
-          return redirect('customer/login');
+        if (Auth::guard('customer')->check() || Auth::guard('web')->check())
+        {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('customer/login');
+
     }
 }

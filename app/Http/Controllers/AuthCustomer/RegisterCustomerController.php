@@ -57,7 +57,7 @@ class RegisterCustomerController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:customer',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -88,7 +88,7 @@ class RegisterCustomerController extends Controller
         }
 
         if (Auth::guard('customer')->attempt(['email'=>$request->email,'password'=>$request->password],$request->remember)) {
-          return redirect($this->redirectTo);
+          return redirect($this->redirectTo.'/'.$user->id);
         }
         return redirect('customer/register');
 
