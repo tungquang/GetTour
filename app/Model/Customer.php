@@ -67,5 +67,16 @@ class Customer extends Authenticatable
 
     }
 
+    public function updateOrCreateNew($data)
+    {
+      try {
+        return self::create($data);
+
+      } catch (\Exception $e) {
+        return $this->where(['id'=>$data['id']])->update($data);
+      }
+
+    }
+
 
 }

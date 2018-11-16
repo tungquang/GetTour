@@ -66,7 +66,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd('xxx1');
     }
 
     /**
@@ -78,7 +78,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->response->update($request, $id);
     }
     /**
      * Remove the specified resource from storage.

@@ -15,9 +15,8 @@ class CreateCustomerDetailTable extends Migration
     {
         Schema::create('customer_detail', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('age');
-            $table->integer('sex');
+            $table->string('age');
+            $table->boolean('sex')->nullable($value=true);
             $table->string('address');
             $table->string('phone');
             $table->string('passport');

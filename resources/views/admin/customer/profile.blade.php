@@ -63,7 +63,13 @@
 
         <strong><i class="margin-r-5"></i> Giới tính</strong>
 
-        <p class="text-muted">{{$customer->detail->sex}}</p>
+        <p class="text-muted">
+          @if($customer->detail->sex)
+            Nam
+          @else
+           Nữ
+           @endif
+        </p>
 
         <hr>
 
@@ -303,45 +309,65 @@
         <!-- /.tab-pane -->
 
         <div class="tab-pane" id="settings">
-          <form class="form-horizontal">
+          <form class="form-horizontal" action="{{url('customer/'.$customer->id)}}" method="POST">
+            @method('put')
+            @csrf
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Name</label>
 
               <div class="col-sm-10">
-                <input type="name" class="form-control" id="inputName" value="{{$customer->name}}">
+                <input type="name" name="name" required class="form-control" id="inputName" value="{{$customer->name}}">
               </div>
             </div>
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label" >Email</label>
 
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" value="{{$customer->email}}">
+                <input type="email" name="email" class="form-control" required id="email" value="{{$customer->email}}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address" class="col-sm-2 control-label">Ngày sinh</label>
+              <div class="col-sm-10">
+                <input type="date" required class="form-control" id="age" name="age" placeholder="Địa chỉ"
+                  @if($customer->detail)
+                    value="{{$customer->detail->age}}"
+                  @endif"
+                >
               </div>
             </div>
             <div class="form-group">
               <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ"
-                  @if($customer->detal)
-                  value="$customer->detal->address"
-                  @endif
-                >
+                <input type="text" required class="form-control" id="address" name="address" placeholder="Địa chỉ"
+                @if($customer->detail)
+                 value="{{$customer->detail->address}}"
+                 @endif
+                 >
               </div>
             </div>
+
             <div class="form-group">
               <label for="inputExperience" class="col-sm-2 control-label">Giới tính</label>
               <div class="col-sm-10">
-                 Nam <input type="checkbox" name="sex">
-                 Nữ  <input type="checkbox" name="sex">
+                  <input type="text" name="gender"  class="hidden"
+                  @if($customer->detail)
+                   value="{{$customer->detail->sex}}"
+                   @endif
+                   >
+                   Nữ  <input type="radio" name="sex" value="0" />
+                   Nam <input type="radio" value="1" name="sex" required />
+
+
               </div>
             </div>
             <div class="form-group">
               <label for="phone" class="col-sm-2 control-label">Số điện thoại</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="phone" placeholder="0123456789"
-                 @if($customer->detal)
-                  value="$customer->detal->phone"
+                <input required type="text" name="phone" class="form-control" id="phone" placeholder="0123456789"
+                 @if($customer->detail)
+                  value="{{$customer->detail->phone}}"
                   @endif>
               </div>
             </div>
@@ -350,20 +376,25 @@
 
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="passport"  name="passport" placeholder="0123456789"
-                 @if($customer->detal)
-                  value="$customer->detal->passport"
-                  @endif>
+                 @if($customer->detail)
+                  value="{{$customer->detail->passport}}"
+                  @endif >
               </div>
             </div>
             <div class="form-group">
               <label for="passport" class="col-sm-2 control-label">Tỉnh</label>
 
               <div class="col-sm-10">
-                <select class="" name="id_country">
-                  <option value="">Hà Nội</option>
-                  <option value="">Hà Nội2</option>
-                  <option value="">Hà Nội3</option>
-                  <option value="">Hà Nội4</option>
+                <select
+
+                @if($customer->detail)
+                 class="{{$customer->detail->id_country}}"
+                 @endif
+                  name="id_country">
+                  <option value="0">Hà Nội</option>
+                  <option value="1">Hà Nội2</option>
+                  <option value="2">Hà Nội3</option>
+                  <option value="3">Hà Nội4</option>
                 </select>
               </div>
             </div>
@@ -395,4 +426,19 @@
 
 </section>
 <!-- /.content -->
+@endsection
+@section('script')
+ <script type="text/javascript">
+  function loadCountry(){
+    var $id = $('select[name=id_country]').attr('class');
+    $('select[name=id_country]').children().eq($id).attr('selected','selected');
+  };
+  function loadGender()
+  {
+    var $gender = $('input[name=gender]').val();
+    $('input[name=sex]').eq($gender).attr('checked','checked');
+  }
+  loadGender();
+  loadCountry();
+ </script>
 @endsection
