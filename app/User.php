@@ -28,7 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    public function detail()
+    {
+      return $this->belongsTo('App\Model\UserDetail','id','id');
+    }
     public function checkExists($data)
     {
       return self::where($data)->first();

@@ -58,7 +58,7 @@
                   <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                   @foreach($list as $customer)
                   <a href="{{url('customer')}}/{{$customer->id}}">
                     <tr class="customer" id={{$customer->id}}>
@@ -68,6 +68,7 @@
                       <td>{{$customer->created_at}}</td>
                       <td>{{$customer->updated_at}}</td>
                       <td>
+                        <input type="text" class="hidden" name="customer-id" value="{{$customer->id}}">
                         <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$customer->id}}">Xóa</button>
                         <div class="modal fade" id="form-delete-{{$customer->id}}" role="dialog">
                             <div class="modal-dialog">
@@ -75,15 +76,12 @@
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Modal Header</h4>
                                 </div>
                                 <div class="modal-body">
                                   <h3>Bạn muốn xóa tài khoản {{$customer->email}} ?</h3>
-                                  <input type="text" class="hidden" name="customer-id" value="{{$customer->id}}">
-                                  <button class="delete btn btn-primary" data-dismiss="modal" >Tôi đồng ý</button>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="button" class="delete btn btn-primary" data-dismiss="modal">Đồng ý</button>
                                 </div>
                               </div>
 
@@ -139,7 +137,8 @@
 
     });
     $('.delete').click(function(){
-      var $id = $(this).parent().children('input').val();
+      var $id = $('input[name=customer-id]').val();
+
 
         $.ajax({
           url:"{{url('customer')}}/" + $id,
@@ -156,7 +155,7 @@
             else
             {
 
-              $('#'+ $data).html('');
+              $('.list').children('#'+$data).html('');
               toastr.success('Tài khoản xóa thành công ');
             }
           }

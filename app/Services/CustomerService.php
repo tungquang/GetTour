@@ -36,7 +36,6 @@ use Illuminate\Support\Facades\Validator;
    protected function rulesDetail()
    {
      return [
-       'id'       => 'required',
        'address'  => 'required',
        'age'      => 'required',
        'phone'    => 'required|min:9',
@@ -50,7 +49,7 @@ use Illuminate\Support\Facades\Validator;
      {
        $user = Auth::guard()->user();
      }
-     if
+     if(Auth::guard('customer')->user())
      {
        $user = Auth::guard('customer')->user();
      }
@@ -65,6 +64,7 @@ use Illuminate\Support\Facades\Validator;
    public function show($id)
    {
      $customer = $this->customer->getbyIdOrfind($id);
+
      if (Auth::guard('customer')->user()) {
        $user = Auth::guard('customer')->user();
      }
@@ -81,12 +81,13 @@ use Illuminate\Support\Facades\Validator;
                        ]);
 
      }
-     $errors = ['account' => 'Tài khoản không tồn tại !'];
-     return Response::json(['erros' => $errors]);
+     $errors = 'Tài khoản không tồn tại !';
+     return view('errors.notfound')->with(['errors'=>$errors]);
+
    }
    public function update($request,$id)
    {
-     // $this->validator($request->all(),$this->rulesDetail())->validate();
+     $this->validator($request->all(),$this->rulesDetail())->validate();
      if(Auth::guard('customer')->user())
      {
        $id = Auth::guard('customer')->user()->id;

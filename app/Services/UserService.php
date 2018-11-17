@@ -6,15 +6,17 @@
  use Response;
  use Auth;
  use App\User;
+ use App\Model\UserDetail;
  /**
   *
   */
  class UserService implements UserServiceInterface
  {
 
-   function __construct(User $staff)
+   function __construct(User $staff,UserDetail $detail)
    {
      $this->staff = $staff;
+     $this->detail = $detail;
    }
    protected function validator(array $data,$rules)
    {
@@ -32,7 +34,7 @@
    protected function rulesDetail()
    {
      return [
-       'id'       => 'required',
+
        'address'  => 'required',
        'age'      => 'required',
        'phone'    => 'required|min:9',
@@ -67,13 +69,45 @@
                        ]);
 
      }
-     $errors = ['account' => 'Tài khoản không tồn tại !'];
-     return Response::json(['erros' => $errors]);
+     $errors = 'Tài khoản không tồn tại !';
+     return view('errors.notfound')->with(['errors'=>$errors]);
+
    }
    public function update($request, $id){
 
+     $this->validator($request->all(),$this->rulesDetail())->validate();
+
+     $detail = [
+       'id'       => $id,
+       'address'  => $request->address,
+       'age'      => $request->age,
+       'phone'    => $request->phone,
+       'sex'      => $request->sex,
+       'passport' => $request->passport,
+       'id_country' => $request->id_country
+     ];
+
+     $data = [
+      'id'    => $id,
+      'name'  => $request->name,
+      'email' =>$request->email,
+      ];
+
+      $this->detail->updateOrCreateNew($detail);
+      $this->staff->updateOrCreateNew($data);
+
+    return redirect()->route('staff.show',['staff'=>$id]);
+
+
    }
    public function destroy($id){
-     dd('xx');
+
+     $staff = $this->staff->DeleteOrGet($id,0);
+     if(!$staff)
+     {
+       return Response::json(['errors'=>'Thao tác không thành công']);
+     }
+     return response()->json($staff);
+
    }
  }

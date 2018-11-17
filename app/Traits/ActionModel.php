@@ -20,8 +20,13 @@ trait ActionModel
       return $this->where($data)->get();
     }
     else {
+      $dataCheck = [
+        'id'     => $id,
+        'status' => 1,
+      ];
 
-      return $this->find($id);
+      $obj = $this->checkExists($dataCheck);
+      return $obj;
     }
   }
 

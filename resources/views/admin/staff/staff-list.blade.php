@@ -58,7 +58,7 @@
                   <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                   @foreach($list as $staff)
                   <a href="{{url('staff')}}/{{$staff->id}}">
                     <tr class="staff" id={{$staff->id}}>
@@ -69,6 +69,7 @@
                       <td>{{$staff->updated_at}}</td>
                       <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$staff->id}}">Xóa</button>
+                        <input type="text" class="hidden" name="staff-id" value="{{$staff->id}}">
                         <div class="modal fade" id="form-delete-{{$staff->id}}" role="dialog">
                             <div class="modal-dialog">
                               <!-- Modal content-->
@@ -79,11 +80,9 @@
                                 </div>
                                 <div class="modal-body">
                                   <h3>Bạn muốn xóa tài khoản {{$staff->email}} ?</h3>
-                                  <input type="text" class="hidden" name="staff-id" value="{{$staff->id}}">
-                                  <button class="delete btn btn-primary" data-dismiss="modal" >Tôi đồng ý</button>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="button" class="delete btn btn-primary" data-dismiss="modal">Đồng ý</button>
                                 </div>
                               </div>
 
@@ -139,7 +138,7 @@
 
     });
     $('.delete').click(function(){
-      var $id = $(this).parent().children('input').val();
+      var $id = $('input[name=staff-id]').val();
 
         $.ajax({
           url:"{{url('staff')}}/" + $id,
@@ -149,6 +148,7 @@
           },
           success:function($data)
           {
+
             if(($data.errors))
             {
                 toastr.warning('Thao tác không thành công ! Xin kiểm tra lại tài khoản');
@@ -156,7 +156,7 @@
             else
             {
 
-              $('#'+ $data).html('');
+              $('.list').children('#'+ $data).html('');
               toastr.success('Tài khoản xóa thành công ');
             }
           }
