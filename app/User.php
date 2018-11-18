@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\ActionModel;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use ActionModel;
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    public function detail()
+    {
+      return $this->belongsTo('App\Model\UserDetail','id','id');
+    }
     public function checkExists($data)
     {
       return self::where($data)->first();

@@ -39,8 +39,8 @@
           <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
         </ul>
       </li>
-      <li class="treeview">
-        <a href="#">
+      <li class="">
+        <a href="{{route('staff.index')}}">
           <i class="fa fa-files-o"></i>
           <span>Quản lý nhân viên</span>
           <span class="pull-right-container">

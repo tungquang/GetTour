@@ -1,24 +1,22 @@
 <?php
-namespace App\Services;
+ namespace App\Services;
 
-use App\Interfaces\CustomerServiceInterface;
-use Response;
-use App\Model\Customer;
-use App\Model\CustomerDetail;
-use Auth;
-use Illuminate\Support\Facades\Validator;
-
+ use App\Interfaces\UserServiceInterface;
+ use Illuminate\Support\Facades\Validator;
+ use Response;
+ use Auth;
+ use App\User;
+ use App\Model\UserDetail;
  /**
   *
   */
- class CustomerService implements CustomerServiceInterface
+ class UserService implements UserServiceInterface
  {
 
-   public function __construct(Customer $customer,CustomerDetail $detail)
+   function __construct(User $staff,UserDetail $detail)
    {
-
+     $this->staff = $staff;
      $this->detail = $detail;
-     $this->customer = $customer;
    }
    protected function validator(array $data,$rules)
    {
@@ -36,6 +34,7 @@ use Illuminate\Support\Facades\Validator;
    protected function rulesDetail()
    {
      return [
+
        'address'  => 'required',
        'age'      => 'required',
        'phone'    => 'required|min:9',
@@ -45,38 +44,27 @@ use Illuminate\Support\Facades\Validator;
    }
    public function index()
    {
-     if(Auth::guard()->user())
-     {
-       $user = Auth::guard()->user();
-     }
-     if(Auth::guard('customer')->user())
-     {
-       $user = Auth::guard('customer')->user();
-     }
-     $customer = $this->customer->getAll();
-     return view('admin.customer.customer-list')
-                  ->with(
-                    [
-                      'list' => $customer,
-                      'user' => $user,
-                  ]);
+     $list = $this->staff->getAll();
+     $user = Auth::user();
+
+     return View('admin.staff.staff-list')
+                ->with([
+                  'list' => $list,
+                  'user' => $user,
+                ]);
    }
+   // public function store(Request $request);
    public function show($id)
    {
-     $customer = $this->customer->getbyIdOrfind($id);
+     $staff = $this->staff->getbyIdOrfind($id);
+     $user = Auth::guard()->user();
 
-     if (Auth::guard('customer')->user()) {
-       $user = Auth::guard('customer')->user();
-     }
-     if (Auth::guard()->user()) {
-       $user = Auth::guard()->user();
-     }
-     if ($customer) {
+     if ($staff) {
 
-       return view('admin.customer.profile')
+       return view('admin.staff.profile')
                        ->with(
                          [
-                           'customer' => $customer,
+                           'staff' => $staff,
                            'user'     => $user,
                        ]);
 
@@ -85,13 +73,9 @@ use Illuminate\Support\Facades\Validator;
      return view('errors.notfound')->with(['errors'=>$errors]);
 
    }
-   public function update($request,$id)
-   {
+   public function update($request, $id){
+
      $this->validator($request->all(),$this->rulesDetail())->validate();
-     if(Auth::guard('customer')->user())
-     {
-       $id = Auth::guard('customer')->user()->id;
-     }
 
      $detail = [
        'id'       => $id,
@@ -110,20 +94,20 @@ use Illuminate\Support\Facades\Validator;
       ];
 
       $this->detail->updateOrCreateNew($detail);
-      $customer = $this->customer->updateOrCreateNew($data);
+      $this->staff->updateOrCreateNew($data);
 
-    return redirect()->route('customer.show',['customer'=>$id]);
+    return redirect()->route('staff.show',['staff'=>$id]);
+
 
    }
-   public function destroy($id)
-   {
-     $customer = $this->customer->DeleteOrGet($id,0);
-     if(!$customer)
+   public function destroy($id){
+
+     $staff = $this->staff->DeleteOrGet($id,0);
+     if(!$staff)
      {
        return Response::json(['errors'=>'Thao tác không thành công']);
      }
-     return response()->json($customer);
+     return response()->json($staff);
+
    }
-
-
  }

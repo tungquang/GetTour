@@ -2,7 +2,7 @@
 @section('content')
 <section class="content-header">
       <h1>
-        Danh sách khách hàng
+        Danh sách nhân viên
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -59,26 +59,27 @@
                 </tr>
                 </thead>
                 <tbody class="list">
-                  @foreach($list as $customer)
-                  <a href="{{url('customer')}}/{{$customer->id}}">
-                    <tr class="customer" id={{$customer->id}}>
+                  @foreach($list as $staff)
+                  <a href="{{url('staff')}}/{{$staff->id}}">
+                    <tr class="staff" id={{$staff->id}}>
 
-                      <td>{{$customer->name}}</td>
-                      <td>{{$customer->email}}</td>
-                      <td>{{$customer->created_at}}</td>
-                      <td>{{$customer->updated_at}}</td>
+                      <td>{{$staff->name}}</td>
+                      <td>{{$staff->email}}</td>
+                      <td>{{$staff->created_at}}</td>
+                      <td>{{$staff->updated_at}}</td>
                       <td>
-                        <input type="text" class="hidden" name="customer-id" value="{{$customer->id}}">
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$customer->id}}">Xóa</button>
-                        <div class="modal fade" id="form-delete-{{$customer->id}}" role="dialog">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$staff->id}}">Xóa</button>
+                        <input type="text" class="hidden" name="staff-id" value="{{$staff->id}}">
+                        <div class="modal fade" id="form-delete-{{$staff->id}}" role="dialog">
                             <div class="modal-dialog">
                               <!-- Modal content-->
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Modal Header</h4>
                                 </div>
                                 <div class="modal-body">
-                                  <h3>Bạn muốn xóa tài khoản {{$customer->email}} ?</h3>
+                                  <h3>Bạn muốn xóa tài khoản {{$staff->email}} ?</h3>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="delete btn btn-primary" data-dismiss="modal">Đồng ý</button>
@@ -126,10 +127,10 @@
         'autoWidth'   : false
       })
     });
-    $('.customer').dblclick(function(){
+    $('.staff').dblclick(function(){
       var $id = $(this).attr('id');
       if ($id) {
-        window.location.replace("{{url('customer')}}/"+$id);
+        window.location.replace("{{url('staff')}}/"+$id);
       }
       else{
         alert('Không ton tai tai khoan hoac id khong dung');
@@ -137,17 +138,17 @@
 
     });
     $('.delete').click(function(){
-      var $id = $('input[name=customer-id]').val();
-
+      var $id = $('input[name=staff-id]').val();
 
         $.ajax({
-          url:"{{url('customer')}}/" + $id,
+          url:"{{url('staff')}}/" + $id,
           type:'DELETE',
           data:{
             '_token':$("input[name=_token]").val(),
           },
           success:function($data)
           {
+
             if(($data.errors))
             {
                 toastr.warning('Thao tác không thành công ! Xin kiểm tra lại tài khoản');
@@ -155,7 +156,7 @@
             else
             {
 
-              $('.list').children('#'+$data).html('');
+              $('.list').children('#'+ $data).html('');
               toastr.success('Tài khoản xóa thành công ');
             }
           }

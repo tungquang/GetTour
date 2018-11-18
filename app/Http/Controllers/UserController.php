@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Interfaces\CustomerServiceInterface;
+use App\Interfaces\UserServiceInterface;
 
-
-class CustomerController extends Controller
+class UserController extends Controller
 {
-      public function __construct(CustomerServiceInterface $response)
-      {
-        $this->middleware('customer-auth')->only(['show','update']);
-        $this->middleware('auth')->except(['show','update']);
-        $this->response = $response;
-      }
-
+    /*
+    *
+    */
+    public function __construct(UserServiceInterface $response)
+    {
+      $this->middleware('auth');
+      $this->response = $response;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +22,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return $this->response->index();
+       return $this->response->index();
     }
 
     /**
@@ -43,7 +43,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->response->store($request);
     }
 
     /**
@@ -54,9 +54,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-    
-        return $this->response->show($id);
 
+        return $this->response->show($id);
     }
 
     /**
@@ -67,7 +66,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        dd('xxx1');
+
     }
 
     /**
@@ -81,6 +80,7 @@ class CustomerController extends Controller
     {
         return $this->response->update($request, $id);
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -89,6 +89,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+
         return $this->response->destroy($id);
     }
 }

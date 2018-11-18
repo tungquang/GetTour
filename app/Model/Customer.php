@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Model\CustomerDetail;
+use App\Traits\ActionModel;
 
 class Customer extends Authenticatable
 {
     use Notifiable;
+    use ActionModel;
 
     /**
      * The attributes that are mass assignable.
@@ -29,53 +31,9 @@ class Customer extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-    public function checkExists($data)
-    {
-      return self::where($data)->first();
-    }
-    public function getAll()
-    {
-      return self::where(['status' => 1])->get();
-    }
-    public function getbyIdOrfind($id = '',array $data=[])
-    {
-      if ($id == '') {
-        return self::where($data)->get();
-      }
-      else {
-
-        return self::find($id);
-      }
-    }
     public function detail()
     {
       return $this->belongsTo('App\Model\CustomerDetail','id','id');
-    }
-    public function DeleteOrGet($id,$status)
-    {
-
-      try {
-          if(self::find($id))
-          {
-            $customer = $this->where('id',$id)->update(['status'=>$status]);
-            return $id;
-          }
-      } catch (\Exception $e) {
-        return false;
-      }
-
-    }
-
-    public function updateOrCreateNew($data)
-    {
-      try {
-        return self::create($data);
-
-      } catch (\Exception $e) {
-        return $this->where(['id'=>$data['id']])->update($data);
-      }
-
     }
 
 
