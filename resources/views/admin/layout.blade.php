@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap.min.css')}}">
   <!-- <link rel="stylesheet" href="{{asset('css/app.css')}}"> -->
   <link rel="stylesheet" href="{{asset('js/toastr/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,7 +28,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
+  <link rel="stylesheet" href="{{asset('js/dropzone/dropzone.css')}}">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -79,6 +80,7 @@
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('js/demo.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/dropzone/dropzone.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/toastr/toastr.min.js')}}">
 
 </script>

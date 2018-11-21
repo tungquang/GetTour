@@ -30,6 +30,7 @@ Route::prefix('customer')->group(function(){
 });
 
 Route::resources([
-            'customer' => 'CustomerController',
-            'staff'   => 'UserController',
+            'customer'  => 'CustomerController',
+            'staff'     => 'UserController',
+            'tour'      => 'TourController',
           ]);
