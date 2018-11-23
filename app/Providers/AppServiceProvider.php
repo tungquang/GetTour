@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\CustomerServiceInterface;
 use App\Services\CustomerService;
+use App\Interfaces\TourServiceInterface;
+use App\Services\TourService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
           CustomerServiceInterface::class,
           CustomerService::class
+        );
+
+        $this->app->singleton(
+          TourServiceInterface::class,
+          TourService::class
         );
 
     }

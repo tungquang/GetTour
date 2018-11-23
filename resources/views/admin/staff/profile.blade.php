@@ -386,7 +386,7 @@
               <label for="passport" class="col-sm-2 control-label">Tỉnh</label>
 
               <div class="col-sm-10">
-                <select
+                <select class="form-control select2" style="width: 100%;"
 
                 @if($staff->detail)
                  class="{{$staff->detail->id_country}}"

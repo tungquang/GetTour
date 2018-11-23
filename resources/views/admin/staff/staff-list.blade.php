@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-<section class="content-header">
+  <section class="content-header">
       <h1>
         Danh sách nhân viên
         <small>advanced tables</small>
