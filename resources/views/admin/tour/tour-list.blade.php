@@ -40,11 +40,12 @@
                   <th>Số ghế đã đặt</th>
                   <th>Giá thành</th>
                   <th>Sales</th>
+                  <th>Hoạt động</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                   @foreach($list as $tour)
-                    <tr id="{{$tour->id}}">
+                    <tr id="{{$tour->id}}" class="tour">
                       <td>
                         <img height="50px" width="50px" src="{{Storage::disk('local')->url('public/'.$tour->img)}}"/>
                       </td>
@@ -59,6 +60,7 @@
                       <td>{{$tour->number_seated}}</td>
                       <td>{{$tour->unit_price}}</td>
                       <td>{{$tour->promotion_price}}</td>
+                      <td><button class="delete btn btn-danger">Xóa</button></td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -76,6 +78,7 @@
                     <th>Số ghế đã đặt</th>
                     <th>Giá thành</th>
                     <th>Sales</th>
+                    <th>Hoạt động</th>
                   </tr>
                 </tfoot>
               </table>
@@ -111,7 +114,34 @@
       'autoWidth'   : false
     })
   });
+$('.delete').click(function(){
+  $id= $(this).parent().parent().attr('id');
 
+  $.ajax({
+    type:'DELETE',
+    url :"{{url('/tour')}}/"+$id,
+    data:{
+      '_token':$('meta[name="csrf-token"]').attr('content'),
+    },
+    success:function($data)
+    {
+      if(($data.errors))
+      {
+          toastr.warning('Thao tác không thành công ! Xin kiểm tra lại Tour');
+      }
+      else
+      {
+        $('#'+$data).remove('');
+        toastr.success('Tour đã được xóa');
+      }
+    }
+  });
+});
+$('.tour').dblclick(function(){
+  $id = $(this).attr('id');
+  $url = "{{url('/tour')}}"+'/'+$id;
+  window.location.replace($url);
+});
 
 </script>
 @endsection

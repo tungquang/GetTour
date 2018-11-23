@@ -38,7 +38,7 @@ class TourService implements TourServiceInterface
       'seat'       => 'required|min:2',
       'number_seated' => 'required|min:0|max:'.$seat,
       'unit_price'    => 'required',
-      'file'         =>'required',
+      'img'         =>'required',
     ];
   }
   protected function messesges()
@@ -53,15 +53,16 @@ class TourService implements TourServiceInterface
       'day.required'        => 'Yêu cầu điền số ngày đi',
       'seat.required'       => 'Yêu cầu điền số du khách',
       'number_seated.required' => 'Yêu cầu điền số ghê đã đặt',
+      'number_seated.max'      => 'Số ghế đặt quá nhiều',
       'unit_price.required'    => 'Yêu cầu điền giá Tour',
-      'file.required'                 =>'Thiếu ảnh đại diện Tour',
+      'img.required'                 =>'Thiếu ảnh đại diện Tour',
     ];
   }
 
 
   public function index()
   {
-      $list = $this->tour->all();
+      $list = $this->tour->getAll();
       return view('admin.tour.tour-list')
                   ->with([
                     'user'=>Auth::user(),
@@ -101,13 +102,13 @@ class TourService implements TourServiceInterface
                   'seat'=> $request->seat,
                   'unit_price'=> $request->unit_price,
                   'content'=> $request->content,
-                  'img' => $this->getInf($request->file)['name'],
+                  'img' => $this->getInf($request->img)['name'],
                   'number_seated' => $request->number_seated,
                   'note' => $request->note,
                   'promotion_price' => $request->promotion_price,
                 ];
 
-    $this->putFile('public',$request->file);
+    $this->putFile('public',$request->img);
     $this->tour->create($data);
     return redirect()->route('tour.index');
   }
@@ -120,7 +121,16 @@ class TourService implements TourServiceInterface
    */
   public function show($id)
   {
-      return 'hello';
+      $tour = $this->tour->getbyIdOrfind($id);
+      if($tour)
+      {
+        return view('admin.tour.update-tour')
+                  ->with([
+                    'tour'=>$tour,
+                    'user'=>Auth::user()
+                  ]);
+      }
+      return view('errors.notfound');
   }
 
   /**
@@ -143,7 +153,45 @@ class TourService implements TourServiceInterface
    */
   public function update($request, $id)
   {
-    return 'hello';
+
+    $tour = $this->tour->getbyIdOrfind($id);
+    if(!$tour)
+    {
+      return view('errors.notfound');
+    }
+
+    if($request->img)
+    {
+      $img = $this->getInf($request->img)['name'];
+    }
+    else
+    {
+      $img = $tour->img;
+    }
+
+
+    $data = [
+              'id_province' => $request->id_province,
+              'id_type'=> $request->id_type,
+              'name'=> $request->name,
+              'time_in'=> $request->time_in,
+              'time_out'=> $request->time_out,
+              'place'=> $request->place,
+              'day'=> $request->day,
+              'seat'=> $request->seat,
+              'unit_price'=> $request->unit_price,
+              'content'=> $request->content,
+              'img' => $img,
+              'number_seated' => $request->number_seated,
+              'note' => $request->note,
+              'promotion_price' => $request->promotion_price,
+    ];
+
+      $this->validator($data,$request->seat)->validate();
+      $data['id'] = $id;
+      $this->tour->updateOrCreateNew($data);
+      $this->putFile('public',$request->img);
+      return redirect('tour/'.$id);
   }
 
   /**
@@ -154,6 +202,11 @@ class TourService implements TourServiceInterface
    */
   public function destroy($id)
   {
-      return 'hello';
+      $tour = $this->tour->DeleteOrGet($id,0);
+      if ($tour) {
+          return response()->json($tour);
+      }
+      return Response::json(['errors'=>1]);
+
   }
 }
