@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeTourTable extends Migration
+class RenameColumnIdQuocgiaToIdNationInCitysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateTypeTourTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_tour', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('note')->nullable($value=true);
-            $table->timestamps();
+        Schema::table('citys', function (Blueprint $table) {
+            $table->renameColumn('id_quocgia','id_nation');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateTypeTourTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_tour');
+        Schema::table('citys', function (Blueprint $table) {
+            $table->renameColumn('id_quocgia','id_nation');
+        });
     }
 }

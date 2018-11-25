@@ -3,13 +3,13 @@
 <section class="content-header">
 
     <h1>
-      Quản lý tour
+      Quản lý hotel
       <small>advanced tables</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý </a></li>
-      <li><a href="#">Quản lý tour</a></li>
-      <li class="active">Thêm tour mới</li>
+      <li><a href="#">Quản lý hotel</a></li>
+      <li class="active">Thêm hotel mới</li>
     </ol>
   </section>
   <section class="content">
@@ -17,17 +17,17 @@
       <div class="container">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Tour mới</h3>
+            <h3 class="box-title">Hotel mới</h3>
           </div>
           <!-- /.box-header -->
           <!-- /.box-header -->
           <!-- form start -->
-          <form action="{{route('tour.store')}}" role="form" enctype="multipart/form-data" method="post">
+          <form action="{{route('hotel.store')}}" role="form" enctype="multipart/form-data" method="post">
             @csrf
             <div class="box-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Tên Tour Du Lịch</label>
-                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Du lịch sinh thái">
+                <label for="name">Tên khách sạn</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Mường Thanh Hotel">
                 @if($errors->has('name'))
                 <span class="text-red">
                   {{$errors->first('name')}}
@@ -35,36 +35,15 @@
                 @endif
               </div>
               <div class="form-group">
-                <label for="content">Nội dung chuyến đi</label>
+                <label for="content">Thông tin khách sạn</label>
                 <textarea id="content" name="content" id="content" placeholder="">
-                                  GetTour chân thành cảm ơn quý khách
+                                  Gethotel chân thành cảm ơn quý khách
                 </textarea>
                 @if($errors->has('content'))
                 <span class="text-red">
                   {{$errors->first('content')}}
                 </span>
                 @endif
-              </div>
-              <div class="row">
-
-                <div class="form-group col-xs-6 bootstrap-timepicker">
-                  <label for="time_in">Thời gian đi</label>
-                  <input type="time"  name="time_in" class="form-control timepicker" id="time_in" >
-                  @if($errors->has('time_in'))
-                  <span class="text-red">
-                    {{$errors->first('time_in')}}
-                  </span>
-                  @endif
-                </div>
-                <div class="form-group col-xs-6 bootstrap-timepicker">
-                  <label for="time_out">Thời gian về</label>
-                  <input type="time" class="form-control" name="time_out" id="time_out">
-                  @if($errors->has('time_out'))
-                  <span class="text-red">
-                    {{$errors->first('time_out')}}
-                  </span>
-                  @endif
-                </div>
               </div>
 
               <div class="form-group dropzone" id="my-awesome-dropzone" >
@@ -89,7 +68,6 @@
                 <label for="country">Thành phố</label>
                 <select name="id_province" class="form-control select2" style="width: 100%;" id="id_province">
 
-
                 </select>
                 @if($errors->has('id_province'))
                 <span class="text-red">
@@ -97,56 +75,25 @@
                 </span>
                 @endif
               </div>
-
               <div class="form-group">
-                <label for="country">Kiểu</label>
-                <select name="id_type" class="form-control select2" style="width: 100%;" id="id_type">
-                  <option value=""></option>
-                  @foreach($type as $ty)
-                    <option value="{{$ty->id}}">{{$ty->name}}</option>
-                  @endforeach
-
+                <label for="country">Kiểu khách sạn</label>
+                <select name="star" class="form-control select2" style="width: 100%;" id="star">
+                    <option value="1">Giá siêu rẻ 1 sao</option>
+                    <option value="2">Giá rẻ 2 sao </option>
+                    <option value="3">Tầm trung 3 sao</option>
+                    <option value="4">Cao cấp 4 sao</option>
+                    <option value="5">Cao cấp 5 sao</option>
+                    <option value="6">Biệt thự riêng</option>
                 </select>
-                @if($errors->has('id_type'))
+                @if($errors->has('star'))
                 <span class="text-red">
-                  {{$errors->first('id_type')}}
+                  {{$errors->first('star')}}
                 </span>
                 @endif
               </div>
               <div class="form-group">
-                <label for="place">Địa danh</label>
-                <input type="text" name="place" value="" class="form-control">
-                @if($errors->has('place'))
-                <span class="text-red">
-                  {{$errors->first('place')}}
-                </span>
-                @endif
-              </div>
-              <div class="row">
-
-                <div class="form-group col-xs-4">
-                  <label for="day">Số ngày </label>
-                  <input type="text" name="day" id="day" value="" class="form-control">
-                  @if($errors->has('day'))
-                  <span class="text-red">
-                    {{$errors->first('day')}}
-                  </span>
-                  @endif
-                </div>
-                <div class="form-group col-xs-4">
-                  <label for="seat">Số ghế </label>
-                  <input type="number" name="seat" id="seat" value="" class="form-control">
-                  @if($errors->has('seat'))
-                  <span class="text-red">
-                    {{$errors->first('seat')}}
-                  </span>
-                  @endif
-                </div>
-                <div class="form-group col-xs-4">
-                  <label for="number_seated">Số ghế đặt</label>
-                  <input type="number" name="number_seated" id="number_seated" value="" class="form-control">
-
-                </div>
+                  <label for="room">Số phòng</label>
+                  <input type="number" name="room" id="room" value="" class="form-control">
               </div>
               <div class="row">
                 <div class="form-group col-xs-6">
@@ -165,7 +112,7 @@
               </div>
 
               <div class="form-group">
-                <label for="note">Nội dung chuyến đi</label>
+                <label for="note">Chú ý *</label>
                 <input type="text" name="note" value="" class="form-control">
               </div>
 

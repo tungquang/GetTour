@@ -70,7 +70,11 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('hotel.index')}}"><i class="fa fa-circle-o"></i> Danh sách Hotel</a></li>
+          <li><a href="{{route('hotel.create')}}"><i class="fa fa-circle-o"></i> Hotel Mới</a></li>
 
+        </ul>
       </li>
       <li class="">
         <a href="{{url('customer')}}">

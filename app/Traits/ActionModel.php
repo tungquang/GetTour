@@ -48,14 +48,13 @@ trait ActionModel
   public function updateOrCreateNew($data)
   {
     try {
-      if(!$this->find($id))
+      if($this->create($data))
       {
         return $this->create($data);
       }
 
     } catch (\Exception $e) {
       
-
       return $this->where(['id'=>$data['id']])->update($data);
     }
 

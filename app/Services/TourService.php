@@ -5,6 +5,8 @@ use App\Interfaces\TourServiceInterface;
 use Illuminate\Http\Request;
 use App\Model\TypeTour;
 use App\Model\Tour;
+use App\Model\Nations;
+use App\Model\Cites;
 use Auth;
 use Response;
 use Illuminate\Support\Facades\Validator;
@@ -16,10 +18,11 @@ use App\Traits\StorageFunction;
 class TourService implements TourServiceInterface
 {
   use StorageFunction;
-  public function __construct(Tour $tour,TypeTour $type)
+  public function __construct(Tour $tour,TypeTour $type,Cites $city)
   {
     $this->tour = $tour;
     $this->type = $type;
+    $this->city = $city;
   }
   protected function validator($data,$seat)
   {
@@ -77,7 +80,12 @@ class TourService implements TourServiceInterface
    */
   public function create()
   {
-    return view('admin.tour.insert-tour')->with(['user' => Auth::user()]);
+    return view('admin.tour.insert-tour')
+                ->with([
+                  'user' => Auth::user(),
+                  'type' => $this->type->all(),
+                  'nation' => Nations::all(),
+                ]);
   }
 
   /**
@@ -88,7 +96,6 @@ class TourService implements TourServiceInterface
    */
   public function store($request)
   {
-
     $this->validator($request->all(),$request->seat)->validate();
 
     $data = [
@@ -122,12 +129,15 @@ class TourService implements TourServiceInterface
   public function show($id)
   {
       $tour = $this->tour->getbyIdOrfind($id);
+      $city = $this->city->all();
       if($tour)
       {
         return view('admin.tour.update-tour')
                   ->with([
                     'tour'=>$tour,
-                    'user'=>Auth::user()
+                    'user'=>Auth::user(),
+                    'type' =>TypeTour::all(),
+                    'city' => $city,
                   ]);
       }
       return view('errors.notfound');
@@ -163,6 +173,7 @@ class TourService implements TourServiceInterface
     if($request->img)
     {
       $img = $this->getInf($request->img)['name'];
+      $this->putFile('public',$request->img);
     }
     else
     {
@@ -190,7 +201,7 @@ class TourService implements TourServiceInterface
       $this->validator($data,$request->seat)->validate();
       $data['id'] = $id;
       $this->tour->updateOrCreateNew($data);
-      $this->putFile('public',$request->img);
+
       return redirect('tour/'.$id);
   }
 

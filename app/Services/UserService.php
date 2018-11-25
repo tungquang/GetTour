@@ -92,7 +92,7 @@
       'name'  => $request->name,
       'email' =>$request->email,
       ];
-
+      
       $this->detail->updateOrCreateNew($detail);
       $this->staff->updateOrCreateNew($data);
 

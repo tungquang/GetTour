@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeTourTable extends Migration
+class CreateHotelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateTypeTourTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_tour', function (Blueprint $table) {
+        Schema::create('hotel', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_tinh');
             $table->string('name');
-            $table->string('note')->nullable($value=true);
+            $table->float('unit_price');
+            $table->string('promotion_price')->nullable($value=true);
+            $table->integer('room');
+            $table->string('book');
+            $table->boolean('status')->default($value=1);
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreateTypeTourTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_tour');
+        Schema::dropIfExists('hotel');
     }
 }

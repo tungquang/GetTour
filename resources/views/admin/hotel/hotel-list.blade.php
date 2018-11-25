@@ -3,13 +3,13 @@
 <section class="content-header">
 
     <h1>
-      Quản lý tour
+      Quản lý hotel
       <small>advanced tables</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý </a></li>
-      <li><a href="#">Quản lý tour</a></li>
-      <li class="active">Danh sách các Tour</li>
+      <li><a href="#">Quản lý khách sạn</a></li>
+      <li class="active">Danh sách các khách sạn</li>
     </ol>
   </section>
 
@@ -21,7 +21,7 @@
           <!-- /.box-header -->
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh sách các tour </h3>
+              <h3 class="box-title">Danh sách các khách sạn</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -29,37 +29,29 @@
                 <thead>
                 <tr>
                   <th>Ảnh</th>
-                  <th>Tour</th>
+                  <th>Khách sạn</th>
                   <th>Kiểu</th>
                   <th>Tỉnh</th>
-                  <th>Địa điểm</th>
-                  <th>Thời gian đi</th>
-                  <th>Thời gian về </th>
-                  <th>Số ngày</th>
-                  <th>Số ghế</th>
-                  <th>Số ghế đã đặt</th>
+                  <th>Room</th>
+                  <th>Book</th>
                   <th>Giá thành</th>
                   <th>Sales</th>
                   <th>Hoạt động</th>
                 </tr>
                 </thead>
                 <tbody class="list">
-                  @foreach($list as $tour)
-                    <tr id="{{$tour->id}}" class="tour">
+                  @foreach($list as $hotel)
+                    <tr id="{{$hotel->id}}" class="hotel">
                       <td>
-                        <img height="50px" width="50px" src="{{Storage::disk('local')->url('public/'.$tour->img)}}"/>
+                        <img height="50px" width="50px" src="{{Storage::disk('local')->url('public/'.$hotel->img)}}"/>
                       </td>
-                      <td>{{$tour->name}}</td>
-                      <td>{{$tour->getType['name']}}</td>
-                      <td>{{$tour->getProvince['name']}}</td>
-                      <td>{{$tour->place}}</td>
-                      <td>{{$tour->time_in}}</td>
-                      <td>{{$tour->time_out}}</td>
-                      <td>{{$tour->day}}</td>
-                      <td>{{$tour->seat}}</td>
-                      <td>{{$tour->number_seated}}</td>
-                      <td>{{$tour->unit_price}}</td>
-                      <td>{{$tour->promotion_price}}</td>
+                      <td>{{$hotel->name}}</td>
+                      <td>{{$hotel->getStar->name}}</td>
+                      <td>{{$hotel->getProvince->name}}</td>
+                      <td>{{$hotel->room}}</td>
+                      <td>{{$hotel->book}}</td>
+                      <td>{{$hotel->unit_price}}</td>
+                      <td>{{$hotel->promotion_price}}</td>
                       <td><button class="delete btn btn-danger">Xóa</button></td>
                     </tr>
                   @endforeach
@@ -67,15 +59,11 @@
                 <tfoot>
                   <tr>
                     <th>Ảnh</th>
-                    <th>Tour</th>
+                    <th>Khách sạn</th>
                     <th>Kiểu</th>
                     <th>Tỉnh</th>
-                    <th>Địa điểm</th>
-                    <th>Thời gian đi</th>
-                    <th>Thời gian về </th>
-                    <th>Số ngày</th>
-                    <th>Số ghế</th>
-                    <th>Số ghế đã đặt</th>
+                    <th>Room</th>
+                    <th>Book</th>
                     <th>Giá thành</th>
                     <th>Sales</th>
                     <th>Hoạt động</th>
@@ -119,7 +107,7 @@ $('.delete').click(function(){
 
   $.ajax({
     type:'DELETE',
-    url :"{{url('/tour')}}/"+$id,
+    url :"{{url('/hotel')}}/"+$id,
     data:{
       '_token':$('meta[name="csrf-token"]').attr('content'),
     },
@@ -127,19 +115,19 @@ $('.delete').click(function(){
     {
       if(($data.errors))
       {
-          toastr.warning('Thao tác không thành công ! Xin kiểm tra lại Tour');
+          toastr.warning('Thao tác không thành công ! Xin kiểm tra lại hotel');
       }
       else
       {
         $('#'+$data).remove('');
-        toastr.success('Tour đã được xóa');
+        toastr.success('hotel đã được xóa');
       }
     }
   });
 });
-$('.tour').dblclick(function(){
+$('.hotel').dblclick(function(){
   $id = $(this).attr('id');
-  $url = "{{url('/tour')}}"+'/'+$id;
+  $url = "{{url('/hotel')}}"+'/'+$id;
   window.location.replace($url);
 });
 

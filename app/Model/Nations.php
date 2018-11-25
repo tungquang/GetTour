@@ -4,8 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TypeTour extends Model
+class Nations extends Model
 {
+    protected $table = 'nations';
     protected $fillable = ['name','note'];
-    protected $table ='type_tour';
 }
