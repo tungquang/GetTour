@@ -1,12 +1,12 @@
 <?php
  namespace App\Services;
 
- use App\Interfaces\UserServiceInterface;
- use Illuminate\Support\Facades\Validator;
- use Response;
  use Auth;
+ use Response;
  use App\User;
  use App\Model\UserDetail;
+ use App\Interfaces\UserServiceInterface;
+ use Illuminate\Support\Facades\Validator;
  /**
   *
   */
@@ -92,7 +92,7 @@
       'name'  => $request->name,
       'email' =>$request->email,
       ];
-      
+
       $this->detail->updateOrCreateNew($detail);
       $this->staff->updateOrCreateNew($data);
 

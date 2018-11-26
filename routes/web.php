@@ -33,7 +33,8 @@ Route::resources([
             'customer'  => 'CustomerController',
             'staff'     => 'UserController',
             'tour'      => 'TourController',
-            'hotel'     => 'HotelController'
+            'hotel'     => 'HotelController',
+            'car'     => 'CarController',
           ]);
 
 Route::get('city/{nation}','CityController@index');

@@ -1,15 +1,16 @@
 <?php
 namespace App\Services;
 
-use App\Interfaces\HotelServiceInterface;
-use Illuminate\Http\Request;
+
+use Auth;
+use Response;
 use App\Model\Hotel;
 use App\Model\Nations;
 use App\Model\Cites;
 use App\Model\Star;
-use Auth;
-use Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Interfaces\HotelServiceInterface;
 use App\Traits\StorageFunction;
 
 /**
@@ -24,36 +25,6 @@ class HotelService implements HotelServiceInterface
     $this->nation = $nation;
     $this->city = $city;
 
-  }
-  protected function validator($data)
-  {
-    return Validator::make($data,$this->rules(),$this->messesges());
-  }
-  protected function rules()
-  {
-    return [
-      'name'       => 'required|string|max:255',
-      'content'    => 'required',
-      'id_province' => 'required|min:0',
-      'star'      => 'required|integer|min:1|max:6',
-      'room'      => 'required |min:1',
-      'unit_price'    => 'required',
-      'img'         =>'required',
-    ];
-  }
-  protected function messesges()
-  {
-    return [
-      'name.required'       => 'Yêu cầu điền tên Hotel',
-      'content.required'    => 'Thiếu nội dung của Hotel',
-      'star.required'       => 'Yêu cầu chọn kiểu khách sạn đang có',
-      'star.min'       => 'Kiểu khách sạn không hợp lệ',
-      'star.max'       => 'Kiểu khách sạn không hợp lệ',
-      'room.required'       => 'Số phòng không hợp lệ!',
-      'room.min'            => 'Số phòng không hợp lệ!',
-      'unit_price.required' => 'Yêu cầu điền giá Hotel',
-      'img.required'        =>'Thiếu ảnh đại diện Hotel',
-    ];
   }
 
 
@@ -90,7 +61,7 @@ class HotelService implements HotelServiceInterface
   public function store($request)
   {
 
-    $this->validator($request->all())->validate();
+
     $data = [
                   'id_province' => $request->id_province,
                   'star'=> $request->star,
@@ -152,13 +123,6 @@ class HotelService implements HotelServiceInterface
   public function update($request, $id)
   {
 
-    $hotel = $this->hotel->getbyIdOrfind($id);
-
-    if(!$hotel)
-    {
-      return view('errors.notfound');
-    }
-
     if($request->img)
     {
 
@@ -169,7 +133,6 @@ class HotelService implements HotelServiceInterface
     {
       $img = $hotel->img;
     }
-
 
     $data = [
       'id_province' => $request->id_province,
@@ -182,8 +145,6 @@ class HotelService implements HotelServiceInterface
       'note' => $request->note,
       'promotion_price' => $request->promotion_price,
     ];
-
-      $this->validator($data)->validate();
       $data['id'] = $id;
 
       $this->hotel->updateOrCreateNew($data);
