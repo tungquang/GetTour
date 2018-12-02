@@ -54,7 +54,7 @@ trait ActionModel
       }
 
     } catch (\Exception $e) {
-      
+
       return $this->where(['id'=>$data['id']])->update($data);
     }
 
