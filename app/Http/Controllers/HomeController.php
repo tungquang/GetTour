@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Model\Tour;
+use App\Model\Car;
+use App\Model\Hotel;
 
 class HomeController extends Controller
 {
@@ -11,9 +15,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Hotel $hotel,Tour $tour,Car $car)
     {
-        $this->middleware('auth');
+      $this->hotel = $hotel;
+      $this->tour = $tour;
+      $this->car = $car ;
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +30,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      if (Auth::guard()->user()) {
+        $user = Auth::guard()->user();
+      }
+      else {
+        $user = Auth::guard('customer')->user();
+      }
+      $data['hotel'] = $this->hotel->getAll();
+      $data['tour']   = $this->tour->getAll();
+      $data['car']    = $this->car->getAll();
+      return view('admin.tour')
+                  ->with([
+                    'user'=>$user,
+                    'data'=>$data,
+                  ]);
+    }
+    public function hotel()
+    {
+
     }
 }

@@ -10,4 +10,9 @@ class Car extends Model
   use ActionModel;
   protected $fillable = ['id','name','content','status','id_type','unit_price','img','soghe','unit','book','note'];
   protected $table = 'car';
+
+  public function getType()
+  {
+    return belongsTo('App\Model\TyperCar','id_type','id');
+  }
 }
