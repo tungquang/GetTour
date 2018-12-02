@@ -50,8 +50,8 @@
                         <img height="50px" width="50px" src="{{Storage::disk('local')->url('public/'.$tour->img)}}"/>
                       </td>
                       <td>{{$tour->name}}</td>
-                      <td>{{$tour->id_type}}</td>
-                      <td>{{$tour->id_province}}</td>
+                      <td>{{$tour->getType['name']}}</td>
+                      <td>{{$tour->getProvince['name']}}</td>
                       <td>{{$tour->place}}</td>
                       <td>{{$tour->time_in}}</td>
                       <td>{{$tour->time_out}}</td>

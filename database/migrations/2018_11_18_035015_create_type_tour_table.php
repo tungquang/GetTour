@@ -16,7 +16,7 @@ class CreateTypeTourTable extends Migration
         Schema::create('type_tour', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('note');
+            $table->string('note')->nullable($value=true);
             $table->timestamps();
         });
     }

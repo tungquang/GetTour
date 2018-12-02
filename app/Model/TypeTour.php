@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TypeTour extends Model
 {
     protected $fillable = ['name','note'];
-    protected $table =['type_tour'];
+    protected $table ='type_tour';
 }

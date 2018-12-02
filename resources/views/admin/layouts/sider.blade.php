@@ -64,13 +64,31 @@
         </ul>
       </li>
       <li class="treeview">
+        <a href="">
+          <i class="fa fa-laptop"></i>
+          <span>Quản lý Car</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('car.index')}}"><i class="fa fa-circle-o"></i> Danh sách Car</a></li>
+          <li><a href="{{route('car.create')}}"><i class="fa fa-circle-o"></i> Car Mới</a></li>
+
+        </ul>
+      </li>
+      <li class="treeview">
         <a href="#">
           <i class="fa fa-edit"></i> <span>Quản lý khách sạn</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('hotel.index')}}"><i class="fa fa-circle-o"></i> Danh sách Hotel</a></li>
+          <li><a href="{{route('hotel.create')}}"><i class="fa fa-circle-o"></i> Hotel Mới</a></li>
 
+        </ul>
       </li>
       <li class="">
         <a href="{{url('customer')}}">

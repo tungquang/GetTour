@@ -77,16 +77,19 @@
                 @endif
               </div>
               <div class="form-group">
+                <label for="nation">Quốc gia</label>
+                <select name="nation" class="form-control select2" style="width: 100%;" id="nation">
+                  <option value="" selected="selected"></option>
+                  @foreach($nation as $na)
+                    <option value="{{$na->id}}">{{$na->name}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="country">Thành phố</label>
                 <select name="id_province" class="form-control select2" style="width: 100%;" id="id_province">
-                  <option value="" selected="selected"></option>
-                  <option value="0" >Alabama</option>
-                  <option value="1">Alaska</option>
-                  <option value="2">California</option>
-                  <option value="3">Delaware</option>
-                  <option value="4">Tennessee</option>
-                  <option value="5">Texas</option>
-                  <option value="6">Washington</option>
+
+
                 </select>
                 @if($errors->has('id_province'))
                 <span class="text-red">
@@ -99,9 +102,9 @@
                 <label for="country">Kiểu</label>
                 <select name="id_type" class="form-control select2" style="width: 100%;" id="id_type">
                   <option value=""></option>
-                  <option value="0" selected="selected">Du lịch trong nước</option>
-                  <option value="1">Du lịch ngoài nước</option>
-                  <option value="2">Du lịch nhóm</option>
+                  @foreach($type as $ty)
+                    <option value="{{$ty->id}}">{{$ty->name}}</option>
+                  @endforeach
 
                 </select>
                 @if($errors->has('id_type'))
@@ -195,6 +198,19 @@
     CKEDITOR.replace('content')
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
+  });
+  $('#nation').change(function(){
+    var $nation = $(this).val();
+
+    $.ajax({
+
+      url:"{{url('city')}}/" + $nation,
+      type:'get',
+      success:function($data)
+      {
+        $('#id_province').append($data);
+      }
+    });
   });
   </script>
 @endsection

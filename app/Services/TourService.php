@@ -1,13 +1,15 @@
 <?php
 namespace App\Services;
 
-use App\Interfaces\TourServiceInterface;
-use Illuminate\Http\Request;
-use App\Model\TypeTour;
-use App\Model\Tour;
 use Auth;
 use Response;
+use App\Model\TypeTour;
+use App\Model\Tour;
+use App\Model\Nations;
+use App\Model\Cites;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Interfaces\TourServiceInterface;
 use App\Traits\StorageFunction;
 
 /**
@@ -21,44 +23,6 @@ class TourService implements TourServiceInterface
     $this->tour = $tour;
     $this->type = $type;
   }
-  protected function validator($data,$seat)
-  {
-    return Validator::make($data,$this->rules($seat),$this->messesges());
-  }
-  protected function rules($seat)
-  {
-    return [
-      'name'       => 'required|string|max:255',
-      'content'    => 'required',
-      'time_in'    => 'required',
-      'time_out'   => 'required',
-      'id_province' => 'required|min:0',
-      'place'      => 'required|string|max:255',
-      'day'        => 'required|max:6',
-      'seat'       => 'required|min:2',
-      'number_seated' => 'required|min:0|max:'.$seat,
-      'unit_price'    => 'required',
-      'img'         =>'required',
-    ];
-  }
-  protected function messesges()
-  {
-    return [
-      'name.required'       => 'Yêu cầu điền tên Tour',
-      'content.required'    => 'Thiếu nội dung của Tour',
-      'time_in.required'    => 'Yêu cầu điền thời gian xuất phát',
-      'time_out.required'   => 'Yêu cầu điền thời gian quay về ',
-      'id_province.required' => 'Yêu cầu điền thông tin thành phố',
-      'place.required'      => 'Yêu cầu điền địa điểm ',
-      'day.required'        => 'Yêu cầu điền số ngày đi',
-      'seat.required'       => 'Yêu cầu điền số du khách',
-      'number_seated.required' => 'Yêu cầu điền số ghê đã đặt',
-      'number_seated.max'      => 'Số ghế đặt quá nhiều',
-      'unit_price.required'    => 'Yêu cầu điền giá Tour',
-      'img.required'                 =>'Thiếu ảnh đại diện Tour',
-    ];
-  }
-
 
   public function index()
   {
@@ -77,7 +41,12 @@ class TourService implements TourServiceInterface
    */
   public function create()
   {
-    return view('admin.tour.insert-tour')->with(['user' => Auth::user()]);
+    return view('admin.tour.insert-tour')
+                ->with([
+                  'user' => Auth::user(),
+                  'type' => $this->type->all(),
+                  'nation' => Nations::all(),
+                ]);
   }
 
   /**
@@ -88,7 +57,6 @@ class TourService implements TourServiceInterface
    */
   public function store($request)
   {
-
     $this->validator($request->all(),$request->seat)->validate();
 
     $data = [
@@ -127,7 +95,9 @@ class TourService implements TourServiceInterface
         return view('admin.tour.update-tour')
                   ->with([
                     'tour'=>$tour,
-                    'user'=>Auth::user()
+                    'user'=>Auth::user(),
+                    'type' =>TypeTour::all(),
+                    'city' => Cites::all(),
                   ]);
       }
       return view('errors.notfound');
@@ -155,14 +125,11 @@ class TourService implements TourServiceInterface
   {
 
     $tour = $this->tour->getbyIdOrfind($id);
-    if(!$tour)
-    {
-      return view('errors.notfound');
-    }
 
     if($request->img)
     {
       $img = $this->getInf($request->img)['name'];
+      $this->putFile('public',$request->img);
     }
     else
     {
@@ -186,11 +153,9 @@ class TourService implements TourServiceInterface
               'note' => $request->note,
               'promotion_price' => $request->promotion_price,
     ];
-
-      $this->validator($data,$request->seat)->validate();
       $data['id'] = $id;
       $this->tour->updateOrCreateNew($data);
-      $this->putFile('public',$request->img);
+
       return redirect('tour/'.$id);
   }
 

@@ -26,6 +26,7 @@ trait StorageFunction
 	}
 	public function putFile($disk,$file)
 	{
+    
 
 		return Storage::disk($disk)
         				->put(

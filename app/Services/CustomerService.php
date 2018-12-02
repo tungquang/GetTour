@@ -1,12 +1,12 @@
 <?php
 namespace App\Services;
 
-use App\Interfaces\CustomerServiceInterface;
+
+use Auth;
 use Response;
 use App\Model\Customer;
 use App\Model\CustomerDetail;
-use Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Interfaces\CustomerServiceInterface;
 
  /**
   *
@@ -20,29 +20,7 @@ use Illuminate\Support\Facades\Validator;
      $this->detail = $detail;
      $this->customer = $customer;
    }
-   protected function validator(array $data,$rules)
-   {
-     return Validator::make($data,$rules);
-   }
-   protected function rulesAccount()
-   {
-     return [
-       'email' => 'required|string|email|max:255',
-       'name'  => 'required|string|min:4',
-       'password' => 'required|string|min:6',
 
-      ];
-   }
-   protected function rulesDetail()
-   {
-     return [
-       'address'  => 'required',
-       'age'      => 'required',
-       'phone'    => 'required|min:9',
-       'passport' => 'required|min:9',
-       'id_country' => 'required',
-     ];
-   }
    public function index()
    {
      if(Auth::guard()->user())
@@ -63,6 +41,7 @@ use Illuminate\Support\Facades\Validator;
    }
    public function show($id)
    {
+
      $customer = $this->customer->getbyIdOrfind($id);
 
      if (Auth::guard('customer')->user()) {
@@ -87,7 +66,7 @@ use Illuminate\Support\Facades\Validator;
    }
    public function update($request,$id)
    {
-     $this->validator($request->all(),$this->rulesDetail())->validate();
+
      if(Auth::guard('customer')->user())
      {
        $id = Auth::guard('customer')->user()->id;

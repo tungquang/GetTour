@@ -82,14 +82,11 @@
               </div>
               <div class="form-group">
                 <label for="country">Thành phố</label>
-                <select name="id_province" class="form-control select2" style="width: 100%;" id="{{$tour->id_province}}">
-                  <option value="0" >Alabama</option>
-                  <option value="1">Alaska</option>
-                  <option value="2">California</option>
-                  <option value="3">Delaware</option>
-                  <option value="4">Tennessee</option>
-                  <option value="5">Texas</option>
-                  <option value="6">Washington</option>
+                <select name="id_province" class="form-control select2" style="width: 100%;" id="{{$tour->id_province-1}}">
+
+                  @foreach($city as $cy)
+                    <option value="{{$cy->id}}">{{$cy->name}}</option>
+                  @endforeach
                 </select>
                 @if($errors->has('id_province'))
                 <span class="text-red">
@@ -100,11 +97,10 @@
 
               <div class="form-group">
                 <label for="country">Kiểu</label>
-                <select name="id_type" class="form-control select2" style="width: 100%;" id="{{$tour->id_type}}">
-
-                  <option value="0">Du lịch trong nước</option>
-                  <option value="1">Du lịch ngoài nước</option>
-                  <option value="2">Du lịch nhóm</option>
+                <select name="id_type" class="form-control select2" style="width: 100%;" id="{{$tour->id_type-1}}">
+                  @foreach($type as $ty)
+                    <option value="{{$ty->id}}">{{$ty->name}}</option>
+                  @endforeach
                 </select>
                 @if($errors->has('id_type'))
                 <span class="text-red">

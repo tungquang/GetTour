@@ -106,7 +106,11 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{asset('css/admin.jpeg')}}" class="user-image" alt="User Image">
             <span class="hidden-xs">
-              {{$user->name}}
+              @if(Auth::guard()->user())
+                {{Auth::guard()->user()->name}}
+              @else
+              {{Auth::guard('customer')->user()->name}}
+              @endif
             </span>
           </a>
           <ul class="dropdown-menu">
@@ -137,7 +141,13 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Cá nhân</a>
+                <a href="
+                  @if(Auth::guard()->user())
+                    {{url('staff').'/'.Auth::guard()->user()->id}}
+                  @else
+                    {{url('customer').'/'.Auth::guard('customer')->user()->id}}
+                  @endif
+                " class="btn btn-default btn-flat">Cá nhân</a>
               </div>
               <div class="pull-right">
                 <a  class="btn btn-default btn-flat" href="{{ route('logout') }}"
