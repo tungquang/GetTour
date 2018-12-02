@@ -38,13 +38,13 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  @include('admin.layouts.header')
+  @include('admin.layouts2.header')
 
   <!-- =============================================== -->
 
   <!-- Left side column. contains the sidebar -->
 
-@include('admin.layouts.sider')
+@include('admin.layouts2.sider')
   <!-- =============================================== -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -56,7 +56,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  @include('admin.layouts.footer')
+  @include('admin.layouts2.footer')
 
   <!-- Control Sidebar -->
   @yield('sider')
