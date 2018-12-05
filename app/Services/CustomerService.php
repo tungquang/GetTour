@@ -103,6 +103,9 @@ use App\Interfaces\CustomerServiceInterface;
      }
      return response()->json($customer);
    }
-
+   public function attachToRole($request, $id)
+   {
+     return response()->json($id);
+   }
 
  }

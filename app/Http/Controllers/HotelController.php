@@ -14,6 +14,10 @@ class HotelController extends Controller
     public function __construct(HotelServiceInterface $response,Hotel $hotel)
     {
       $this->middleware('auth');
+      $this->middleware('permission:hotel')->except(['index']);
+      $this->middleware('permission:create-hotel')->only(['store']);
+      $this->middleware('permission:edit-hotel')->only(['update']);
+      $this->middleware('permission:delete-hotel')->only(['destroy']);
       $this->hotel = $hotel;
       $this->response = $response;
     }

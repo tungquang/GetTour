@@ -3,6 +3,8 @@
 
  use Auth;
  use Response;
+ use App\Model\Role;
+ use App\Model\RoleUser;
  use App\User;
  use App\Model\UserDetail;
  use App\Interfaces\UserServiceInterface;
@@ -51,6 +53,7 @@
                 ->with([
                   'list' => $list,
                   'user' => $user,
+                  'role' => Role::all(),
                 ]);
    }
    // public function store(Request $request);
@@ -109,5 +112,43 @@
      }
      return response()->json($staff);
 
+   }
+   public function attachToRole($request, $id)
+   {
+     $user = $this->staff->getbyIdOrfind($id);
+     $role = Role::find($request->roleIn);
+     if(!$role)
+     {
+       return response()->json($value = false);
+     }
+
+
+     try {
+       if($user->role)
+       {
+         $user->role->where([
+            'user_id' => $id,
+         ])
+         ->update([
+           'role_id' => $request->roleIn
+         ]);
+       }
+       else
+       {
+         $user->attachRole($role);
+       }
+
+     } catch (\Exception $e) {
+       return response()->json($value = false);
+     }
+
+     $view = view('admin.staff.staff-list-render')
+                    ->with([
+                      'list' => $this->staff->getAll(),
+                      'role'  => Role::all()
+                    ])
+                    ->render();
+
+     return response()->json($view);
    }
  }

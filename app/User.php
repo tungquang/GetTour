@@ -6,10 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\ActionModel;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use App\Model\RoleUser;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use EntrustUserTrait;
     use ActionModel;
     /**
      * The attributes that are mass assignable.
@@ -31,6 +34,10 @@ class User extends Authenticatable
     public function detail()
     {
       return $this->belongsTo('App\Model\UserDetail','id','id');
+    }
+    public function role()
+    {
+      return $this->belongsTo('App\Model\RoleUser','id','user_id');
     }
     public function checkExists($data)
     {

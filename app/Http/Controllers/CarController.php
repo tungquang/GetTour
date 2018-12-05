@@ -12,6 +12,10 @@ class CarController extends Controller
   public function __construct(CarServiceInterface $response,Car $car)
   {
     $this->middleware('auth');
+    $this->middleware('permission:car')->except(['index']);
+    $this->middleware('permission:create-car')->only(['store']);
+    $this->middleware('permission:edit-car')->only(['update']);
+    $this->middleware('permission:delete-car')->only(['destroy']);
     $this->response = $response;
     $this->car = $car;
   }
@@ -51,6 +55,7 @@ class CarController extends Controller
    */
   public function index()
   {
+
       return $this->response->index();
   }
 

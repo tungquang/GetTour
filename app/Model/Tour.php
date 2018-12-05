@@ -12,7 +12,8 @@ class Tour extends Model
     protected $fillable = ['id','id_province','id_type',
                   'name','time_in','time_out',
                   'place','day','seat','unit_price',
-                  'content','img','number_seated'
+                  'content','img','number_seated',
+                  'id_car','id_hotel'
                 ];
     protected $table = 'tour';
 
