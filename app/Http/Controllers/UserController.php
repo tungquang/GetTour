@@ -14,6 +14,7 @@ class UserController extends Controller
     public function __construct(UserServiceInterface $response)
     {
       $this->middleware('auth');
+      $this->middleware('role:own')->except(['show','update']);
       $this->response = $response;
     }
     /**
@@ -92,5 +93,9 @@ class UserController extends Controller
     {
 
         return $this->response->destroy($id);
+    }
+    public function attachToRole(Request $request, $id)
+    {
+      return $this->response->attachToRole($request, $id);
     }
 }

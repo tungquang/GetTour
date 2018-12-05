@@ -54,7 +54,7 @@
                 <div id="links">
                     <ul class="list-unstyled list-inline">
                         <li>
-                          <a href="#themes/star-travel/login-1.html">
+                          <a href="{{route('customer.login')}}">
                             <span><i class="fa fa-lock"></i></span>
                             Login
                           </a>

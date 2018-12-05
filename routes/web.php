@@ -48,7 +48,19 @@ Route::resources([
             'staff'     => 'UserController',
             'tour'      => 'TourController',
             'hotel'     => 'HotelController',
-            'car'     => 'CarController',
+            'car'       => 'CarController',
+            'role'      => 'RoleController'
           ]);
 
 Route::get('city/{nation}','CityController@index');
+
+//Permission
+
+Route::prefix('permission')->group(function(){
+  Route::post('/store','PermissionController@store')->name('permission.store');
+  Route::patch('/update/{id}','PermissionController@update')->name('permission.update');
+  Route::delete('/update/{$id}','PermissionController@destroy')->name('permission.destroy');
+});
+//Role
+Route::put('role/attach/{id}','RoleController@attachToPermission')->name('role.attach');
+Route::put('user/attach/{role}','UserController@attachToRole')->name('user.attach.role');

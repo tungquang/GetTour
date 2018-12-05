@@ -106,6 +106,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{asset('css/admin.jpeg')}}" class="user-image" alt="User Image">
             <span class="hidden-xs">
+              
               @if(Auth::guard()->user())
                 {{Auth::guard()->user()->name}}
               @else

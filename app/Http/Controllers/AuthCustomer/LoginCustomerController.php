@@ -65,6 +65,7 @@ class LoginCustomerController extends Controller
             return redirect($this->redirectTo.'/'.$id);
           }
         }
+        
 
         return redirect()->back()->withInput($request->only('email','remember'));
 

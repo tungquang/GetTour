@@ -13,6 +13,7 @@ class CustomerController extends Controller
       {
         $this->middleware('customer-auth')->only(['show','update']);
         $this->middleware('auth')->except(['show','update']);
+        $this->middleware('permission:delete-customer')->only(['destroy']);
         $this->response = $response;
       }
       protected function validator(array $data,$rules)
@@ -67,6 +68,10 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //
+    }
+    public function attachToRole($request, $id)
+    {
+      return $this->response->attachToRole($request, $id);
     }
 
     /**
