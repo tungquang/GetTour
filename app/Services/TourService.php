@@ -27,11 +27,27 @@ class TourService implements TourServiceInterface
   public function index()
   {
       $list = $this->tour->getAll();
+      // dd($list);
       return view('admin.tour.tour-list')
                   ->with([
-                    'user'=>Auth::user(),
+                    'user' => Auth::user(),
                     'list' => $list
                   ]);
+  }
+
+  /*Method to show all tour was disable
+  */
+  public function indexBan()
+  {
+
+    $tour = $this->tour->getBan();
+
+    return view('admin.tour.tour-trash')
+                 ->with(
+                   [
+                     'list' => $tour,
+                     'user'    => Auth::user(),
+                 ]);
   }
 
   /**
@@ -165,9 +181,9 @@ class TourService implements TourServiceInterface
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id,$staus)
   {
-      $tour = $this->tour->DeleteOrGet($id,0);
+      $tour = $this->tour->DeleteOrGet($id,$staus);
       if ($tour) {
           return response()->json($tour);
       }

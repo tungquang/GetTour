@@ -55,6 +55,8 @@
                   </p>
                 </div>
               </div>
+              <p>Số ghế trống : {{(int)$tour->seat - (int)$tour->book}}</p>
+
               <p>Giá tour {{number_format($tour->unit_price)}}</p>
               <p>Khuyến mãi {{$tour->promotion_price}}</p>
               <p>Giá
@@ -73,8 +75,11 @@
 
               <div class="row">
                 <a class="cart" href="{{'product='.$tour->id.'&&type=tour'}}" class="treeview">
-                <button type="button" id="{{$tour->id}}" name="button" class="btn btn-warning">Đặt</button>
-              </a>
+                  <button type="button" name="button" class="btn btn-warning">Đặt</button>
+                </a>
+                <a class="cart" href="{{'product='.$tour->id.'&&type=tour'.'&&customer=1'}}" class="treeview">
+                  <button type="button" name="button" class="btn btn-warning">Đặt Riêng</button>
+                </a>
               </div>
             </div>
             @endforeach
@@ -101,8 +106,8 @@
                 <h4>Thông tin của xe</h4>
                 <div class="content">
                   <p>
-                    <p>Số ghế xe {{$car->soghe}}</p>
-                    <p>Sô ghế  đã đặt {{$car->book}}</p>
+
+                    <p>Sô ghế  trống : {{$car->soghe - $car->book}}</p>
                     {!!$car->content!!}
                   </p>
                 </div>
@@ -156,6 +161,7 @@
                   </p>
                 </div>
               </div>
+              <p>Số phòng trống :{{$hotel->room - $hotel->book}} </p>
               <p>Giá khách sạn {{number_format($hotel->unit_price)}}</p>
               <p>Khuyến mãi {{$hotel->promotion_price}}</p>
               <p>Giá

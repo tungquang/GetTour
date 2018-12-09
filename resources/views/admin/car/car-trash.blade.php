@@ -50,23 +50,18 @@
                       <td>{{$car->book}}</td>
                       <td>{{$car->unit}}</td>
                       <td>{{$car->note}}</td>
-                      <td><button class="delete btn btn-danger">Xóa</button></td>
+                      <td>
+                        <input type="text" class="hidden" name="car-id" value="{{$car->id}}">
+                        @if($user->can('delete-car'))
+                        <button type="button" class="repeat btn btn-warning">
+                          <i class="fa fa-repeat"></i>
+                        </button>
+                        @endif
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Ảnh</th>
-                    <th>Car</th>
-                    <th>Giá thành</th>
-                    <th>Số ghế</th>
-                    <th>Ghế đặt</th>
 
-                    <th>Unit</th>
-                    <th>Chú ý</th>
-                    <th>Hoạt động</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -100,12 +95,14 @@
       'autoWidth'   : false
     })
   });
-$('.delete').click(function(){
-  $id= $(this).parent().parent().attr('id');
+
+
+$('.repeat').click(function(){
+  $id= $(this).prev().val();
 
   $.ajax({
     type:'DELETE',
-    url :"{{url('/car')}}/"+$id + '?status=0',
+    url :"{{url('/car')}}/"+$id + '?status=1',
     data:{
       '_token':$('meta[name="csrf-token"]').attr('content'),
     },
@@ -118,16 +115,11 @@ $('.delete').click(function(){
       else
       {
         $('#'+$data).remove('');
-        
+
         toastr.success('car đã được xóa');
       }
     }
   });
-});
-$('.car').dblclick(function(){
-  $id = $(this).attr('id');
-  $url = "{{url('/car')}}"+'/'+$id;
-  window.location.replace($url);
 });
 
 </script>

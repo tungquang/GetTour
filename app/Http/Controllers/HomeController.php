@@ -36,9 +36,9 @@ class HomeController extends Controller
       else {
         $user = Auth::guard('customer')->user();
       }
-      $data['hotel'] = $this->hotel->getAll();
-      $data['tour']   = $this->tour->getAll();
-      $data['car']    = $this->car->getAll();
+      $data['hotel'] = $this->hotel->hasRoom();
+      $data['tour']   = $this->tour->hasTour();
+      $data['car']    = $this->car->hasCar();
       return view('admin.tour')
                   ->with([
                     'user'=>$user,

@@ -14,7 +14,7 @@ class HotelController extends Controller
     public function __construct(HotelServiceInterface $response,Hotel $hotel)
     {
       $this->middleware('auth');
-      $this->middleware('permission:hotel')->except(['index']);
+      $this->middleware('permission:hotel');
       $this->middleware('permission:create-hotel')->only(['store']);
       $this->middleware('permission:edit-hotel')->only(['update']);
       $this->middleware('permission:delete-hotel')->only(['destroy']);
@@ -62,11 +62,24 @@ class HotelController extends Controller
         return $this->response->index();
     }
 
+
+     /**
+      * Show the customẻ is disable
+      *
+      * @return \Illuminate\Http\Response
+      */
+     public function indexBan()
+     {
+         return $this->response->indexBan();
+     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
         return $this->response->create();
@@ -144,8 +157,12 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        return $this->response->destroy($id);
-    }
+     public function destroy($id)
+     {
+         if(!isset($_GET['status']))
+         {
+           return Response::json(['errors'=>'Thao tác không thành công']);
+         }
+         return $this->response->destroy($id,$_GET['status']);
+     }
 }

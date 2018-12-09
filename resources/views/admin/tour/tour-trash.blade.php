@@ -60,27 +60,18 @@
                       <td>{{$tour->number_seated}}</td>
                       <td>{{$tour->unit_price}}</td>
                       <td>{{$tour->promotion_price}}</td>
-                      <td><button class="delete btn btn-danger">Xóa</button></td>
+                      <td>
+                        <input type="text" class="hidden" name="tour-id" value="{{$tour->id}}">
+                        @if($user->can('delete-tour'))
+                        <button type="button" class="repeat btn btn-warning">
+                          <i class="fa fa-repeat"></i>
+                        </button>
+                        @endif
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Ảnh</th>
-                    <th>Tour</th>
-                    <th>Kiểu</th>
-                    <th>Tỉnh</th>
-                    <th>Địa điểm</th>
-                    <th>Thời gian đi</th>
-                    <th>Thời gian về </th>
-                    <th>Số ngày</th>
-                    <th>Số ghế</th>
-                    <th>Số ghế đã đặt</th>
-                    <th>Giá thành</th>
-                    <th>Sales</th>
-                    <th>Hoạt động</th>
-                  </tr>
-                </tfoot>
+
               </table>
             </div>
             <!-- /.box-body -->
@@ -114,12 +105,12 @@
       'autoWidth'   : false
     })
   });
-$('.delete').click(function(){
-  $id= $(this).parent().parent().attr('id');
+$('.repeat').click(function(){
+  $id= $(this).prev('input').val();
 
   $.ajax({
     type:'DELETE',
-    url :"{{url('/tour')}}/"+$id + '?status=0',
+    url :"{{url('/tour')}}/"+$id + '?status=1',
     data:{
       '_token':$('meta[name="csrf-token"]').attr('content'),
     },

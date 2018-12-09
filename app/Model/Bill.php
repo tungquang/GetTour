@@ -10,4 +10,21 @@ class Bill extends Model
   use ActionModel;
   protected $fillable = ['id','id_customer','unit','pay','id_car','total'];
   protected $table = 'bill';
+
+  public static function getNewBill()
+  {
+    return self::where(['check'=> 0])->get();
+  }
+  public function customer()
+  {
+    return $this->belongsTo('App\Model\Customer','id_customer','id');
+  }
+  public static function getCheckedBill()
+  {
+    return self::where(['check' => 1])->get();
+  }
+  public function getPayment()
+  {
+    return $this->hasOne('App\Model\PayMent','id','pay');
+  }
 }

@@ -20,18 +20,14 @@ use App\Interfaces\CustomerServiceInterface;
      $this->detail = $detail;
      $this->customer = $customer;
    }
-
+   /*Method to show all customer was active
+   */
    public function index()
    {
-     if(Auth::guard()->user())
-     {
-       $user = Auth::guard()->user();
-     }
-     if(Auth::guard('customer')->user())
-     {
-       $user = Auth::guard('customer')->user();
-     }
+     $user = $this->user();
+
      $customer = $this->customer->getAll();
+
      return view('admin.customer.customer-list')
                   ->with(
                     [
@@ -39,17 +35,28 @@ use App\Interfaces\CustomerServiceInterface;
                       'user' => $user,
                   ]);
    }
+
+   /*Method to show all customer was disable
+   */
+   public function indexBan()
+   {
+     $user = $this->user();
+
+     $customer = $this->customer->getBan();
+
+     return view('admin.customer.customer-trash')
+                  ->with(
+                    [
+                      'listBan' => $customer,
+                      'user' => $user,
+                  ]);
+   }
+
    public function show($id)
    {
 
      $customer = $this->customer->getbyIdOrfind($id);
 
-     if (Auth::guard('customer')->user()) {
-       $user = Auth::guard('customer')->user();
-     }
-     if (Auth::guard()->user()) {
-       $user = Auth::guard()->user();
-     }
      if ($customer) {
 
        return view('admin.customer.profile')
@@ -64,13 +71,12 @@ use App\Interfaces\CustomerServiceInterface;
      return view('errors.notfound')->with(['errors'=>$errors]);
 
    }
+   /*Method to update the informatin customer
+   *
+   */
    public function update($request,$id)
    {
-
-     if(Auth::guard('customer')->user())
-     {
-       $id = Auth::guard('customer')->user()->id;
-     }
+     $id = $this->user();
 
      $detail = [
        'id'       => $id,
@@ -94,18 +100,39 @@ use App\Interfaces\CustomerServiceInterface;
     return redirect()->route('customer.show',['customer'=>$id]);
 
    }
-   public function destroy($id)
+   /*Method to acttive or disable a account
+   * if status = 0 then the account is actived
+   * else then the account is diable
+   */
+   public function destroy($id,$status)
    {
-     $customer = $this->customer->DeleteOrGet($id,0);
+     $customer = $this->customer->DeleteOrGet($id,$status);
+
      if(!$customer)
      {
        return Response::json(['errors'=>'Thao tác không thành công']);
      }
-     return response()->json($customer);
+
+     $customer = $this->customer->find($id);
+
+     return Response::json([
+                  'id'       => $id,
+                ]);
    }
+
    public function attachToRole($request, $id)
    {
      return response()->json($id);
+   }
+
+   protected function user()
+   {
+      if (Auth::guard('customer')->user()) {
+        return Auth::guard('customer')->user();
+      }
+      if (Auth::guard()->user()) {
+        return Auth::guard()->user();
+      }
    }
 
  }

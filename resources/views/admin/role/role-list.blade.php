@@ -89,7 +89,7 @@
                       <td>{{$ro->display_name}}</td>
                       <th>
                         @foreach($ro->permission as $per)
-                          <span>{{$per->name}}</span>
+                          <span>{{$per->name}} ,</span>
                         @endforeach
                       </th>
                       <td>{{$ro->description}}</td>
@@ -99,7 +99,7 @@
                           <select class="form-control" id="permission-out-{{$ro->id}}">
                               <option value="">Default</option>
                             @foreach($ro->permission as $per)
-                              <option value="{{$per->id}}">{{$per->name}}</option>
+                              <option value="{{$per->id}}">{{$per->display_name}}</option>
                             @endforeach
                           </select>
                         </div>
@@ -109,7 +109,7 @@
                         <select class="form-control" id="permission-in-{{$ro->id}}">
                             <option value="">Default</option>
                           @foreach($permission as $per)
-                            <option value="{{$per->id}}">{{$per->name}}</option>
+                            <option value="{{$per->id}}">{{$per->display_name}}</option>
                           @endforeach
 
                         </select>

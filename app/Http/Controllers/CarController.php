@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Interfaces\CarServiceInterface;
 use Illuminate\Support\Facades\Validator;
 use App\Model\Car;
+use Response;
 
 class CarController extends Controller
 {
   public function __construct(CarServiceInterface $response,Car $car)
   {
     $this->middleware('auth');
-    $this->middleware('permission:car')->except(['index']);
+    $this->middleware('permission:car');
     $this->middleware('permission:create-car')->only(['store']);
     $this->middleware('permission:edit-car')->only(['update']);
     $this->middleware('permission:delete-car')->only(['destroy']);
@@ -57,6 +58,16 @@ class CarController extends Controller
   {
 
       return $this->response->index();
+  }
+
+  /**
+   * Show the customẻ is disable
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function indexBan()
+  {
+      return $this->response->indexBan();
   }
 
   /**
@@ -142,8 +153,12 @@ class CarController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
-  {
-      return $this->response->destroy($id);
-  }
+   public function destroy($id)
+   {
+       if(!isset($_GET['status']))
+       {
+         return Response::json(['errors'=>'Thao tác không thành công']);
+       }
+       return $this->response->destroy($id,$_GET['status']);
+   }
 }

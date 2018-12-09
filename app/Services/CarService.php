@@ -21,7 +21,9 @@ use App\Interfaces\CarServiceInterface;
      $this->type = $type;
    }
 
-
+   /*
+   *Method to show all car is active
+   */
    public function index()
    {
      $list = $this->car->getAll();
@@ -31,6 +33,22 @@ use App\Interfaces\CarServiceInterface;
                     'user'=>Auth::user(),
                   ]);
    }
+
+   /*
+   * Method to show all car is disable
+   */
+
+   public function indexBan()
+   {
+     $list = $this->car->getBan();
+
+     return view('admin.car.car-trash')
+                  ->with([
+                    'list'=>$list,
+                    'user'=>Auth::user(),
+                  ]);
+   }
+
    public function store($request)
    {
 
@@ -114,9 +132,10 @@ use App\Interfaces\CarServiceInterface;
 
        return redirect('car/'.$id);
    }
-   public function destroy($id)
+   public function destroy($id,$satus)
    {
-     $car = $this->car->DeleteOrGet($id,0);
+     $car = $this->car->DeleteOrGet($id,$satus);
+
      if ($car) {
          return response()->json($car);
      }

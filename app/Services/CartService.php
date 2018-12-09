@@ -17,11 +17,13 @@ use App\Interfaces\CartServiceInterface;
  */
 class CartService implements CartServiceInterface
 {
+
   public function __construct(Tour $tour,Car $car,Hotel $hotel)
   {
     $this->car = $car;
     $this->tour = $tour;
     $this->hotel = $hotel;
+
   }
   //Method is show list cart in cart
   public function index()
@@ -36,11 +38,12 @@ class CartService implements CartServiceInterface
     ]);
 
   }
+  
   /*
   *
   * Method to add product to cart or update cart with default
   */
-  public function add($objectId ,$objectType)
+  public function add($objectId ,$objectType, $customer)
   {
     //check inform from data basse
     $object = $this->switchObj($objectType,$objectId);
@@ -50,16 +53,36 @@ class CartService implements CartServiceInterface
       return $object;
     }
     //make data cart array
-    $data = array(
-      'id'=>$objectType.'-'.$objectId,
-      'name' =>$object->name ,
-      'price'=>$object->unit_price,
-      'quantity'=> 1,
-      'attributes' => array(
-            'object' => $object,
-            'type' => $objectType,
-    ),);
+    //if customer = true
+    if($customer)
+    {
+      $data = array(
+        'id'=>$objectType.'-'.$objectId.'-customer',
+        'name' =>$object->name ,
+        'price'=>$object->unit_price,
+        'quantity'=> 1,
+        'attributes' => array(
+              'object' => $object,
+              'type' => $objectType,
+              'customer' => $customer,
+      ),);
+    }
+    //if customer = false
+    else
+    {
+      $data = array(
+        'id'=>$objectType.'-'.$objectId,
+        'name' =>$object->name ,
+        'price'=>$object->unit_price,
+        'quantity'=> 1,
+        'attributes' => array(
+              'object' => $object,
+              'type' => $objectType,
+              'customer' => $customer,
+      ),);
+    }
 
+    // add to cart
     $cart = Cart::add($data);
 
     return response()->json($value = true);
@@ -120,6 +143,8 @@ class CartService implements CartServiceInterface
   /*
   * Method to submit cart to bill
   * When the cart is submit , The cart will be clear
+  * If customer = true , the tour table is not update
+  * Else update numberset in tour table
   */
   public function submit($payment)
   {
@@ -127,10 +152,15 @@ class CartService implements CartServiceInterface
     $user = Auth::guard('customer')->user();
 
     $list = Cart::getContent();
-
+    // create new Bill
     $bill_id = $this->storeBill($payment);
-
+    // create new obj
     foreach ($list as $obj) {
+
+      if(!$obj->attributes->customer)
+      {
+        $this->updateNumberSeate($obj->attributes->object,$obj->quantity);
+      }
       $book = $this->storeBook($obj);
       $this->storeListBook($bill_id->id,$book->id,$obj->attributes->type);
     }
@@ -230,6 +260,22 @@ class CartService implements CartServiceInterface
     ];
 
     return Book::create($data);
+
+  }
+  private function updateNumberSeate($object,$seated)
+  {
+
+    // Get information Tour before update
+
+    $number_seateBefore = $object->number_seated;
+
+    // // Data update ;
+    $number_seateLast =  $number_seateBefore + $seated;
+
+    $object->updateOrCreateNew([
+      'id' => $object->id,
+      'book' => $number_seateLast
+    ]);
 
   }
 

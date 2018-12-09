@@ -25,4 +25,17 @@ class Hotel extends Model
   {
     return $this->belongsTo('App\Model\Cites','id_province','id');
   }
+
+  public function hasRoom()
+  {
+    return $this->where('status' , 1)
+                ->whereRaw('book < room')
+                ->get();
+  }
+  
+  public function updateRoom($id , $book)
+  {
+    return $this->find($id)
+                ->update('book' , $book);
+  }
 }

@@ -59,4 +59,9 @@ trait ActionModel
     }
 
   }
+  
+  public function getBan()
+  {
+    return $this->where('status',0)->get();
+  }
 }

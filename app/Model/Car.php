@@ -15,4 +15,11 @@ class Car extends Model
   {
     return belongsTo('App\Model\TyperCar','id_type','id');
   }
+
+  public function hasCar()
+  {
+    return $this->where('status' , 1)
+                ->where('book',0 )
+                ->get();
+  }
 }

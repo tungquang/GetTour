@@ -11,6 +11,7 @@ class PermissionController extends Controller
     public function __construct(PermissionServiceInterface $response)
     {
       $this->middleware('auth');
+      $this->middleware('role:own');
       $this->response = $response;
     }
 

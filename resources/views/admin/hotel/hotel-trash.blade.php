@@ -52,7 +52,13 @@
                       <td>{{$hotel->book}}</td>
                       <td>{{$hotel->unit_price}}</td>
                       <td>{{$hotel->promotion_price}}</td>
-                      <td><button class="delete btn btn-danger">Xóa</button></td>
+                      <td>  <input type="text" class="hidden" name="hotel-id" value="{{$hotel->id}}">
+                        @if($user->can('delete-hotel'))
+                        <button type="button" class="repeat btn btn-warning">
+                          <i class="fa fa-repeat"></i>
+                        </button>
+                        @endif
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -102,34 +108,30 @@
       'autoWidth'   : false
     })
   });
-$('.delete').click(function(){
-  $id= $(this).parent().parent().attr('id');
 
-  $.ajax({
-    type:'DELETE',
-    url :"{{url('/hotel')}}/"+$id + '?status=0',
-    data:{
-      '_token':$('meta[name="csrf-token"]').attr('content'),
-    },
-    success:function($data)
-    {
-      if(($data.errors))
+  $('.repeat').click(function(){
+    $id= $(this).prev().val();
+
+    $.ajax({
+      type:'DELETE',
+      url :"{{url('/hotel')}}/"+$id + '?status=1',
+      data:{
+        '_token':$('meta[name="csrf-token"]').attr('content'),
+      },
+      success:function($data)
       {
-          toastr.warning('Thao tác không thành công ! Xin kiểm tra lại hotel');
+        if(($data.errors))
+        {
+            toastr.warning('Thao tác không thành công ! Xin kiểm tra lại hotel');
+        }
+        else
+        {
+          $('#'+$data).remove('');
+          toastr.success('hotel đã được xóa');
+        }
       }
-      else
-      {
-        $('#'+$data).remove('');
-        toastr.success('hotel đã được xóa');
-      }
-    }
+    });
   });
-});
-$('.hotel').dblclick(function(){
-  $id = $(this).attr('id');
-  $url = "{{url('/hotel')}}"+'/'+$id;
-  window.location.replace($url);
-});
 
 </script>
 @endsection

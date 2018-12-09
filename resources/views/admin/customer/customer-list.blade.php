@@ -16,37 +16,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-
-
           <div class="box">
-            <div class="box-header">
-              <button class="btn btn-primay" data-toggle="modal" data-target="#form-insert">Thêm thông tin khách hàng</button>
-
-            <div class="modal fade" id="form-insert" role="dialog">
-                <div class="modal-dialog">
-
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                    <div class="modal-body">
-                      <p>
-                        <form class="" action="index.html" method="post">
-                          @csrf
-                        </form>
-                      </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
             <div class="box-body" id="content">
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -55,7 +25,7 @@
                   <th>Tài khoản email</th>
                   <th>Thời gian tạo</th>
                   <th>Thời gian cập nhật</th>
-                  <th>Action</th>
+                  <th>Vô hiệu hóa</th>
                 </tr>
                 </thead>
                 <tbody class="list">
@@ -68,8 +38,10 @@
                       <td>{{$customer->created_at}}</td>
                       <td>{{$customer->updated_at}}</td>
                       <td>
-                        <input type="text" class="hidden" name="customer-id" value="{{$customer->id}}">
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$customer->id}}">Xóa</button>
+
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$customer->id}}">
+                          <i class="fa fa-trash"></i>
+                        </button>
                         <div class="modal fade" id="form-delete-{{$customer->id}}" role="dialog">
                             <div class="modal-dialog">
                               <!-- Modal content-->
@@ -81,6 +53,7 @@
                                   <h3>Bạn muốn xóa tài khoản {{$customer->email}} ?</h3>
                                 </div>
                                 <div class="modal-footer">
+                                  <input type="text" class="hidden" name="customer-id" value="{{$customer->id}}">
                                   <button type="button" class="delete btn btn-primary" data-dismiss="modal">Đồng ý</button>
                                 </div>
                               </div>
@@ -92,15 +65,7 @@
                     </a>
                   @endforeach
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>
+
               </table>
             </div>
             <!-- /.box-body -->
@@ -110,6 +75,7 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
     </section>
 
 @endsection
@@ -136,12 +102,11 @@
       }
 
     });
-    $('.delete').click(function(){
-      var $id = $('input[name=customer-id]').val();
-
+    $('.list').delegate('.delete','click',function(){
+      var $id = $(this).prev('input[name=customer-id]').val();
 
         $.ajax({
-          url:"{{url('customer')}}/" + $id,
+          url:"{{url('customer')}}/" + $id + '?status=0',
           type:'DELETE',
           data:{
             '_token':$("input[name=_token]").val(),
@@ -155,14 +120,15 @@
             else
             {
 
-              $('.list').children('#'+$data).html('');
+              $('.list').children('#'+$data.id).html('');
+              $('.modal-backdrop').remove();
               toastr.success('Tài khoản xóa thành công ');
             }
           }
 
         });
-
       });
+
 
   </script>
 @endsection

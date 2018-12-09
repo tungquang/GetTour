@@ -37,4 +37,5 @@ class Customer extends Authenticatable
     }
 
 
+
 }

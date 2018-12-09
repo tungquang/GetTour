@@ -38,6 +38,21 @@ class HotelService implements HotelServiceInterface
                   ]);
   }
 
+  /*Method to show all hotel was disable
+  */
+  public function indexBan()
+  {
+
+    $hotel = $this->hotel->getBan();
+
+    return view('admin.hotel.hotel-trash')
+                 ->with(
+                   [
+                     'list' => $hotel,
+                     'user'    => Auth::user(),
+                 ]);
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -122,7 +137,7 @@ class HotelService implements HotelServiceInterface
    */
   public function update($request, $id)
   {
-
+    $hotel = $this->hotel->getbyIdOrfind($id);
     if($request->img)
     {
 
@@ -158,9 +173,9 @@ class HotelService implements HotelServiceInterface
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id,$staus)
   {
-      $hotel = $this->hotel->DeleteOrGet($id,0);
+      $hotel = $this->hotel->DeleteOrGet($id,$staus);
       if ($hotel) {
           return response()->json($hotel);
       }
