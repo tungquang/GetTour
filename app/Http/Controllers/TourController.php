@@ -14,10 +14,10 @@ class TourController extends Controller
 
     public function __construct(TourServiceInterface $response,Tour $tour)
     {
-      $this->middleware('auth');
-      $this->middleware('permission:tour');
+      $this->middleware('auth')->except('show');
+      $this->middleware('permission:tour')->except('show');
       $this->middleware('permission:create-tour')->only(['store']);
-      $this->middleware('permission:edit-tour')->only(['update']);
+      $this->middleware('permission:edit-tour')->only(['update','edit']);
       $this->middleware('permission:delete-tour')->only(['destroy']);
       $this->response = $response;
       $this->tour = $tour;
@@ -172,4 +172,6 @@ class TourController extends Controller
          }
          return $this->response->destroy($id,$_GET['status']);
      }
+
+
 }

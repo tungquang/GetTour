@@ -63,7 +63,7 @@ use App\Interfaces\CustomerServiceInterface;
                        ->with(
                          [
                            'customer' => $customer,
-                           'user'     => $user,
+                           'user'     => $this->user(),
                        ]);
 
      }

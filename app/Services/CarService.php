@@ -86,18 +86,24 @@ use App\Interfaces\CarServiceInterface;
    }
    public function edit($id)
    {
-     return ' hello ';
-   }
-   public function show($id)
-   {
-      $car = $this->car->getbyIdOrfind($id);
+     $car = $this->car->getbyIdOrfind($id);
+     if($car)
+     {
        return view('admin.car.update-car')
                  ->with([
                    'car'=>$car,
                    'user'=>Auth::user(),
                    'type' =>TypeCar::all(),
                  ]);
+     }
+     return view('errors.notfound');
 
+
+   }
+   public function show($id)
+   {
+
+     return view('page.car-detail');
 
    }
    public function update($request,$id)

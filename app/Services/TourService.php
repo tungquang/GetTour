@@ -105,18 +105,7 @@ class TourService implements TourServiceInterface
    */
   public function show($id)
   {
-      $tour = $this->tour->getbyIdOrfind($id);
-      if($tour)
-      {
-        return view('admin.tour.update-tour')
-                  ->with([
-                    'tour'=>$tour,
-                    'user'=>Auth::user(),
-                    'type' =>TypeTour::all(),
-                    'city' => Cites::all(),
-                  ]);
-      }
-      return view('errors.notfound');
+    return view('page.tour-detail');
   }
 
   /**
@@ -127,7 +116,18 @@ class TourService implements TourServiceInterface
    */
   public function edit($id)
   {
-      return 'hello';
+    $tour = $this->tour->getbyIdOrfind($id);
+    if($tour)
+    {
+      return view('admin.tour.update-tour')
+                ->with([
+                  'tour'=>$tour,
+                  'user'=>Auth::user(),
+                  'type' =>TypeTour::all(),
+                  'city' => Cites::all(),
+                ]);
+    }
+    return view('errors.notfound');
   }
 
   /**

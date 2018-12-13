@@ -1,105 +1,68 @@
-<section id="footer" class="ftr-heading-o ftr-heading-mgn-1">
+<footer id="colorlib-footer" role="contentinfo">
+  <div class="container">
+    <div class="row row-pb-md">
+      <div class="col-md-3 colorlib-widget">
+        <h4>Tour Agency</h4>
+        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+        <p>
+          <ul class="colorlib-social-icons">
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+          </ul>
+        </p>
+      </div>
+      <div class="col-md-2 colorlib-widget">
+        <h4>Book Now</h4>
+        <p>
+          <ul class="colorlib-footer-links">
+            <li><a href="#">Flight</a></li>
+            <li><a href="#">Hotels</a></li>
+            <li><a href="#">Tour</a></li>
+            <li><a href="#">Car Rent</a></li>
+            <li><a href="#">Beach &amp; Resorts</a></li>
+            <li><a href="#">Cruises</a></li>
+          </ul>
+        </p>
+      </div>
+      <div class="col-md-2 colorlib-widget">
+        <h4>Top Deals</h4>
+        <p>
+          <ul class="colorlib-footer-links">
+            <li><a href="#">Edina Hotel</a></li>
+            <li><a href="#">Quality Suites</a></li>
+            <li><a href="#">The Hotel Zephyr</a></li>
+            <li><a href="#">Da Vinci Villa</a></li>
+            <li><a href="#">Hotel Epikk</a></li>
+          </ul>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h4>Blog Post</h4>
+        <ul class="colorlib-footer-links">
+          <li><a href="#">The Ultimate Packing List For Female Travelers</a></li>
+          <li><a href="#">How These 5 People Found The Path to Their Dream Trip</a></li>
+          <li><a href="#">A Definitive Guide to the Best Dining and Drinking Venues in the City</a></li>
+        </ul>
+      </div>
 
-    <div id="footer-top" class="banner-padding ftr-top-grey ftr-text-white">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 footer-widget ftr-contact">
-                    <h3 class="footer-heading">CONTACT US</h3>
-                    <ul class="list-unstyled">
-                        <li><span><i class="fa fa-map-marker"></i></span>29 Land St, Lorem City, CA</li>
-                        <li><span><i class="fa fa-phone"></i></span>+00 123 4567</li>
-                        <li><span><i class="fa fa-envelope"></i></span>info@starhotel.com</li>
-                    </ul>
-                </div><!-- end columns -->
-
-                <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 footer-widget ftr-links">
-                    <h3 class="footer-heading">COMPANY</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#themes/star-travel/#">Home</a></li>
-                        <li><a href="#themes/star-travel/#">Flight</a></li>
-                        <li><a href="#themes/star-travel/#">Hotel</a></li>
-                        <li><a href="#themes/star-travel/#">Tours</a></li>
-                        <li><a href="#themes/star-travel/#">Cruise</a></li>
-                        <li><a href="#themes/star-travel/#">Cars</a></li>
-                    </ul>
-                </div><!-- end columns -->
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 footer-widget ftr-links ftr-pad-left">
-                    <h3 class="footer-heading">RESOURCES</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#themes/star-travel/#">Blogs</a></li>
-                        <li><a href="#themes/star-travel/#">Contact Us</a></li>
-                        <li><a href="#themes/star-travel/#">Login</a></li>
-                        <li><a href="#themes/star-travel/#">Register</a></li>
-                        <li><a href="#themes/star-travel/#">Site Map</a></li>
-                    </ul>
-                </div><!-- end columns -->
-
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 footer-widget ftr-about">
-                    <h3 class="footer-heading">ABOUT US</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>
-                    <ul class="social-links list-inline list-unstyled">
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-facebook"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-twitter"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-google-plus"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-pinterest-p"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-instagram"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-linkedin"></i></span></a></li>
-                        <li><a href="#themes/star-travel/#"><span><i class="fa fa-youtube-play"></i></span></a></li>
-                    </ul>
-                </div><!-- end columns -->
-
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end footer-top -->
-
-    <div id="footer-bottom" class="ftr-bot-black">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="copyright">
-                    <p>© 2017 <a href="#themes/star-travel/#">StarTravel</a>. All rights reserved.</p>
-                </div><!-- end columns -->
-
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="terms">
-                    <ul class="list-unstyled list-inline">
-                        <li><a href="#themes/star-travel/#">Terms &amp; Condition</a></li>
-                        <li><a href="#themes/star-travel/#">Privacy Policy</a></li>
-                    </ul>
-                </div><!-- end columns -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end footer-bottom -->
-
-</section><!-- end footer -->
-
-
-<div id="popup-ad" class="modal fade" role="dialog" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="popup-ad-text">
-                            <h4>Get</h4>
-                            <h2><span>20%</span> off</h2>
-                            <h4>on all flights booking</h4>
-                            <p>Lorem ipsum dolor sit amet, ad duo fugit aeque fabulas, in lucilius prodesset pri.</p>
-                            <a href="#themes/star-travel/#" class="btn btn-orange">Book Now</a>
-                        </div><!-- end popup-ad-text -->
-                    </div><!-- end columns -->
-
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="popup-ad-img">
-                            <img src="images/about-content-2.png" class="img-responsive">
-                        </div><!-- end popup-ad-img -->
-                    </div><!-- end columns -->
-                </div><!-- end row -->
-
-            </div><!-- end modal-bpdy -->
-        </div><!-- end modal-content -->
-    </div><!-- end modal-dialog -->
-</div><!-- end popup-ad -->
+      <div class="col-md-3 col-md-push-1">
+        <h4>Contact Information</h4>
+        <ul class="colorlib-footer-links">
+          <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+          <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
+          <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+          <li><a href="#">yoursite.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

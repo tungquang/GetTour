@@ -127,7 +127,7 @@ $('.delete').click(function(){
 });
 $('.hotel').dblclick(function(){
   $id = $(this).attr('id');
-  $url = "{{url('/hotel')}}"+'/'+$id;
+  $url = "{{url('/hotel')}}"+'/'+$id+'/edit';
   window.location.replace($url);
 });
 

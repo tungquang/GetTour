@@ -11,17 +11,23 @@
 |
 */
 
-Route::get('/', function (){
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
+
+///Home page
+
+Route::get('/home','HomeController@index')->name('home.page');
+Route::get('/page/hotel','HomeController@hotel')->name('hotel.page');
+Route::get('/page/car','HomeController@car')->name('car.page');
+Route::get('/page/tour','HomeController@tour')->name('tour.page');
+Route::get('/page/blog','HomeController@blog')->name('blog.page');
+Route::get('/page/contact','HomeController@contact')->name('contact.page');
+Route::get('/page/service','HomeController@service')->name('service.page');
+
 
 Auth::routes();
-// page list
-Route::prefix('/page/tour')->group(function(){
-  Route::get('/','HomeController@index');
-});
 
-//
+
+
 Route::prefix('/cart')->group(function(){
   Route::get('','CartController@index')->name('cart.index');
   Route::get('add','CartController@add')->name('cart.add');

@@ -12,10 +12,10 @@ class CarController extends Controller
 {
   public function __construct(CarServiceInterface $response,Car $car)
   {
-    $this->middleware('auth');
-    $this->middleware('permission:car');
+    $this->middleware('auth')->except(['show']);
+    $this->middleware('permission:car')->except(['show']);
     $this->middleware('permission:create-car')->only(['store']);
-    $this->middleware('permission:edit-car')->only(['update']);
+    $this->middleware('permission:edit-car')->only(['update','edit']);
     $this->middleware('permission:delete-car')->only(['destroy']);
     $this->response = $response;
     $this->car = $car;
@@ -100,12 +100,7 @@ class CarController extends Controller
    */
   public function show($id)
   {
-    $car = $this->car->find($id);
-    if($car)
-    {
-      return $this->response->show($id);
-    }
-    return view('errors.notfound');
+
   }
 
   /**
@@ -116,7 +111,9 @@ class CarController extends Controller
    */
   public function edit($id)
   {
+
       return $this->response->edit($id);
+
   }
 
   /**
@@ -161,4 +158,5 @@ class CarController extends Controller
        }
        return $this->response->destroy($id,$_GET['status']);
    }
+
 }

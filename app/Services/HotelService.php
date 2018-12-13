@@ -101,20 +101,7 @@ class HotelService implements HotelServiceInterface
    */
   public function show($id)
   {
-      $hotel = $this->hotel->getbyIdOrfind($id);
-      $city = $this->city->all();
-      if($hotel)
-      {
-        return view('admin.hotel.update-hotel')
-                  ->with([
-                    'hotel'=>$hotel,
-                    'user'=>Auth::user(),
-                    'city'=>$city,
-                    'nation'=>Nations::all(),
-                    'star' => Star::all(),
-                  ]);
-      }
-      return view('errors.notfound');
+      return view('page.hotel-detail');
   }
 
   /**
@@ -125,7 +112,20 @@ class HotelService implements HotelServiceInterface
    */
   public function edit($id)
   {
-      return 'hello';
+    $hotel = $this->hotel->getbyIdOrfind($id);
+    $city = $this->city->all();
+    if($hotel)
+    {
+      return view('admin.hotel.update-hotel')
+                ->with([
+                  'hotel'=>$hotel,
+                  'user'=>Auth::user(),
+                  'city'=>$city,
+                  'nation'=>Nations::all(),
+                  'star' => Star::all(),
+                ]);
+    }
+    return view('errors.notfound');
   }
 
   /**
