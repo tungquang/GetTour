@@ -79,9 +79,13 @@ use App\Traits\StorageFunction;
    public function update($request,$id)
    {
      $user = $this->user();
-
-     $image = $user->detail->img;
-
+     // If the detail wasn't isset then $image was đefaul
+     try {
+        $image = $user->detail->img;
+     } catch (\Exception $e) {
+       $image = $this->image;
+     }
+     // If has file then the new avatar will be update
      if($request->file)
      {
       $flage = $this->hasImage($request->file);
