@@ -20,6 +20,31 @@ class UserController extends Controller
       $this->middleware('permission:delete-user')->only(['destroy']);
       $this->response = $response;
     }
+
+    protected function validator(array $data,$rules)
+    {
+      return Validator::make($data,$rules);
+    }
+    protected function rulesAccount()
+    {
+      return [
+        'email' => 'required|string|email|max:255',
+        'name'  => 'required|string|min:4',
+        'password' => 'required|string|min:6',
+
+       ];
+    }
+    protected function rulesDetail()
+    {
+      return [
+
+        'address'  => 'required',
+        'age'      => 'required',
+        'phone'    => 'required|min:9',
+        'passport' => 'required|min:9',
+        'id_country' => 'required',
+      ];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -93,6 +118,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validator($request->all(),$this->rulesDetail())->validate();
         return $this->response->update($request, $id);
     }
 

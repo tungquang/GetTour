@@ -32,7 +32,11 @@
                 <li><!-- start message -->
                   <a href="#">
                     <div class="pull-left">
-                      <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
+                      @if($user->detail)
+                          <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
+                      @else
+                        <img src="{{asset('/storage/default-user.png')}}" class="img-circle" alt="User Image">
+                      @endif
                     </div>
                     <h4>
                       Support Team
@@ -104,7 +108,12 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="{{asset('/storage/'.$user->detail->img)}}" class="user-image" alt="User Image">
+            @if($user->detail)
+              <img src="{{asset('/storage/'.$user->detail->img)}}" class="user-image" alt="User Image">
+            @else
+              <img src="{{asset('/storage/default-user.png')}}" class="user-image" alt="User Image">
+            @endif
+
             <span class="hidden-xs">
               {{$user->name}}
             </span>
@@ -112,7 +121,12 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
+              @if($user->detail)
+                <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
+              @else
+                <img src="{{asset('/storage/default-user.png')}}" class="img-circle" alt="User Image">
+              @endif
+
 
               <p>
                 {{$user->name}}

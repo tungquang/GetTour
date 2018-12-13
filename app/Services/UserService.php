@@ -3,6 +3,7 @@
 
  use Auth;
  use Response;
+ use App\Traits\StorageFunction;
  use App\Model\Role;
  use App\Model\RoleUser;
  use App\User;
@@ -14,36 +15,16 @@
   */
  class UserService implements UserServiceInterface
  {
+   use StorageFunction;
+
+   private $image = 'default-user.png';
 
    function __construct(User $staff,UserDetail $detail)
    {
      $this->staff = $staff;
      $this->detail = $detail;
    }
-   protected function validator(array $data,$rules)
-   {
-     return Validator::make($data,$rules);
-   }
-   protected function rulesAccount()
-   {
-     return [
-       'email' => 'required|string|email|max:255',
-       'name'  => 'required|string|min:4',
-       'password' => 'required|string|min:6',
 
-      ];
-   }
-   protected function rulesDetail()
-   {
-     return [
-
-       'address'  => 'required',
-       'age'      => 'required',
-       'phone'    => 'required|min:9',
-       'passport' => 'required|min:9',
-       'id_country' => 'required',
-     ];
-   }
    public function index()
    {
      $list = $this->staff->getAll();
@@ -92,22 +73,42 @@
      return view('errors.notfound')->with(['errors'=>$errors]);
 
    }
+
    public function update($request, $id){
 
-     $this->validator($request->all(),$this->rulesDetail())->validate();
+     $user = Auth::user();
+     // If the detail wasn't isset then $image was đefaul
+     try {
+        $image = $user->detail->img;
+     } catch (\Exception $e) {
+       $image = $this->image;
+     }
+     //if Has file image , the new avatar will be update
+     if($request->file)
+     {
+      $flage = $this->hasImage($request->file);
+
+      if($flage)
+      {
+        $flage = $this->putFile('public',$request->file);
+      }
+
+      $image = ($flage) ? $flage['name'] : $image;
+     }
 
      $detail = [
-       'id'       => $id,
+       'id'       => $user->id,
        'address'  => $request->address,
        'age'      => $request->age,
        'phone'    => $request->phone,
        'sex'      => $request->sex,
        'passport' => $request->passport,
-       'id_country' => $request->id_country
+       'id_country' => $request->id_country,
+       'img'    => $image
      ];
 
      $data = [
-      'id'    => $id,
+      'id'    => $user->id,
       'name'  => $request->name,
       'email' =>$request->email,
       ];

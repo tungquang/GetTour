@@ -10,6 +10,6 @@ class UserDetail extends Model
   use ActionModel;
 
   protected $table = 'users_detail';
-  protected $fillable = ['id','age','sex','phone','address','passport','id_country'];
+  protected $fillable = ['id','age','sex','phone','address','passport','id_country','img'];
 
 }
