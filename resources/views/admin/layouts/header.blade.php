@@ -4,7 +4,7 @@
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>A</b>LT</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Admin</b>LTE</span>
+    <span class="logo-lg"><b></b></span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -32,7 +32,7 @@
                 <li><!-- start message -->
                   <a href="#">
                     <div class="pull-left">
-                      <img src="{{asset('css/admin.jpeg')}}" class="img-circle" alt="User Image">
+                      <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
                     </div>
                     <h4>
                       Support Team
@@ -104,23 +104,18 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="{{asset('css/admin.jpeg')}}" class="user-image" alt="User Image">
+            <img src="{{asset('/storage/'.$user->detail->img)}}" class="user-image" alt="User Image">
             <span class="hidden-xs">
-              
-              @if(Auth::guard()->user())
-                {{Auth::guard()->user()->name}}
-              @else
-              {{Auth::guard('customer')->user()->name}}
-              @endif
+              {{$user->name}}
             </span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="{{asset('css/admin.jpeg')}}" class="img-circle" alt="User Image">
+              <img src="{{asset('/storage/'.$user->detail->img)}}" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
+                {{$user->name}}
                 <small>Member since Nov. 2012</small>
               </p>
             </li>

@@ -7,16 +7,18 @@ use Response;
 use App\Model\Customer;
 use App\Model\CustomerDetail;
 use App\Interfaces\CustomerServiceInterface;
+use App\Traits\StorageFunction;
 
  /**
   *
   */
  class CustomerService implements CustomerServiceInterface
  {
+   // traits to work with file
+   use StorageFunction;
 
    public function __construct(Customer $customer,CustomerDetail $detail)
    {
-
      $this->detail = $detail;
      $this->customer = $customer;
    }
@@ -76,20 +78,37 @@ use App\Interfaces\CustomerServiceInterface;
    */
    public function update($request,$id)
    {
-     $id = $this->user();
+     $user = $this->user();
+
+     $image = $user->detail->img;
+
+     if($request->file)
+     {
+      $flage = $this->hasImage($request->file);
+
+      if($flage)
+      {
+        $flage = $this->putFile('public',$request->file);
+      }
+
+      $image = ($flage) ? $flage['name'] : $image;
+     }
+
+
 
      $detail = [
-       'id'       => $id,
+       'id'       => $user->id,
        'address'  => $request->address,
        'age'      => $request->age,
        'phone'    => $request->phone,
        'sex'      => $request->sex,
        'passport' => $request->passport,
-       'id_country' => $request->id_country
+       'id_country' => $request->id_country,
+       'img'      => $image
      ];
 
      $data = [
-      'id'    => $id,
+      'id'    => $user->id,
       'name'  => $request->name,
       'email' =>$request->email,
       ];

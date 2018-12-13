@@ -26,12 +26,36 @@ trait StorageFunction
 	}
 	public function putFile($disk,$file)
 	{
-    
 
-		return Storage::disk($disk)
-        				->put(
-                  $this->getInf($file)['name'],
-                  file_get_contents($file)
-                );
+    try {
+      $nameFile = $this->getInf($file);
+      $flage = Storage::disk($disk)
+                             ->put(
+                               $nameFile['name'],
+                               file_get_contents($file)
+                             );
+      if(!$flage)
+      {
+        throw new \Exception("Error Processing Request", 1);
+      }
+      return $nameFile;
+
+
+    } catch (\Exception $e) {
+      return false;
+    }
+
+
 	}
+
+  public function hasImage($file)
+  {
+    $type = ['png','jpg','jpeg'];
+
+    $inforFile = $this->getInf($file);
+
+    $flage = (in_array($inforFile['type'],$type)) ? $inforFile : false;
+
+    return $flage;
+  }
 }
