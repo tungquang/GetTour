@@ -6,15 +6,16 @@ use Illuminate\Http\Request;
 use App\Interfaces\CarServiceInterface;
 use Illuminate\Support\Facades\Validator;
 use App\Model\Car;
+use Response;
 
 class CarController extends Controller
 {
   public function __construct(CarServiceInterface $response,Car $car)
   {
-    $this->middleware('auth');
-    $this->middleware('permission:car')->except(['index']);
+    $this->middleware('auth')->except(['show']);
+    $this->middleware('permission:car')->except(['show']);
     $this->middleware('permission:create-car')->only(['store']);
-    $this->middleware('permission:edit-car')->only(['update']);
+    $this->middleware('permission:edit-car')->only(['update','edit']);
     $this->middleware('permission:delete-car')->only(['destroy']);
     $this->response = $response;
     $this->car = $car;
@@ -60,6 +61,16 @@ class CarController extends Controller
   }
 
   /**
+   * Show the customẻ is disable
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function indexBan()
+  {
+      return $this->response->indexBan();
+  }
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
@@ -89,12 +100,7 @@ class CarController extends Controller
    */
   public function show($id)
   {
-    $car = $this->car->find($id);
-    if($car)
-    {
-      return $this->response->show($id);
-    }
-    return view('errors.notfound');
+
   }
 
   /**
@@ -105,7 +111,9 @@ class CarController extends Controller
    */
   public function edit($id)
   {
+
       return $this->response->edit($id);
+
   }
 
   /**
@@ -142,8 +150,13 @@ class CarController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
-  {
-      return $this->response->destroy($id);
-  }
+   public function destroy($id)
+   {
+       if(!isset($_GET['status']))
+       {
+         return Response::json(['errors'=>'Thao tác không thành công']);
+       }
+       return $this->response->destroy($id,$_GET['status']);
+   }
+
 }

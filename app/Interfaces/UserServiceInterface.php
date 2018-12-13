@@ -6,10 +6,15 @@
   interface UserServiceInterface
   {
     public function index();
-    // public function store(Request $request);
+
+    public function indexBan();
+
     public function show($id);
+
     public function update($request, $id);
-    public function destroy($id);
+
+    public function destroy($id,$status);
+
     public function attachToRole($request, $id);
 
   }

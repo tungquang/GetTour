@@ -22,7 +22,9 @@ class RoleService implements RoleServiceInterface
     $this->role = $role;
     $this->permission = $permission;
   }
-
+  /* Method to show all role and permission
+  *
+  */
   public function index()
   {
     $user = Auth::user();
@@ -33,7 +35,9 @@ class RoleService implements RoleServiceInterface
                 'permission' => Permission::all(),
               ]);
   }
-
+  /*Method to create new r//
+  *
+  */
   public function store($request)
   {
     //format data
@@ -70,16 +74,19 @@ class RoleService implements RoleServiceInterface
 
 
     try {
-      $role->attachPermission(
-        $this->permission->find($this->permissionIn)
-      );
+      /*To delete role and relatioship with user
+      */
       if($this->permissionOut)
       {
         $role->detachPermission(
           $this->permission->find($this->permissionOut)
         );
       }
-
+      /*To create new relatioship Role with User
+      */
+      $role->attachPermission(
+        $this->permission->find($this->permissionIn)
+      );
 
       $view = view('admin.role.role-list-render')
                     ->with([
@@ -87,6 +94,7 @@ class RoleService implements RoleServiceInterface
                       'role'       => Role::all(),
                     ])
                     ->render();
+
       return response()->json($view);
 
     } catch (\Exception $e) {
@@ -95,21 +103,30 @@ class RoleService implements RoleServiceInterface
 
     return response()->json($role);
   }
-
+  /*
+  * Method to delete realtionship with role
+  * If role is own the method will return false
+  */
   public function destroy($id)
   {
 
-
     try {
       $role = $this->role->findOrFail($id);
+
+      // If role is own the method is not work
+      if($role->name == 'own')
+      {
+        return response()->json($value = false);
+      }
+
       // Regular Delete
       $this->role->destroy($id);
 
       // Force Delete
-      $role->users()->sync([]); // Delete relationship data
-      $role->perms()->sync([]); // Delete relationship data
+       $role->users()->sync([]); // Delete relationship data
+       $role->perms()->sync([]); // Delete relationship data
 
-      $role->forceDelete(); // Now force delete will work regardless of whether the pivot table has cascading delete
+      // $role->forceDelete(); // Now force delete will work regardless of whether the pivot table has cascading delete
 
     } catch (\Exception $e) {
       return response()->json($value = false);
@@ -124,6 +141,7 @@ class RoleService implements RoleServiceInterface
 
     return response()->json($view);
   }
+
   private function exits()
   {
     return PermissionRole::checkExits($this->permissionOut,$this->roleIn);

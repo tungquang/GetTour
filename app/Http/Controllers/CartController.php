@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function __construct(CartServiceInterface $response)
     {
-      $this->middleware('customer-auth')->only(['submit','index']);
+      $this->middleware('customer-auth')->only(['submit']);
       $this->response = $response;
 
     }
@@ -26,7 +26,9 @@ class CartController extends Controller
     {
       $objectId = $_GET['product'];
       $objectType = $_GET['type'];
-      return $this->response->add($objectId, $objectType);
+      $customer = (isset($_GET['customer'])) ?  $_GET['customer'] : false;
+
+      return $this->response->add($objectId, $objectType ,$customer);
     }
     /* Method to update quantity a object in cart
     */

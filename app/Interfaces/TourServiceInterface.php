@@ -8,6 +8,8 @@ interface TourServiceInterface
 {
   public function index();
 
+  public function indexBan();
+
   public function create();
 
   public function store($request);
@@ -18,6 +20,6 @@ interface TourServiceInterface
 
   public function update($request, $id);
 
-  public function destroy($id);
+  public function destroy($id,$status);
 
 }

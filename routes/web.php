@@ -11,19 +11,23 @@
 |
 */
 
-Route::get('/', function (){
-    return view('home');
-});
-// Route::get('test', function () {
-//     return view('hotel.detail');
-// });
-Auth::routes();
-// page list
-Route::prefix('/page/tour')->group(function(){
-  Route::get('/','HomeController@index');
-});
+Route::get('/', 'HomeController@index');
 
-//
+///Home page
+
+Route::get('/home','HomeController@index')->name('home.page');
+Route::get('/page/hotel','HomeController@hotel')->name('hotel.page');
+Route::get('/page/car','HomeController@car')->name('car.page');
+Route::get('/page/tour','HomeController@tour')->name('tour.page');
+Route::get('/page/blog','HomeController@blog')->name('blog.page');
+Route::get('/page/contact','HomeController@contact')->name('contact.page');
+Route::get('/page/service','HomeController@service')->name('service.page');
+
+
+Auth::routes();
+
+
+
 Route::prefix('/cart')->group(function(){
   Route::get('','CartController@index')->name('cart.index');
   Route::get('add','CartController@add')->name('cart.add');
@@ -55,7 +59,6 @@ Route::resources([
 Route::get('city/{nation}','CityController@index');
 
 //Permission
-
 Route::prefix('permission')->group(function(){
   Route::post('/store','PermissionController@store')->name('permission.store');
   Route::patch('/update/{id}','PermissionController@update')->name('permission.update');
@@ -64,3 +67,14 @@ Route::prefix('permission')->group(function(){
 //Role
 Route::put('role/attach/{id}','RoleController@attachToPermission')->name('role.attach');
 Route::put('user/attach/{role}','UserController@attachToRole')->name('user.attach.role');
+//Bill
+Route::prefix('bill')->group(function(){
+  Route::get('new','BillController@newBill')->name('bill.new');
+  Route::get('checked','BillController@chekedBill')->name('bill.checked');
+});
+//Trash
+Route::get('trash/customer','CustomerController@indexBan')->name('customer.trash');
+Route::get('trash/staff','UserController@indexBan')->name('staff.trash');
+Route::get('trash/tour','TourController@indexBan')->name('tour.trash');
+Route::get('trash/hotel','HotelController@indexBan')->name('hotel.trash');
+Route::get('trash/car','CarController@indexBan')->name('car.trash');

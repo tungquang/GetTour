@@ -13,6 +13,40 @@ class Car extends Model
 
   public function getType()
   {
-    return belongsTo('App\Model\TyperCar','id_type','id');
+    return $this->belongsTo('App\Model\TypeCar','id_type','id');
+  }
+
+  public function hasCar()
+  {
+    return $this->where('status' , 1)
+                ->where('book',0 )
+                ->get();
+  }
+
+  /* Method to get $limit popular car
+  */
+  public function getPopularCar($limit)
+  {
+    $popularlist = $this->getInBookTable()
+                        ->orderBy('solong','desc')
+                        ->where('type','car')
+                        ->limit($limit)
+                        ->get();
+    if ($popularlist->count() < ($limit/2) ){
+        $popularlist = $this->where(['status'=>1])
+                             ->orderBy('id','desc')
+                             ->limit($limit)
+                             ->get();
+    }
+    else {
+
+        foreach ($popularlist as $key => $value) {
+          $this->object = $value->book;
+          $popularlist[$key] = $this->convertToObject();
+        }
+    }
+    return $popularlist;
+
+
   }
 }

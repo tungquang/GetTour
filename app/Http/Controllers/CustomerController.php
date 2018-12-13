@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
 use App\Interfaces\CustomerServiceInterface;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,7 @@ class CustomerController extends Controller
       {
         $this->middleware('customer-auth')->only(['show','update']);
         $this->middleware('auth')->except(['show','update']);
-        $this->middleware('permission:delete-customer')->only(['destroy']);
+        $this->middleware('permission:delete-customer')->only(['destroy','indexBan']);
         $this->response = $response;
       }
       protected function validator(array $data,$rules)
@@ -50,13 +51,13 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the customẻ is disable
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function indexBan()
     {
-        //
+        return $this->response->indexBan();
     }
 
     /**
@@ -118,6 +119,10 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        return $this->response->destroy($id);
+        if(!isset($_GET['status']))
+        {
+          return Response::json(['errors'=>'Thao tác không thành công']);
+        }
+        return $this->response->destroy($id,$_GET['status']);
     }
 }

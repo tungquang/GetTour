@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
 use App\Model\Tour;
 use App\Interfaces\TourServiceInterface;
 use Illuminate\Support\Facades\Validator;
@@ -13,10 +14,10 @@ class TourController extends Controller
 
     public function __construct(TourServiceInterface $response,Tour $tour)
     {
-      $this->middleware('auth');
-      $this->middleware('permission:tour')->except(['index']);
+      $this->middleware('auth')->except('show');
+      $this->middleware('permission:tour')->except('show');
       $this->middleware('permission:create-tour')->only(['store']);
-      $this->middleware('permission:edit-tour')->only(['update']);
+      $this->middleware('permission:edit-tour')->only(['update','edit']);
       $this->middleware('permission:delete-tour')->only(['destroy']);
       $this->response = $response;
       $this->tour = $tour;
@@ -67,6 +68,16 @@ class TourController extends Controller
     public function index()
     {
         return $this->response->index();
+    }
+
+    /**
+     * Show the customẻ is disable
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexBan()
+    {
+        return $this->response->indexBan();
     }
 
     /**
@@ -153,8 +164,14 @@ class TourController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        return $this->response->destroy($id);
-    }
+     public function destroy($id)
+     {
+         if(!isset($_GET['status']))
+         {
+           return Response::json(['errors'=>'Thao tác không thành công']);
+         }
+         return $this->response->destroy($id,$_GET['status']);
+     }
+
+
 }

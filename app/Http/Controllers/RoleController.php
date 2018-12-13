@@ -11,6 +11,7 @@ class RoleController extends Controller
   public function __construct(RoleServiceInterface $response)
   {
     $this->middleware('auth');
+    $this->middleware('role:own');
     $this->response = $response;
   }
 

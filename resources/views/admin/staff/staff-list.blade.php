@@ -54,7 +54,9 @@
                   <th>Tên khách hàng</th>
                   <th>Tài khoản email</th>
                   <th>Nhóm quyền</th>
-                  <th>Danh sách các nhóm quyền</th>
+                  @if($user->hasRole('own'))
+                    <th>Danh sách các nhóm quyền</th>
+                  @endif
                   <th>Cập nhật</th>
                   <th>Action</th>
                 </tr>
@@ -70,6 +72,7 @@
                             {{$staff->role->roleName->display_name}}
                           @endif
                         </td>
+                        @if($user->hasRole('own'))
                         <td>
                           <div class="form-group">
                             <select class="form-control" name="" id="role-in-{{$staff->id}}">
@@ -80,16 +83,18 @@
                             </select>
                           </div>
                         </td>
+                        @endif
                         <td>{{$staff->updated_at}}</td>
                         <td>
-                          @if($user->hasRole('own'))
+                          @if($user->can('delete-user'))
                             <button class="btn btn-danger" data-toggle="modal" data-target="#form-delete-{{$staff->id}}">Xóa</button>
-
-                          <a href="{{route('user.attach.role',$staff->id)}}" name="update">
-                            <button type="button" class="btn btn-warning">
-                              <i class="fa fa-repeat"></i>
-                              </button>
-                          </a>
+                          @endif
+                          @if($user->hasRole('own'))
+                            <a href="{{route('user.attach.role',$staff->id)}}" name="update">
+                              <button type="button" class="btn btn-warning">
+                                <i class="fa fa-repeat"></i>
+                                </button>
+                            </a>
                           @endif
                           <input type="text" class="hidden" name="staff-id" value="{{$staff->id}}">
                           <div class="modal fade" id="form-delete-{{$staff->id}}" role="dialog">
@@ -163,7 +168,7 @@
 
 
         $.ajax({
-          url:"{{url('staff')}}/" + $id,
+          url:"{{url('staff')}}/" + $id + '?status=0',
           type:'DELETE',
           data:{
             '_token':$("input[name=_token]").val(),
@@ -179,6 +184,7 @@
             {
 
               $('.list').children('#'+ $data).html('');
+              $('.modal-backdrop').remove();
               toastr.success('Tài khoản xóa thành công ');
             }
           }
@@ -201,7 +207,7 @@
           },
           success:function($data)
           {
-              console.log($data);
+
             if(!$data)
             {
               toastr.warning('Thao tác không thành công !');

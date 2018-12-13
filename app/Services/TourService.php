@@ -27,11 +27,27 @@ class TourService implements TourServiceInterface
   public function index()
   {
       $list = $this->tour->getAll();
+      // dd($list);
       return view('admin.tour.tour-list')
                   ->with([
-                    'user'=>Auth::user(),
+                    'user' => Auth::user(),
                     'list' => $list
                   ]);
+  }
+
+  /*Method to show all tour was disable
+  */
+  public function indexBan()
+  {
+
+    $tour = $this->tour->getBan();
+
+    return view('admin.tour.tour-trash')
+                 ->with(
+                   [
+                     'list' => $tour,
+                     'user'    => Auth::user(),
+                 ]);
   }
 
   /**
@@ -89,18 +105,7 @@ class TourService implements TourServiceInterface
    */
   public function show($id)
   {
-      $tour = $this->tour->getbyIdOrfind($id);
-      if($tour)
-      {
-        return view('admin.tour.update-tour')
-                  ->with([
-                    'tour'=>$tour,
-                    'user'=>Auth::user(),
-                    'type' =>TypeTour::all(),
-                    'city' => Cites::all(),
-                  ]);
-      }
-      return view('errors.notfound');
+    return view('page.tour-detail');
   }
 
   /**
@@ -111,7 +116,18 @@ class TourService implements TourServiceInterface
    */
   public function edit($id)
   {
-      return 'hello';
+    $tour = $this->tour->getbyIdOrfind($id);
+    if($tour)
+    {
+      return view('admin.tour.update-tour')
+                ->with([
+                  'tour'=>$tour,
+                  'user'=>Auth::user(),
+                  'type' =>TypeTour::all(),
+                  'city' => Cites::all(),
+                ]);
+    }
+    return view('errors.notfound');
   }
 
   /**
@@ -165,9 +181,9 @@ class TourService implements TourServiceInterface
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id,$staus)
   {
-      $tour = $this->tour->DeleteOrGet($id,0);
+      $tour = $this->tour->DeleteOrGet($id,$staus);
       if ($tour) {
           return response()->json($tour);
       }

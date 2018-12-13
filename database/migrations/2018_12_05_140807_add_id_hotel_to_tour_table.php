@@ -14,7 +14,7 @@ class AddIdHotelToTourTable extends Migration
     public function up()
     {
         Schema::table('tour', function (Blueprint $table) {
-            $table->string('id_hotel')->nullable($value = true);
+            $table->string('type_hotel')->nullable($value = true);
         });
     }
 
@@ -26,7 +26,7 @@ class AddIdHotelToTourTable extends Migration
     public function down()
     {
         Schema::table('tour', function (Blueprint $table) {
-            $table->string('id_hotel')->nullable($value = true);
+            $table->string('type_hotel')->nullable($value = true);
         });
     }
 }

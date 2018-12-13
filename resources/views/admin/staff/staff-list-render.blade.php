@@ -2,7 +2,11 @@
     <tr class="staff" id={{$staff->id}}>
       <td>{{$staff->name}}</td>
       <td>{{$staff->email}}</td>
-      <td>{{$staff->role->roleName->display_name}}</td>
+      <td>
+        @if($staff->role)
+          {{$staff->role->roleName->display_name}}
+        @endif
+      </td>
       <td>
         <div class="form-group">
           <select class="form-control" name="" id="role-in-{{$staff->id}}">

@@ -10,4 +10,7 @@ class ListBook extends Model
   use ActionModel;
   protected $fillable = ['id','id_book','type','id_bill'];
   protected $table = 'listbook';
+
+
+
 }

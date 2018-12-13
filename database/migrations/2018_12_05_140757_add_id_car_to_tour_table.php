@@ -14,7 +14,7 @@ class AddIdCarToTourTable extends Migration
     public function up()
     {
         Schema::table('tour', function (Blueprint $table) {
-            $table->string('id_car')->nullable($value = true);
+            $table->string('type_car')->nullable($value = true);
         });
     }
 
@@ -26,7 +26,7 @@ class AddIdCarToTourTable extends Migration
     public function down()
     {
         Schema::table('tour', function (Blueprint $table) {
-            $table->string('id_car')->nullable($value = true);
+            $table->string('type_car')->nullable($value = true);
         });
     }
 }

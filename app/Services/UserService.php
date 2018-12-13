@@ -56,6 +56,22 @@
                   'role' => Role::all(),
                 ]);
    }
+
+   /*Method to show all staff was disable
+   */
+   public function indexBan()
+   {
+
+     $staff = $this->staff->getBan();
+
+     return view('admin.staff.staff-trash')
+                  ->with(
+                    [
+                      'list' => $staff,
+                      'user'    => Auth::user(),
+                  ]);
+   }
+
    // public function store(Request $request);
    public function show($id)
    {
@@ -103,9 +119,9 @@
 
 
    }
-   public function destroy($id){
+   public function destroy($id,$staus){
 
-     $staff = $this->staff->DeleteOrGet($id,0);
+     $staff = $this->staff->DeleteOrGet($id,$staus);
      if(!$staff)
      {
        return Response::json(['errors'=>'Thao tác không thành công']);

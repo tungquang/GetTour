@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use App\Interfaces\UserServiceInterface;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,9 @@ class UserController extends Controller
     public function __construct(UserServiceInterface $response)
     {
       $this->middleware('auth');
-      $this->middleware('role:own')->except(['show','update']);
+      $this->middleware('role:own')->only(['attachToRole']);
+      $this->middleware('permission:user')->except(['show','update']);
+      $this->middleware('permission:delete-user')->only(['destroy']);
       $this->response = $response;
     }
     /**
@@ -25,6 +28,16 @@ class UserController extends Controller
     public function index()
     {
        return $this->response->index();
+    }
+
+    /**
+     * Show the customẻ is disable
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexBan()
+    {
+        return $this->response->indexBan();
     }
 
     /**
@@ -89,11 +102,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+     public function destroy($id)
+     {
+         if(!isset($_GET['status']))
+         {
+           return Response::json(['errors'=>'Thao tác không thành công']);
+         }
+         return $this->response->destroy($id,$_GET['status']);
+     }
 
-        return $this->response->destroy($id);
-    }
+     /*Method to create role for user
+     */
     public function attachToRole(Request $request, $id)
     {
       return $this->response->attachToRole($request, $id);

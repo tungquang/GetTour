@@ -105,7 +105,7 @@ $('.delete').click(function(){
 
   $.ajax({
     type:'DELETE',
-    url :"{{url('/car')}}/"+$id,
+    url :"{{url('/car')}}/"+$id + '?status=0',
     data:{
       '_token':$('meta[name="csrf-token"]').attr('content'),
     },
@@ -118,6 +118,7 @@ $('.delete').click(function(){
       else
       {
         $('#'+$data).remove('');
+
         toastr.success('car đã được xóa');
       }
     }
@@ -125,7 +126,7 @@ $('.delete').click(function(){
 });
 $('.car').dblclick(function(){
   $id = $(this).attr('id');
-  $url = "{{url('/car')}}"+'/'+$id;
+  $url = "{{url('/car')}}"+'/'+$id+'/edit';
   window.location.replace($url);
 });
 
