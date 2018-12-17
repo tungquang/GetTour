@@ -78,5 +78,16 @@ class Tour extends Model
 
     }
 
+    /*
+    * Method to get all comment
+    */
+
+    public function comment()
+    {
+      $commentAll = $this->hasMany('App\Model\Comment','id_post','id');
+      $comment = $commentAll->where(['type'=>'tour']);
+      return $comment;
+    }
+
 
 }

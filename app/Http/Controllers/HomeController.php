@@ -8,6 +8,8 @@ use App\Model\Tour;
 use App\Model\Car;
 use App\Model\Hotel;
 use App\Model\ListBook;
+use App\Interfaces\CommentServiceInterface;
+use Response;
 
 class HomeController extends Controller
 {
@@ -16,12 +18,13 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Hotel $hotel,Tour $tour,Car $car)
+    public function __construct(Hotel $hotel,Tour $tour,Car $car,CommentServiceInterface $comment)
     {
       $this->hotel = $hotel;
       $this->tour = $tour;
       $this->car = $car ;
-        // $this->middleware('auth');
+      $this->comment = $comment;
+
     }
 
     /**
@@ -80,7 +83,7 @@ class HomeController extends Controller
       return view('page.car')->with([
         'list' => $list
       ]);
-      
+
     }
 
     /**
@@ -114,6 +117,26 @@ class HomeController extends Controller
     public function service()
     {
       return view('page.service');
+    }
+
+    public function comment(Request $request,$type = '',$id_post = '')
+    {
+
+      if($this->hasSign() && $request->content)
+      {
+        return $this->comment->store($request,$type,$id_post);
+      }
+      return response()->json($value = false);
+
+    }
+    private function hasSign()
+    {
+      if(Auth::user() || Auth::guard('customer')->user())
+      {
+        return true;
+      }
+      return false;
+
     }
 
 

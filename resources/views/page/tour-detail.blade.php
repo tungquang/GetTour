@@ -66,11 +66,12 @@
                           <div class="tab-content">
                             <div class="active tab-pane" id="activity">
                               <!-- Post -->
-                              <div class="post ">
+                              @foreach($comment as $com)
+                              <div class="post">
                                 <div class="user-block row ">
                                   <img class="img-circle img-bordered-sm"  src="{{url('/storage/1544717424-daidien.jpg')}}" alt="user image">
                                       <span class="username">
-                                        <a href="#">Jonathan Burke Jr.</a>
+                                        <a href="#">{{$com->user}}</a>
 
                                       </span>
                                   <span class="description">Shared publicly - 7:30 PM today</span>
@@ -132,19 +133,19 @@
                                             <img class="img-circle img-bordered-sm" src="{{url('/storage/1544717424-daidien.jpg')}}" alt="User Image">
                                             <span class="description">Bình luận của bạn ?</span>
                                           </div>
+                                          <!-- form post -->
                                           <div class="clearfix">
                                             <form class="form-horizontal form">
-                                              <div class="form-group margin-bottom-none">
-                                                <div class="col-sm-12 form-group">
-                                                  <input class="form-control input-sm" placeholder="Response">
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                  <div class="col-sm-3 left">
-                                                    <button type="submit" class="btn btn-default pull-right btn-block btn-sm"> Bình luận</button>
-                                                  </div>
-                                                </div>
+                                              @csrf
+                                              <div class="col-sm-9 form-group margin-bottom-none">
+                                                  <input type="text" name="user" class="hidden" value="52">
+                                                  <input name="content" class="form-control input-sm" placeholder="Hãy cho chúng tô biếtý kiến của bạn ?">
+                                              </div>
+                                              <div class="col-sm-3 pull-right">
+                                                  <button type="submit" class="btn btn-default pull-right btn-block btn-sm submit-comment"> Bình luận</button>
                                               </div>
                                             </form>
+
                                           </div>
                                         </div>
                                       </div>
@@ -154,32 +155,28 @@
 
 
                               </div>
+                              @endforeach
                               <!-- /.post -->
-
-                              <!-- Post -->
-                              <div class="post clearfix">
-                                <div class="user-block clearfix">
-                                  <img class="img-circle img-bordered-sm" src="{{url('/storage/1544717424-daidien.jpg')}}" alt="User Image">
-                                  <span class="description">Bình luận của bạn ?</span>
-                                </div>
-                                <div class="clearfix">
-                                  <form class="form-horizontal form">
-                                    <div class="form-group margin-bottom-none">
-                                      <div class="col-sm-12 form-group">
-                                        <input class="form-control input-sm" placeholder="Response">
-                                      </div>
-                                      <div class="col-sm-12 form-group">
-                                        <div class="col-sm-3 left">
-                                          <button type="submit" class="btn btn-default pull-right btn-block btn-sm"> Bình luận</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              <!-- /.post -->
-
                             </div>
+                            <!-- form Post -->
+                            <div class="post clearfix">
+                              <div class="user-block clearfix">
+                                <img class="img-circle img-bordered-sm" src="{{url('/storage/1544717424-daidien.jpg')}}" alt="User Image">
+                                <span class="description">Bình luận của bạn ?</span>
+                              </div>
+                              <div class="clearfix">
+                                <form class="form-horizontal form">
+                                  @csrf
+                                  <div class=" col-sm-9 form-group margin-bottom-none">
+                                      <input name="content" class="form-control input-sm" placeholder="Hãy cho chúng tô biếtý kiến của bạn ?">
+                                    </div>
+                                    <div class="col-sm-3 form-group pull-right">
+                                        <button type="submit" class="btn btn-default pull-right btn-block btn-sm submit-comment"> Bình luận</button>
+                                      </div>
+                                </form>
+                              </div>
+                            </div>
+                            <!-- /.post -->
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="timeline">
                               <!-- The timeline -->
@@ -279,6 +276,7 @@
 
                             <div class="tab-pane" id="settings">
                               <form class="form-horizontal">
+                                @csrf
                                 <div class="form-group">
                                   <label for="inputName" class="col-sm-2 control-label">Name</label>
 
@@ -355,6 +353,7 @@
           <div class="side search-wrap animate-box">
             <h3 class="sidebar-heading">Tìm kiếm Tour</h3>
             <form method="post" class="colorlib-form">
+              @csrf
                     <div class="row">
                       <div class="col-md-12">
                       <div class="form-group">
@@ -367,6 +366,7 @@
                      <div class="col-md-12">
                        <h3 class="sidebar-heading">Kiểu</h3>
                        <form method="post" class="colorlib-form">
+                         @csrf
                                <div class="row">
                                <div class="col-md-12">
                                  <div class="form-group">
@@ -415,6 +415,7 @@
               <div class="col-md-12">
                 <h3 class="sidebar-heading">Thành phố / Tỉnh</h3>
                 <form method="post" class="colorlib-form">
+                  @csrf
                         <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
@@ -452,6 +453,7 @@
         <h2>Sign Up for a Newsletter</h2>
         <p>Sign up for our mailing list to get latest updates and offers.</p>
         <form class="form-inline qbstp-header-subscribe">
+          @csrf
           <div class="row">
             <div class="col-md-12 col-md-offset-0">
               <div class="form-group">
@@ -480,6 +482,38 @@
           $(this).children('i').addClass('fa-angle-down');
         }
         $('#more-comment').fadeToggle(600);
+
+      });
+      $('.submit-comment').click(function(event){
+        event.preventDefault();
+        $url = "{{route('comment.post',['type' => 'tour','id_post' => $tour->id])}}";
+        $comment = $(this).parent().prev().children('input[name=content]');
+        $user = $(this).parent().prev().children('input[name=user]').val();
+
+        $.ajax({
+          type:'post',
+          url : $url,
+
+          data : {
+            'content' : $comment.val(),
+            'user'    : $user,
+            '_token'  : $('input[name=_token]').val(),
+            'id_post' : {{$tour->id}},
+            'type'    : 'tour'
+          },
+          success:function($data)
+          {
+            if($data)
+            {
+              $('#activity').append($data);
+              $comment.val(" ");
+            }
+            else
+            {
+              console.log('failt');
+            }
+          }
+        });
 
       });
    </script>

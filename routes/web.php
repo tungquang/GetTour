@@ -22,6 +22,7 @@ Route::get('/page/tour','HomeController@tour')->name('tour.page');
 Route::get('/page/blog','HomeController@blog')->name('blog.page');
 Route::get('/page/contact','HomeController@contact')->name('contact.page');
 Route::get('/page/service','HomeController@service')->name('service.page');
+Route::post('/page/{type}/{id_post}','HomeController@comment')->name('comment.post');
 
 
 Auth::routes();
