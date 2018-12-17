@@ -27,111 +27,319 @@
         <div class="row">
           <div class="col-md-12">
             <div class="wrap-division">
-              <div class="col-md-12 col-md-offset-0 heading2 animate-box">
-                <h2>Athens, Greece Tour</h2>
-              </div>
+
               <div class="row">
                 <div class="col-md-12 animate-box">
                   <div class="room-wrap">
                     <div class="row">
-                      <div class="col-md-6 col-sm-6">
+                      <!-- title -->
+                      <div class="col-md-12 col-sm-12">
+                        <div class="desc">
+                          <span class="day-tour">{{$tour->getProvince->name}}</span>
+                          <h2>{{$tour->name}}</h2>
+                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                        </div>
+                      </div>
+                      <!-- image -->
+                      <div class="col-md-12 col-sm-12">
                         <div class="room-img" style="background-image: url({{asset('/storage/tour-1.jpg')}});"></div>
                       </div>
-                      <div class="col-md-6 col-sm-6">
+                      <!-- content -->
+                      <div class="col-md-12 col-sm-12">
                         <div class="desc">
-                          <span class="day-tour">Day 1</span>
-                          <h2>Athens, Greece</h2>
+                          <span class="day-tour">{{$tour->getProvince->name}}</span>
+                          <p>{{$tour->name}}</p>
                           <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- comment -->
+                <div class="col-md-12">
+								<div class="wrap-division">
+									<div class="col-md-12 col-md-offset-0 heading2 animate-box fadeInUp animated-fast">
+										<h4>Bình luận</h4>
+                    <div class="col-md-12 animate-box">
+                      <div class="room-wrap">
+                        <div class="row">
+                          <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                              <!-- Post -->
+                              <div class="post ">
+                                <div class="user-block row ">
+                                  <img class="img-circle img-bordered-sm"  src="{{url('/storage/1544717424-daidien.jpg')}}" alt="user image">
+                                      <span class="username">
+                                        <a href="#">Jonathan Burke Jr.</a>
 
-                <div class="col-md-12 animate-box">
-                  <div class="room-wrap">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-6">
-                        <div class="room-img" style="background-image: url({{asset('/storage/tour-2.jpg')}});"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
-                        <div class="desc">
-                          <span class="day-tour">Day 2</span>
-                          <h2>Thailand</h2>
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                                      </span>
+                                  <span class="description">Shared publicly - 7:30 PM today</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                  Lorem ipsum represents a long-held tradition for designers,
+                                  typographers and the like. Some people hate it and argue for
+                                  its demise, but others ignore the hate as they create awesome
+                                  tools to help create filler text for everyone from bacon lovers
+                                  to Charlie Sheen fans.
+                                </p>
+                                <ul class="list-inline clearfix">
+                                  <li class="username"><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                  <li class="username"><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                  </li>
+                                  <li class="username">
+                                    <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
+                                      (5)</a>
+                                  </li>
+                                  <li class="pull-right username">
+                                    <a href="#" class="link-black text-sm more-comment">
+                                      <i class="fa fa-angle-down margin-r-5"></i>
+                                    </a>
+                                  </li>
+                                </ul>
+                                <div class="clearfix" id="more-comment">
+                                  <ul class="dropdown list">
+                                    <li>
+                                      <div class="post ">
+                                        <div class="user-block row ">
+                                          <img class="img-circle img-bordered-sm"  src="{{url('/storage/1544717424-daidien.jpg')}}" alt="user image">
+                                              <span class="username">
+                                                <a href="#">Jonathan Burke Jr.</a>
 
-                <div class="col-md-12 animate-box">
-                  <div class="room-wrap">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-6">
-                        <div class="room-img" style="background-image: url({{asset('/storage/tour-3.jpg')}});"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
-                        <div class="desc">
-                          <span class="day-tour">Day 3</span>
-                          <h2>Boracay, Philippines</h2>
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                                              </span>
 
-                <div class="col-md-12 animate-box">
-                  <div class="room-wrap">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-6">
-                        <div class="room-img" style="background-image: url({{asset('/storage/tour-4.jpg')}});"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
-                        <div class="desc">
-                          <span class="day-tour">Day 4</span>
-                          <h2>Tokyo, Japan</h2>
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <p>
+                                          Lorem ipsum represents a long-held tradition for designers,
+                                          typographers and the like. Some people hate it and argue for
+                                          its demise, but others ignore the hate as they create awesome
+                                          tools to help create filler text for everyone from bacon lovers
+                                          to Charlie Sheen fans.
+                                        </p>
+                                        <p><span class="description">  7:30 PM today</span></p>
+                                        <ul class="list-inline clearfix">
+                                          <li class="username"><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                          <li class="username"><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                          </li>
+                                          <li class="pull-right username">
+                                            <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
+                                              (5)</a>
+                                          </li>
+                                        </ul>
+                                        <div class="post clearfix">
+                                          <div class="user-block clearfix">
+                                            <img class="img-circle img-bordered-sm" src="{{url('/storage/1544717424-daidien.jpg')}}" alt="User Image">
+                                            <span class="description">Bình luận của bạn ?</span>
+                                          </div>
+                                          <div class="clearfix">
+                                            <form class="form-horizontal form">
+                                              <div class="form-group margin-bottom-none">
+                                                <div class="col-sm-12 form-group">
+                                                  <input class="form-control input-sm" placeholder="Response">
+                                                </div>
+                                                <div class="col-sm-12 form-group">
+                                                  <div class="col-sm-3 left">
+                                                    <button type="submit" class="btn btn-default pull-right btn-block btn-sm"> Bình luận</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
 
-                <div class="col-md-12 animate-box">
-                  <div class="room-wrap">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-6">
-                        <div class="room-img" style="background-image: url({{asset('/storage/tour-5.jpg')}});"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
-                        <div class="desc">
-                          <span class="day-tour">Day 5</span>
-                          <h2>Paris, Italy</h2>
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col-md-12 animate-box">
-                  <div class="room-wrap">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-6">
-                        <div class="room-img" style="background-image: url({{asset('/storage/tour-6.jpg')}});"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
-                        <div class="desc">
-                          <span class="day-tour">Day 6</span>
-                          <h2>Greece</h2>
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                              </div>
+                              <!-- /.post -->
+
+                              <!-- Post -->
+                              <div class="post clearfix">
+                                <div class="user-block clearfix">
+                                  <img class="img-circle img-bordered-sm" src="{{url('/storage/1544717424-daidien.jpg')}}" alt="User Image">
+                                  <span class="description">Bình luận của bạn ?</span>
+                                </div>
+                                <div class="clearfix">
+                                  <form class="form-horizontal form">
+                                    <div class="form-group margin-bottom-none">
+                                      <div class="col-sm-12 form-group">
+                                        <input class="form-control input-sm" placeholder="Response">
+                                      </div>
+                                      <div class="col-sm-12 form-group">
+                                        <div class="col-sm-3 left">
+                                          <button type="submit" class="btn btn-default pull-right btn-block btn-sm"> Bình luận</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <!-- /.post -->
+
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="timeline">
+                              <!-- The timeline -->
+                              <ul class="timeline timeline-inverse">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                      <span class="bg-red">
+                                        10 Feb. 2014
+                                      </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                  <i class="fa fa-envelope bg-blue"></i>
+
+                                  <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                                    <div class="timeline-body">
+                                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                      weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                      jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                      quora plaxo ideeli hulu weebly balihoo...
+                                    </div>
+                                    <div class="timeline-footer">
+                                      <a class="btn btn-primary btn-xs">Read more</a>
+                                      <a class="btn btn-danger btn-xs">Delete</a>
+                                    </div>
+                                  </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <li>
+                                  <i class="fa fa-user bg-aqua"></i>
+
+                                  <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                                    </h3>
+                                  </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <li>
+                                  <i class="fa fa-comments bg-yellow"></i>
+
+                                  <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+
+                                    <div class="timeline-body">
+                                      Take me to your leader!
+                                      Switzerland is small and neutral!
+                                      We are more like Germany, ambitious and misunderstood!
+                                    </div>
+                                    <div class="timeline-footer">
+                                      <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                    </div>
+                                  </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                      <span class="bg-green">
+                                        3 Jan. 2014
+                                      </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                  <i class="fa fa-camera bg-purple"></i>
+
+                                  <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+
+                                    <div class="timeline-body">
+                                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    </div>
+                                  </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <li>
+                                  <i class="fa fa-clock-o bg-gray"></i>
+                                </li>
+                              </ul>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="settings">
+                              <form class="form-horizontal">
+                                <div class="form-group">
+                                  <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                  <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                                  <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+
+                                  <div class="col-sm-10">
+                                    <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                      <label>
+                                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+									</div>
+
+								</div>
+							</div>
+
                 <div class="col-md-12 animate-box text-center">
                   <p><a href="#" class="btn btn-primary">Book Now!</a></p>
                 </div>
@@ -256,5 +464,23 @@
       </div>
     </div>
   </div>
-</div>
+</div>fa-angle-down
+@endsection
+@section('script')
+   <script type="text/javascript">
+      $('.more-comment').click(function(event){
+        event.preventDefault();
+        if($(this).children('i').hasClass('fa-angle-down'))
+        {
+          $(this).children('i').removeClass('fa-angle-down');
+          $(this).children('i').addClass('fa-angle-up');
+        }
+        else {
+          $(this).children('i').removeClass('fa-angle-up');
+          $(this).children('i').addClass('fa-angle-down');
+        }
+        $('#more-comment').fadeToggle(600);
+
+      });
+   </script>
 @endsection

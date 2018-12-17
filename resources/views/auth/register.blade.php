@@ -4,15 +4,16 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="{{route('home.page')}}"><b>{{config('app.name')}}</b></a>
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Register a new membership</p>
+    <p class="login-box-msg">Đăng kí </p>
 
     <form action="{{ route('register') }}" method="post">
       @csrf
       <div class="form-group has-feedback">
+
         <input type="text" name="name" class="form-control" placeholder="Full name">
         <span class="glyphicon glyphicon-user form-control-feedback">
 
@@ -64,13 +65,13 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
+              <input type="checkbox"> Tôi đồng ý với  <a href="#">điều kiện</a>
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng kí</button>
         </div>
         <!-- /.col -->
       </div>
@@ -78,13 +79,13 @@
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
         Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
         Google+</a>
     </div>
 
-    <a href="{{route('login')}}" class="text-center">I already have a membership</a>
+    <a href="{{route('login')}}" class="text-center">Tôi đã có tài khoản</a>
   </div>
   <!-- /.form-box -->
 </div>

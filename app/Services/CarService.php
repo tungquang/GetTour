@@ -136,7 +136,7 @@ use App\Interfaces\CarServiceInterface;
        $data['id'] = $id;
        $this->car->updateOrCreateNew($data);
 
-       return redirect('car/'.$id);
+       return redirect()->route('car.edit',['id'=>$id]);
    }
    public function destroy($id,$satus)
    {

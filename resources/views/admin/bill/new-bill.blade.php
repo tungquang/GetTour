@@ -31,17 +31,18 @@
                 <th>Khách hàng</th>
                 <th>Giá trị đơn hàng</th>
                 <th>Phương thức thanh toán</th>
+                <th>Thời gian tạo</th>
               </tr>
               </thead>
               <tbody class="list-role">
                   @foreach($list as $bill)
-                  <a href="#">
-                    <tr>
+                    <tr id="bill-{{$bill->id}}" class="bill">
                       <td>{{$bill->customer->name}}</td>
-                      <td>{{$bill->total}}</td>
+                      <td>{{number_format($bill->total)}}</td>
                       <td>{{$bill->getPayment->name}}</td>
+                      <th>{{$bill->created_at}}</th>
+
                     </tr>
-                  </a>
                   @endforeach
               </tbody>
               <tfoot>
@@ -61,6 +62,10 @@
 @endsection
 @section('script')
   <script type="text/javascript">
-
+    $('.bill').dblclick(function(){
+      var $id = $(this).attr('id').split('-')[1];
+      var $url = "{{url('bill/detail')}}/" + $id;
+      window.location.replace($url);
+    });
   </script>
 @endsection

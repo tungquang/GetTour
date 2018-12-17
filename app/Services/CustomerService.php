@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Auth;
 use Response;
+use App\Model\Cites;
 use App\Model\Customer;
 use App\Model\CustomerDetail;
 use App\Interfaces\CustomerServiceInterface;
@@ -17,6 +18,8 @@ use App\Traits\StorageFunction;
    // traits to work with file
    use StorageFunction;
 
+   private $image = 'default-user.png';
+
    public function __construct(Customer $customer,CustomerDetail $detail)
    {
      $this->detail = $detail;
@@ -26,7 +29,11 @@ use App\Traits\StorageFunction;
    */
    public function index()
    {
-     $user = $this->user();
+     try {
+       $user = Auth::user();
+     } catch (\Exception $e) {
+       abort('404','Request not found');
+     }
 
      $customer = $this->customer->getAll();
 
@@ -42,7 +49,7 @@ use App\Traits\StorageFunction;
    */
    public function indexBan()
    {
-     $user = $this->user();
+     $user = $this->user($id);
 
      $customer = $this->customer->getBan();
 
@@ -59,13 +66,23 @@ use App\Traits\StorageFunction;
 
      $customer = $this->customer->getbyIdOrfind($id);
 
+     if(Auth::user())
+     {
+       $user = Auth::user();
+     }
+    else
+    {
+        $user = $this->user($id);
+    }
+    
      if ($customer) {
 
        return view('admin.customer.profile')
                        ->with(
                          [
                            'customer' => $customer,
-                           'user'     => $this->user(),
+                           'user'     => $user,
+                           'cities'   => Cites::all()
                        ]);
 
      }
@@ -78,7 +95,8 @@ use App\Traits\StorageFunction;
    */
    public function update($request,$id)
    {
-     $user = $this->user();
+
+     $user = $this->user($id);
      // If the detail wasn't isset then $image was đefaul
      try {
         $image = $user->detail->img;
@@ -148,14 +166,12 @@ use App\Traits\StorageFunction;
      return response()->json($id);
    }
 
-   protected function user()
+   protected function user($id)
    {
       if (Auth::guard('customer')->user()) {
         return Auth::guard('customer')->user();
       }
-      if (Auth::guard()->user()) {
-        return Auth::guard()->user();
-      }
+    return $this->customer->getbyIdOrfind($id);
    }
 
  }

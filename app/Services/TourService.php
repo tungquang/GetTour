@@ -87,7 +87,7 @@ class TourService implements TourServiceInterface
                   'unit_price'=> $request->unit_price,
                   'content'=> $request->content,
                   'img' => $this->getInf($request->img)['name'],
-                  'number_seated' => $request->number_seated,
+                  'book' => $request->number_seated,
                   'note' => $request->note,
                   'promotion_price' => $request->promotion_price,
                 ];
@@ -105,7 +105,8 @@ class TourService implements TourServiceInterface
    */
   public function show($id)
   {
-    return view('page.tour-detail');
+    $tour = $this->tour->getbyIdOrfind($id);
+    return view('page.tour-detail')->with(['tour' => $tour]);
   }
 
   /**
@@ -139,7 +140,6 @@ class TourService implements TourServiceInterface
    */
   public function update($request, $id)
   {
-
     $tour = $this->tour->getbyIdOrfind($id);
 
     if($request->img)
@@ -165,14 +165,19 @@ class TourService implements TourServiceInterface
               'unit_price'=> $request->unit_price,
               'content'=> $request->content,
               'img' => $img,
-              'number_seated' => $request->number_seated,
+              'book' => $request->number_seated,
               'note' => $request->note,
               'promotion_price' => $request->promotion_price,
     ];
       $data['id'] = $id;
-      $this->tour->updateOrCreateNew($data);
 
-      return redirect('tour/'.$id);
+      $flag = $this->tour->updateOrCreateNew($data);
+      if($flag)
+      {
+          return redirect()->route('tour.edit',['tour'=>$id]);
+      }
+      abort('403','Can do that');
+
   }
 
   /**

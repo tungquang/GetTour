@@ -38,7 +38,7 @@ class CartService implements CartServiceInterface
     ]);
 
   }
-  
+
   /*
   *
   * Method to add product to cart or update cart with default
@@ -149,6 +149,11 @@ class CartService implements CartServiceInterface
   public function submit($payment)
   {
 
+    if(Cart::isEmpty())
+    {
+        return abort('404','Not found cart');
+    }
+    
     $user = Auth::guard('customer')->user();
 
     $list = Cart::getContent();

@@ -2,13 +2,13 @@
 @section('content')
 <section class="content-header">
     <h1>
-      Hoá đơn duyệt
-      <p><small>Quản lý các hóa đơn qua duyệt</small></p>
+      Hoá đơn mới
+      <p><small>Quản lý các hóa đơn chưa qua duyệt</small></p>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý</a></li>
       <li><a href="#">Quản lý hóa đơn</a></li>
-      <li class="active">Hóa đơn duyệt</li>
+      <li class="active">Hóa đơn mới</li>
     </ol>
   </section>
 
@@ -28,21 +28,25 @@
             <table id="role-table" class="table table-bordered table-striped table-hover">
               <thead>
               <tr>
-                <th>Khách hàng</th>
+                <th>Ngày đặt hàng</th>
                 <th>Giá trị đơn hàng</th>
                 <th>Phương thức thanh toán</th>
-                <th>Thời gian tạo</th>
                 <th>Tình trạng</th>
               </tr>
               </thead>
               <tbody class="list-role">
                   @foreach($list as $bill)
                     <tr id="bill-{{$bill->id}}" class="bill">
-                      <td>{{$bill->customer->name}}</td>
-                      <td>{{number_format($bill->total)}}</td>
-                      <td>{{$bill->pay}}</td>
                       <td>{{$bill->created_at}}</td>
-                      <td><button type="button" name="button" class="btn btn-primary">Check</button>  </td>
+                      <td>{{number_format($bill->total)}}</td>
+                      <td>{{$bill->getPayment->name}}</td>
+                      <td>
+                        @if($bill->check)
+                          Hóa đơn đã duyệt !
+                        @else
+                         Hóa đơn đang duyệt !
+                        @endif
+                      </td>
                     </tr>
                   @endforeach
               </tbody>
@@ -62,11 +66,11 @@
   </section>
 @endsection
 @section('script')
-<script type="text/javascript">
-  $('.bill').dblclick(function(){
-    var $id = $(this).attr('id').split('-')[1];
-    var $url = "{{url('bill/detail')}}/" + $id;
-    window.location.replace($url);
-  });
-</script>
+  <script type="text/javascript">
+    $('.bill').dblclick(function(){
+      var $id = $(this).attr('id').split('-')[1];
+      var $url = "{{url('bill/detailbillOfCustomer')}}/" + $id;
+      window.location.replace($url);
+    });
+  </script>
 @endsection

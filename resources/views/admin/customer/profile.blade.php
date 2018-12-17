@@ -5,8 +5,7 @@
     Cá nhân
   </h1>
   <ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li><a href="#">Examples</a></li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý</a></li>
   <li class="active">Thông tin cá nhân</li>
 </ol>
 </section>
@@ -20,8 +19,12 @@
     <!-- Profile Image -->
     <div class="box box-primary">
       <div class="box-body box-profile">
-        <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$user->detail->img)}}" alt="User profile picture">
 
+        @if($customer->detail)
+          <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$customer->detail->img)}}" alt="User profile picture">
+        @else
+          <img src="{{asset('/storage/default-user.png')}}" class="profile-user-img img-responsive img-circle" alt="User Image">
+        @endif
         <h3 class="profile-username text-center">{{$customer->name}}</h3>
 
         <p class="text-muted text-center">Software Engineer</p>
@@ -174,25 +177,17 @@
                 <select class="form-control select2" style="width: 100%;"
 
                 @if($customer->detail)
-                 class="{{$customer->detail->id_country}}"
+                 id="country-{{$customer->detail->id_country}}"
                  @endif
                   name="id_country">
-                  <option value="0">Hà Nội</option>
-                  <option value="1">Hà Nội2</option>
-                  <option value="2">Hà Nội3</option>
-                  <option value="3">Hà Nội4</option>
+                  <option value="">Yêu cầu thành phố</option>
+                  @foreach($cities as $ci)
+                  <option value="{{$ci->id}}">{{$ci->name}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                  </label>
-                </div>
-              </div>
-            </div>
+
             <div class="form-group">
               <label for="file" class="col-sm-2 control-label">Ảnh đại diện</label>
 
@@ -202,7 +197,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
               </div>
             </div>
           </form>
@@ -223,8 +218,9 @@
 @section('script')
  <script type="text/javascript">
   function loadCountry(){
-    var $id = $('select[name=id_country]').attr('class');
-    $('select[name=id_country]').children().eq($id).attr('selected','selected');
+    var $id = $('select[name=id_country]').attr('id');
+    var $eq = $id.split('-');
+    $('select[name=id_country]').children().eq($eq[1]).attr('selected','selected');
   };
   function loadGender()
   {

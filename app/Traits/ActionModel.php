@@ -31,6 +31,7 @@ trait ActionModel
   public function getbyIdOrfind($id = '',array $data=[])
   {
     if ($id == '') {
+
       return $this->where($data)->get();
     }
     else {

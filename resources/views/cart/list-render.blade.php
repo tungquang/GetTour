@@ -1,7 +1,7 @@
 @foreach($list as $obj)
   <tr>
     <td>
-      <img src="{{Storage::disk('local')->url($obj->attributes->img)}}" height="50px" width="50px" alt="">
+      <img src="{{Storage::disk('local')->url($obj->attributes->object->img)}}" height="50px" width="50px" alt="">
     </td>
     <td>{{$obj->name}}</td>
     <td>{{number_format($obj->price)}}</td>

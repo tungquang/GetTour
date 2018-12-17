@@ -30,9 +30,9 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
-        <a href="#">
+
+        <li class="">
+        <a href="{{route('home.page')}}">
           <i class="fa fa-dashboard"></i> <span>Trang chủ</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -41,7 +41,7 @@
 
       </li>
       @if(Auth::user())
-        @if($user->hasRole(['own']))
+        @if(Auth::user()->hasRole(['own']))
           <li class="">
             <a href="{{route('role.index')}}">
               <i class="fa fa-files-o"></i>
@@ -53,7 +53,7 @@
           </li>
 
         @endif
-        @if($user->can('user'))
+        @if(Auth::user()->can('user'))
         <li class="treeview">
             <a href="">
               <i class="fa fa-user"></i>
@@ -64,13 +64,13 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="{{route('staff.index')}}"><i class="fa fa-circle-o"></i> Danh sách nhân viên</a></li>
-              @if($user->can('delete-tour'))
+              @if(Auth::user()->can('delete-tour'))
               <li><a href="{{route('staff.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
               @endif
             </ul>
           </li>
         @endif
-        @if($user->can('tour')|| $user->hasRole('own') || $user->hasRole('tour') )
+        @if(Auth::user()->can('tour')|| Auth::user()->hasRole('own') || Auth::user()->hasRole('tour') )
         <li class="treeview">
           <a href="">
             <i class="fa fa-train"></i>
@@ -83,7 +83,7 @@
 
             <li><a href="{{route('tour.index')}}"><i class="fa fa-circle-o"></i> Danh sách Tour</a></li>
 
-            @if($user->can('create-tour'))
+            @if(Auth::user()->can('create-tour'))
             <li><a href="{{route('tour.create')}}"><i class="fa fa-circle-o"></i> Tour Mới</a></li>
             <li><a href="{{route('tour.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
@@ -91,7 +91,7 @@
         </li>
         @endif
 
-        @if($user->can('car')|| $user->hasRole('own') || $user->hasRole('car') )
+        @if(Auth::user()->can('car')|| Auth::user()->hasRole('own') || Auth::user()->hasRole('car') )
         <li class="treeview">
 
           <a href="">
@@ -103,7 +103,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('car.index')}}"><i class="fa fa-circle-o"></i> Danh sách Car</a></li>
-            @if($user->can('create-car'))
+            @if(Auth::user()->can('create-car'))
             <li><a href="{{route('car.create')}}"><i class="fa fa-circle-o"></i> Car Mới</a></li>
             <li><a href="{{route('car.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
@@ -112,7 +112,7 @@
         </li>
         @endif
 
-        @if($user->can('hotel')|| $user->hasRole('own') || $user->hasRole('hotel') )
+        @if(Auth::user()->can('hotel')|| Auth::user()->hasRole('own') || Auth::user()->hasRole('hotel') )
         <li class="treeview">
           <a href="#">
             <i class="fa fa-hotel"></i> <span>Quản lý khách sạn</span>
@@ -124,7 +124,7 @@
 
             <li><a href="{{route('hotel.index')}}"><i class="fa fa-circle-o"></i> Danh sách Hotel</a></li>
 
-            @if($user->can('create-hotel'))
+            @if(Auth::user()->can('create-hotel'))
             <li><a href="{{route('hotel.create')}}"><i class="fa fa-circle-o"></i> Hotel Mới</a></li>
             <li><a href="{{route('hotel.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
@@ -132,7 +132,7 @@
         </li>
         @endif
 
-        @if($user->can('customer')|| $user->hasRole('own') || $user->hasRole('customer') )
+        @if(Auth::user()->can('customer')|| Auth::user()->hasRole('own') || Auth::user()->hasRole('customer') )
         <li class="treeview">
           <a href="">
             <i class="fa fa-users"></i> <span>Quản lý khách hàng</span>
@@ -145,7 +145,7 @@
 
         </li>
         @endif
-        @if($user->can('bill')|| $user->hasRole('accountant'))
+        @if(Auth::user()->can('bill')|| Auth::user()->hasRole('accountant'))
         <li class="treeview">
 
           <a href="{{url('customer')}}">
@@ -163,22 +163,15 @@
 
 
       @if(Auth::guard('customer')->user())
-        <li class="treeview">
-          <a href="">
+        <li class="">
+          <a href="{{route('bill.customer')}}">
             <i class="fa fa-file"></i>
             <span>Hóa Đơn</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            @if($user->can('view-tour'))
-            <li><a href="{{route('tour.index')}}"><i class="fa fa-circle-o"></i> Danh sách Tour</a></li>
-            @endif
-            @if($user->can('create-tour'))
-            <li><a href="{{route('tour.create')}}"><i class="fa fa-circle-o"></i> Tour Mới</a></li>
-            @endif
-          </ul>
+
         </li>
         <li class="">
           <a href="{{route('cart.index')}}">

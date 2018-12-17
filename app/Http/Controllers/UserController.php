@@ -23,15 +23,13 @@ class UserController extends Controller
 
     protected function validator(array $data,$rules)
     {
-      return Validator::make($data,$rules);
+      return Validator::make($data,$rules,$this->messengers());
     }
     protected function rulesAccount()
     {
       return [
         'email' => 'required|string|email|max:255',
         'name'  => 'required|string|min:4',
-        'password' => 'required|string|min:6',
-
        ];
     }
     protected function rulesDetail()
@@ -43,6 +41,20 @@ class UserController extends Controller
         'phone'    => 'required|min:9',
         'passport' => 'required|min:9',
         'id_country' => 'required',
+      ];
+    }
+    protected function messengers()
+    {
+      return [
+        'name.required'       => 'Yêu cầu điền tên tài khoản',
+        'id_country.required' => 'Yêu cầu điền thông tin thành phố',
+        'address.required'    => 'Yêu cầu điền địa chỉ ',
+        'age.required'        => 'Yêu cầu điền số ngày',
+        'email.required'      => 'Yêu cầu điền đúng dạng email',
+        'email.email'         => 'Yêu cầu điền đúng dạng email',
+        'password.required'   => 'Yêu cầu điền mật khẩu',
+        'password.min'        => 'Yêu cầu điền đầy đủ kí tự mật khẩu',
+
       ];
     }
     /**
@@ -118,7 +130,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validator($request->all(),$this->rulesAccount())->validate();
         $this->validator($request->all(),$this->rulesDetail())->validate();
+
         return $this->response->update($request, $id);
     }
 

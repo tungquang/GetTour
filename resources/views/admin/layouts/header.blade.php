@@ -1,8 +1,8 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="../../index2.html" class="logo">
+  <a href="{{route('home.page')}}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b>{{config('app.name')}}</b></span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b></b></span>
   </a>
@@ -130,7 +130,7 @@
 
               <p>
                 {{$user->name}}
-                <small>Member since Nov. 2012</small>
+                <small>{{$user->created_at}}</small>
               </p>
             </li>
             <!-- Menu Body -->
@@ -169,10 +169,6 @@
               </div>
             </li>
           </ul>
-        </li>
-        <!-- Control Sidebar Toggle Button -->
-        <li>
-          <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
         </li>
       </ul>
     </div>

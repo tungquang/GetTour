@@ -5,8 +5,8 @@
     <small>#007612</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Bill</a></li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
+    <li><a href="#">Hóa đơn</a></li>
   </ol>
 </section>
 
@@ -17,8 +17,8 @@
   <div class="row">
     <div class="col-xs-12">
       <h2 class="page-header">
-        <i class="fa fa-globe"></i> Get Tour
-        <small class="pull-right"><?php echo date('d-m-y')?></small>
+        <i class="fa fa-globe"></i> {{config('app.name')}}
+        <small class="pull-right">{{$bill->created_at}}</small>
       </h2>
     </div>
     <!-- /.col -->
@@ -29,9 +29,9 @@
       <h4>  Công ty cổ phần đầu tư và phát triển TNT </h4>
       <i>
         <p>Địa chỉ : 120- Láng Hạ - Đống Đa</p>
-        <p>Khách hàng : {{$user->name}}</p>
-        <p>Địa chỉ :{{$user->detail->address}}</p>
-        <p>Điên thoại :{{$user->detail->phone}}</p>
+        <p>Khách hàng : {{$bill->customer->name}}</p>
+        <p>Địa chỉ :{{$bill->customer->detail->address}}</p>
+        <p>Điên thoại :{{$bill->customer->detail->phone}}</p>
       </i>
       <address>
 
@@ -41,10 +41,10 @@
 
     <!-- /.col -->
     <div class="col-sm-4 invoice-col">
-      <b>ID Pay <p id="pay-id">IC-<?php echo(time())?>-{{date('d-m-y')}}</p> </b><br>
-      <b>Order ID:</b> 4F3S8J<br>
+      <b>ID Pay <p id="pay-id">IC-{{$bill->created_at}}</p> </b><br>
+      <b>Order ID:</b> {{$bill->customer->id}}<br>
       <b>Payment Due:</b> 2/22/2014<br>
-      <b>Account:</b> {{Auth::guard('customer')->user()->name}}
+      <b>Account:</b> {{$bill->customer->name}}
     </div>
     <!-- /.col -->
   </div>
@@ -58,7 +58,7 @@
         <tr>
           <th>Ảnh</th>
           <th>Tên</th>
-          <th>Giá #</th>
+          <th>Giá </th>
           <th>Đơn vị</th>
           <th>Tổng</th>
         </tr>
@@ -66,19 +66,19 @@
         <tbody class="list">
 
           @foreach($list as $obj)
-            <tr>
+            <tr class="product" id="{{$obj['type']}}-{{$obj['object']->id}}">
               <td>
 
-                <img src="{{Storage::disk('local')->url($obj->attributes->object->img)}}" height="50px" width="50px" alt="">
+                <img src="{{Storage::disk('local')->url($obj['object']->img)}}" height="50px" width="50px" alt="">
               </td>
-              <td>{{$obj->name}}</td>
-              <td>{{number_format($obj->price)}}</td>
+              <td>{{$obj['object']->name}}</td>
+              <td>{{number_format($obj['book']->price)}}</td>
               <td>
                 <div class="">
-                  <p>{{$obj->quantity}}</p>
+                  <p>{{$obj['book']->unit}}</p>
                 </div>
               </td>
-              <td class="obj-total">{{number_format($obj->price*$obj->quantity)}}</td>
+              <td class="obj-total">{{number_format($obj['book']->price*$obj['book']->unit)}}</td>
 
             </tr>
 
@@ -88,7 +88,7 @@
               <h4>Tổng  :</h4>
             </td>
             <td>
-              <p id="total">{{number_format($total)}}</p>
+              <p id="total">{{number_format($bill->total)}}</p>
             </td>
           </tr>
         </tbody>
@@ -102,7 +102,7 @@
     <!-- accepted payments column -->
     <div class="col-xs-6">
       <p class="lead chose-pay">Payment Methods:</p>
-      <input type="text" name="payment" value="{{$_GET['payment']}}" class="hidden">
+      <input type="text" name="payment" value="{{$bill->pay}}" class="hidden">
       <img id="1" class="payment" src="{{Storage::disk('local')->url('mastercard.png')}}" alt="Mastercard">
       <img id="2" class="payment" src="{{Storage::disk('local')->url('visa.png')}}" alt="Visa">
       <img id="3" class="payment" src="{{Storage::disk('local')->url('american-express.png')}}" alt="American Express">
@@ -140,11 +140,27 @@
 
   <!-- this row will not appear when printing -->
   <div class="row no-print">
+    @if(Auth::guard('customer')->user())
+    <div class="col-xs-12">
+      @if(!$bill->check)
+        <span style="color:#e08e0b;">Khách hàng đợi phản hồi của chúng tôi thông qua email hoặc sẽ có nhân viên tư vấn trực tiếp !</span>
+      @endif
+    </div>
+    @endif
+
     <div class="col-xs-12">
       <a href="#" id="print" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-      <button type="button" id="submit" class="btn btn-success pull-right"><i class="fa fa-file"></i> Get PDF
-      </button>
+      @if(Auth::user())
+        @if(!$bill->check)
+        <a href="{{route('bill.check',['id_bill' => $bill->id])}}">
+          <button type="button" id="submit" class="btn btn-success pull-right"><i class="fa fa-file"></i> Hoàn tất
+          </button>
+        </a>
+        @endif
+      @endif
+
     </div>
+
   </div>
 </section>
 <!-- /.content -->
@@ -161,6 +177,12 @@
     $('#print').click(function(){
       window.print();
     });
-
+    $('.product').dblclick(function(){
+      var $id = $(this).attr('id').split('-')[1];
+      var $type = $(this).attr('id').split('-')[0];
+      var $url = "{{url('/')}}/"+$type +'/'+ $id;
+      window.location.replace($url);
+    });
   </script>
+
 @endsection
