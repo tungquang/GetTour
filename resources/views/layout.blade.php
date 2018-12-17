@@ -47,9 +47,11 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{{asset('css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('js/toastr/toastr.min.css')}}">
+	
 
 	<!-- Modernizr JS -->
 	<script src="{{asset('js/modernizr-2.6.2.min.js')}}"></script>
+
 	<!-- FOR IE9 below -->
 	<style media="screen">
     .colorlib-form .form-control

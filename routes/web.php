@@ -71,6 +71,11 @@ Route::put('user/attach/{role}','UserController@attachToRole')->name('user.attac
 Route::prefix('bill')->group(function(){
   Route::get('new','BillController@newBill')->name('bill.new');
   Route::get('checked','BillController@chekedBill')->name('bill.checked');
+  Route::get('detail/{id_bill}','BillController@detail')->name('bill.detail');
+  Route::get('customer/','BillController@billOfCustomer')->name('bill.customer');
+  Route::get('detailbillOfCustomer/{id_bill}','BillController@detailbillOfCustomer')->name('bill.detail.customer');
+  Route::get('check/{id_bill}','BillController@check')->name('bill.check');
+
 });
 //Trash
 Route::get('trash/customer','CustomerController@indexBan')->name('customer.trash');

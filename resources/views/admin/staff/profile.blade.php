@@ -1,13 +1,13 @@
 @extends('admin.layout')
 @section('content')
-
+{{$errors}}
 <section class="content-header">
   <h1>
     Cá nhân
   </h1>
   <ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li><a href="#">Examples</a></li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
+
   <li class="active">Thông tin cá nhân</li>
 </ol>
 </section>
@@ -22,7 +22,7 @@
     <div class="box box-primary">
       <div class="box-body box-profile">
         @if($user->detail)
-          <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$user->detail->img)}}" alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$staff->detail->img)}}" alt="User profile picture">
         @else
           <img src="{{asset('/storage/default-user.png')}}" class="profile-user-img img-responsive img-circle" alt="User Image">
         @endif
@@ -107,16 +107,24 @@
             @csrf
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Name</label>
-
               <div class="col-sm-10">
                 <input type="name" name="name" required class="form-control" id="inputName" value="{{$staff->name}}">
+                <span>
+                  @if($errors->has('name'))
+                    {{$errors->first('name')}}
+                  @endif
+                </span>
               </div>
             </div>
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label" >Email</label>
-
               <div class="col-sm-10">
                 <input type="email" name="email" class="form-control" required id="email" value="{{$staff->email}}">
+                <span>
+                  @if($errors->has('email'))
+                    {{$errors->first('email')}}
+                  @endif
+                </span>
               </div>
             </div>
             <div class="form-group">
@@ -127,6 +135,11 @@
                     value="{{$staff->detail->age}}"
                   @endif"
                 >
+                <span>
+                  @if($errors->has('age'))
+                    {{$errors->first('age')}}
+                  @endif
+                </span>
               </div>
             </div>
             <div class="form-group">
@@ -137,6 +150,11 @@
                  value="{{$staff->detail->address}}"
                  @endif
                  >
+                 <span>
+                   @if($errors->has('address'))
+                     {{$errors->first('address')}}
+                   @endif
+                 </span>
               </div>
             </div>
 
@@ -172,6 +190,7 @@
                  @if($staff->detail)
                   value="{{$staff->detail->passport}}"
                   @endif >
+
               </div>
             </div>
             <div class="form-group">
@@ -179,28 +198,22 @@
 
               <div class="col-sm-10">
                 <select class="form-control select2" style="width: 100%;"
-
-                @if($staff->detail)
-                 class="{{$staff->detail->id_country}}"
-                 @endif
-                  name="id_country">
-                  <option value="0">Hà Nội</option>
-                  <option value="1">Hà Nội2</option>
-                  <option value="2">Hà Nội3</option>
-                  <option value="3">Hà Nội4</option>
-                </select>
+                  @if($staff->detail)
+                   id="country-{{$staff->detail->id_country}}"
+                   @endif
+                    name="id_country">
+                    <option value="">Yêu cầu thành phố</option>
+                    @foreach($cities as $ci)
+                    <option value="{{$ci->id}}">{{$ci->name}}</option>
+                    @endforeach
+                  </select>
+                  <span>
+                    @if($errors->has('id_country'))
+                      {{$errors->first('id_country')}}
+                    @endif
+                  </span>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                  </label>
-                </div>
-              </div>
-            </div>
-
             <div class="form-group">
               <label for="file" class="col-sm-2 control-label">Ảnh đại diện</label>
 
@@ -210,7 +223,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
               </div>
             </div>
           </form>
@@ -231,8 +244,9 @@
 @section('script')
  <script type="text/javascript">
   function loadCountry(){
-    var $id = $('select[name=id_country]').attr('class');
-    $('select[name=id_country]').children().eq($id).attr('selected','selected');
+    var $id = $('select[name=id_country]').attr('id');
+    var $eq = $id.split('-');
+    $('select[name=id_country]').children().eq($eq[1]).attr('selected','selected');
   };
   function loadGender()
   {

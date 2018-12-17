@@ -162,9 +162,12 @@ class HotelService implements HotelServiceInterface
     ];
       $data['id'] = $id;
 
-      $this->hotel->updateOrCreateNew($data);
-
-      return redirect('hotel/'.$id);
+      $flag = $this->hotel->updateOrCreateNew($data);
+      if($flag)
+      {
+          return redirect()->route('hotel.edit',['tour'=>$id]);
+      }
+      abort('403','Can do that');
   }
 
   /**

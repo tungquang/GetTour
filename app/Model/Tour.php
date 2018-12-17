@@ -18,7 +18,8 @@ class Tour extends Model
                   'name','time_in','time_out',
                   'place','day','seat','unit_price',
                   'content','img','book',
-                  'type_car','type_hotel'
+                  'type_car','type_hotel',
+                  'book'
                 ];
     protected $table = 'tour';
     /*Method to get type tour with TyperTour relatioship
@@ -73,7 +74,7 @@ class Tour extends Model
           }
       }
       return $popularlist;
-    
+
 
     }
 

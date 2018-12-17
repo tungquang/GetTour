@@ -1,10 +1,10 @@
 @extends('admin.layout')
 @section('content')
 <section class="content-header">
-
+  
     <h1>
       Quản lý tour
-      <small>advanced tables</small>
+
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý </a></li>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="form-group col-xs-4">
                   <label for="number_seated">Số ghế đặt</label>
-                  <input type="number" name="number_seated" id="number_seated" value="{{$tour->number_seated}}" class="form-control">
+                  <input type="number" name="number_seated" id="number_seated" value="{{$tour->book}}" class="form-control">
 
                 </div>
               </div>

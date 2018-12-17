@@ -13,7 +13,7 @@ class CustomerController extends Controller
       public function __construct(CustomerServiceInterface $response)
       {
         $this->middleware('customer-auth')->only(['show','update']);
-        $this->middleware('auth')->except(['show','update']);
+        $this->middleware('auth')->except(['show','update','index']);
         $this->middleware('permission:delete-customer')->only(['destroy','indexBan']);
         $this->response = $response;
       }
@@ -108,7 +108,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validator($request->all(),$this->rulesDetail())->validate();
+
         return $this->response->update($request, $id);
     }
     /**

@@ -76,7 +76,11 @@ class HomeController extends Controller
 
     public function car()
     {
-      return view('page.car');
+      $list = $this->car->hasCar();
+      return view('page.car')->with([
+        'list' => $list
+      ]);
+      
     }
 
     /**

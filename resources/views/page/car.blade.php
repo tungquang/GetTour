@@ -27,117 +27,25 @@
 			<div class="col-md-9">
 				<div class="row">
 					<div class="wrap-division">
-						<div class="col-md-6 col-sm-6 animate-box">
+						@foreach($list as $object)
+							<div class="col-md-6 col-sm-6 animate-box">
 							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-1.jpg')}});">
+								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/'.$object->img)}});">
 									<p class="price"><span>$120</span><small> /night</small></p>
 								</a>
 								<div class="desc">
 									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
+									<h3><a href="hotel-room.html">{{$object->name}}</a></h3>
+									<span class="place">Số ghế : {{$object->soghe}}</span>
 									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+									<a class="cart" href="{{'product='.$object->id.'&&type=car'.'&&customer=1'}}" >
+										<button type="button" name="button" class="btn btn-primary">Đặt xe</button>
+									</a>
 								</div>
 							</div>
 						</div>
+						@endforeach
 
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-2.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-3.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-4.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-5.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-6.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-7.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 animate-box">
-							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/hotel-8.jpg')}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
-								</a>
-								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">Hotel Edison</a></h3>
-									<span class="place">New York, USA</span>
-									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -234,4 +142,30 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+  $('a[class=cart]').click(function(event){
+
+    event.preventDefault();
+
+    $url = "{{url('cart/add')}}?" + $(this).attr('href');
+    $.ajax({
+      url:$url,
+      type:'get',
+      success:function($data)
+      {
+        console.log($data);
+        if($data)
+        {
+          toastr.success('Yêu cầu của bạn đã được thêm !');
+        }
+        else
+        {
+          toastr.warning('Yêu cầu của bạn không thành công');
+        }
+      }
+    });
+  });
+</script>
 @endsection

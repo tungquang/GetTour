@@ -3,16 +3,17 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="../../index2.html"><b>{{config('app.name','GetTour')}}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Đăng nhập</p>
 
     <form action="{{route('customer.login')}}" method="post">
       @csrf
       <div class="form-group has-feedback">
-        <input type="email" name="email" class="form-control" placeholder="Email">
+        <label for="email">Tên tài khoản:</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
         <span class=""></span>
         @if ($errors->has('email'))
             <span class="invalid-feedback glyphicon glyphicon-envelope " role="alert">
@@ -21,7 +22,8 @@
         @endif
       </div>
       <div class="form-group has-feedback">
-        <input name="password" type="password" class="form-control" placeholder="Password">
+        <label for="password">Mật khẩu :</label>
+        <input name="password" type="password" id="password" class="form-control" placeholder="Password">
         @if ($errors->has('password'))
             <span class="invalid-feedback " role="alert">
                 <strong>{{ $errors->first('password') }}</strong>
@@ -34,29 +36,29 @@
           <div class="checkbox icheck">
             <label for="remember">
                 <input  type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                {{ __('Remember Me') }}
+                {{ __('Nhớ đăng nhập') }}
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
     <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+      
+      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
         Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
         Google+</a>
     </div>
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
-    <a href="{{route('customer.register.form')}}" class="text-center">Register a new membership</a>
+    <a href="#">Quên mật khẩu ?</a><br>
+    <a href="{{route('customer.register.form')}}" class="text-center"><i></i> Tạo tài khoản ?</a>
 
   </div>
   <!-- /.login-box-body -->

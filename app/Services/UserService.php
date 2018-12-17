@@ -7,6 +7,7 @@
  use App\Model\Role;
  use App\Model\RoleUser;
  use App\User;
+ use App\Model\Cites;
  use App\Model\UserDetail;
  use App\Interfaces\UserServiceInterface;
  use Illuminate\Support\Facades\Validator;
@@ -66,6 +67,7 @@
                          [
                            'staff' => $staff,
                            'user'     => $user,
+                           'cities' => Cites::all()
                        ]);
 
      }
@@ -76,7 +78,8 @@
 
    public function update($request, $id){
 
-     $user = Auth::user();
+
+     $user = $this->staff->getbyIdOrfind($id);
      // If the detail wasn't isset then $image was đefaul
      try {
         $image = $user->detail->img;
@@ -104,17 +107,22 @@
        'sex'      => $request->sex,
        'passport' => $request->passport,
        'id_country' => $request->id_country,
-       'img'    => $image
+       'img'      => $image
      ];
-
+     
      $data = [
       'id'    => $user->id,
       'name'  => $request->name,
       'email' =>$request->email,
       ];
+      try {
+        $this->detail->updateOrCreateNew($detail);
+        $this->staff->updateOrCreateNew($data);
+      } catch (\Exception $e) {
+        abort('403','Can do action');
+      }
 
-      $this->detail->updateOrCreateNew($detail);
-      $this->staff->updateOrCreateNew($data);
+
 
     return redirect()->route('staff.show',['staff'=>$id]);
 

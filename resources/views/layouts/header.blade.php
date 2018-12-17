@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-2">
-          <div id="colorlib-logo"><a href="index.html">Get Tour</a></div>
+          <div id="colorlib-logo"><a href="{{route('home.page')}}">Get Tour</a></div>
         </div>
         <div class="col-xs-10 text-right menu-1">
           <ul>
@@ -28,6 +28,7 @@
             <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'blog') active @endif @endif"><a href="{{route('blog.page',['web'=>'blog'])}}">Blog</a></li>
             <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'contact') active @endif @endif"><a href="{{route('contact.page',['web'=>'contact'])}}">Liên hệ</a></li>
             <li class=""><a href="{{route('cart.index')}}"><i class="fa fa-cart"></i>Giỏ hàng</a></li>
+            <li>  <a href="{{route('customer.login')}}">Đăng nhập</a></li>
           </ul>
         </div>
       </div>
