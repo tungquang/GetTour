@@ -35,6 +35,17 @@
                 @endif
               </div>
               <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea id="description" name="description"  >
+                                  {{old('description')}}
+                </textarea>
+                @if($errors->has('description'))
+                <span class="text-red">
+                  {{$errors->first('description')}}
+                </span>
+                @endif
+              </div>
+              <div class="form-group">
                 <label for="content">Thông tin khách sạn</label>
                 <textarea id="content" name="content" id="content" placeholder="">
                                   Gethotel chân thành cảm ơn quý khách
@@ -143,6 +154,7 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
+    CKEDITOR.replace('description')
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
   });

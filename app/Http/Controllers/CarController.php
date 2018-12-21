@@ -29,23 +29,25 @@ class CarController extends Controller
   protected function rules()
   {
     return [
-      'name'       => 'required|string|max:255',
-      'content'    => 'required',
-      'img'      => 'required|string|max:255',
-      'soghe'       => 'required|min:2',
-      'unit_price'    => 'required',
+      'name'        => 'required|string|max:255',
+      'content'     => 'required',
+      'img'         => 'required|string|max:255',
+      'seat'        => 'required|min:2',
+      'unit_price'  => 'required',
       'img'         =>'required',
+      'description' =>'required'
     ];
   }
   protected function messesges()
   {
     return [
-      'name.required'       => 'Yêu cầu điền tên Tour',
-      'content.required'    => 'Thiếu nội dung của Tour',
-      'soghe.required'      => 'Số ghế đặt không phù hợp',
-      'soghe.min'      => 'Số ghế đặt không phù hợp',
+      'name.required'          => 'Yêu cầu điền tên Tour',
+      'content.required'       => 'Thiếu nội dung của Tour',
+      'seat.required'          => 'Số ghế đặt không phù hợp',
+      'seat.min'               => 'Số ghế đặt không phù hợp',
       'unit_price.required'    => 'Yêu cầu điền giá Tour',
-      'img.required'                 =>'Thiếu ảnh đại diện Tour',
+      'img.required'           =>'Thiếu ảnh đại diện Tour',
+      'description.required'   => 'Thiếu mô tả cơ bản'
     ];
   }
 
@@ -134,11 +136,12 @@ class CarController extends Controller
           'id_type'=> $request->id_type,
           'name'=> $request->name,
           'content'=> $request->content,
-          'soghe'=> $request->soghe,
+          'seat'=> $request->seat,
           'unit_price'=> $request->unit_price,
           'book'=> $request->book,
           'img' => $img,
           'note' => $request->note,
+          'description' => $request->description
         ];
       $this->validator($data)->validate();
       return $this->response->update($request, $id);

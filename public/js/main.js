@@ -243,8 +243,8 @@
 		      }
 		   },
 		   navText: [
-		      "<i class='icon-chevron-left owl-direction'></i>",
-		      "<i class='icon-chevron-right owl-direction'></i>"
+		      "<i class='fa fa-angle-left owl-direction'></i>",
+		      "<i class='fa fa-angle-right owl-direction'></i>"
 	     	]
 		});
 

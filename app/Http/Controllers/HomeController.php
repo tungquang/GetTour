@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Model\Cites;
+use App\Model\TypeCar;
+use App\Model\TypeTour;
+use App\Model\Star;
 use App\Model\Tour;
 use App\Model\Car;
 use App\Model\Hotel;
 use App\Model\ListBook;
+use App\Interfaces\CommentServiceInterface;
+use Response;
 
 class HomeController extends Controller
 {
@@ -16,12 +22,13 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Hotel $hotel,Tour $tour,Car $car)
+    public function __construct(Hotel $hotel,Tour $tour,Car $car,CommentServiceInterface $comment)
     {
       $this->hotel = $hotel;
       $this->tour = $tour;
       $this->car = $car ;
-        // $this->middleware('auth');
+      $this->comment = $comment;
+
     }
 
     /**
@@ -39,6 +46,10 @@ class HomeController extends Controller
                     'hotel' => $hotel,
                     'tour'  => $tour,
                     'car'   => $car,
+                    'cites' => Cites::all(),
+                    'typecar'  => TypeCar::all(),
+                    'typetour' => TypeTour::all()
+
                   ]);
     }
 
@@ -50,8 +61,12 @@ class HomeController extends Controller
 
     public function hotel()
     {
-
-      return view('page.hotel');
+      $list = $this->hotel->hasRoom();
+      return view('page.hotel')->with([
+        'list'     => $list,
+        'star'     => Star::all(),
+        'cites'    => Cites::all()
+      ]);
     }
 
     /**
@@ -62,9 +77,12 @@ class HomeController extends Controller
 
     public function tour()
     {
-      $list = $this->tour->getAll(6);
-      return view('page.tour')->with([
-        'list' => $list
+      $list = $this->tour->hasTour();
+      return view('page.tour')
+            ->with([
+                'list'     => $list,
+                'typetour' => TypeTour::all(),
+                'cites'    => Cites::all()
       ]);
     }
 
@@ -78,9 +96,10 @@ class HomeController extends Controller
     {
       $list = $this->car->hasCar();
       return view('page.car')->with([
-        'list' => $list
+        'list' => $list,
+        'typecar' => TypeCar::all(),
       ]);
-      
+
     }
 
     /**
@@ -114,6 +133,47 @@ class HomeController extends Controller
     public function service()
     {
       return view('page.service');
+    }
+
+    public function comment(Request $request,$type = '',$id_post = '')
+    {
+      if($request->content)
+      {
+
+        if($this->hasSign())
+        {
+
+          return $this->comment->store($request,$type,$id_post);
+        }
+
+        return Response::json(['errors' => 'sign']);
+      }
+
+      return response()->json($value = false);
+
+
+    }
+    /*
+    * Method to get more than comment of post
+    */
+    public function getMoreComment(Request $request,$type = '',$id_post = '')
+    {
+      if($request->id_last)
+      {
+          return $this->comment->getMoreComment($request,$type,$id_post);
+      }
+      return response()->json($value = false);
+
+    }
+
+    private function hasSign()
+    {
+      if(Auth::user() || Auth::guard('customer')->user())
+      {
+        return true;
+      }
+      return false;
+
     }
 
 

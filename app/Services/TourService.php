@@ -73,7 +73,6 @@ class TourService implements TourServiceInterface
    */
   public function store($request)
   {
-    $this->validator($request->all(),$request->seat)->validate();
 
     $data = [
                   'id_province' => $request->id_province,
@@ -90,6 +89,7 @@ class TourService implements TourServiceInterface
                   'book' => $request->number_seated,
                   'note' => $request->note,
                   'promotion_price' => $request->promotion_price,
+                  'description' => $request->description
                 ];
 
     $this->putFile('public',$request->img);
@@ -106,7 +106,17 @@ class TourService implements TourServiceInterface
   public function show($id)
   {
     $tour = $this->tour->getbyIdOrfind($id);
-    return view('page.tour-detail')->with(['tour' => $tour]);
+    if($tour)
+    {
+      return view('page.tour-detail')
+            ->with([
+                'tour' => $tour,
+                'cites' => Cites::all(),
+                'typetour' => TypeTour::all()
+        ]);
+    }
+    abort('404','Not found ');
+
   }
 
   /**
@@ -168,6 +178,7 @@ class TourService implements TourServiceInterface
               'book' => $request->number_seated,
               'note' => $request->note,
               'promotion_price' => $request->promotion_price,
+              'description' => $request->description,
     ];
       $data['id'] = $id;
 

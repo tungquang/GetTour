@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComments1Table extends Migration
+class AddDescriptionToHotelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateComments1Table extends Migration
      */
     public function up()
     {
-        Schema::create('comments1', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_comment');
-            $table->integer('id_customer');
-            $table->string('content');
-            $table->timestamps();
+        Schema::table('hotel', function (Blueprint $table) {
+            $table->string('description');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateComments1Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments1');
+        Schema::table('hotel', function (Blueprint $table) {
+            $table->string('description');
+        });
     }
 }

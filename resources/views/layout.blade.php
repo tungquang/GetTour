@@ -8,8 +8,8 @@
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	<meta name="author" content="" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
@@ -47,7 +47,7 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{{asset('css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('js/toastr/toastr.min.css')}}">
-	
+
 
 	<!-- Modernizr JS -->
 	<script src="{{asset('js/modernizr-2.6.2.min.js')}}"></script>
@@ -78,7 +78,77 @@
 
     <!-- endfooter -->
 	</div>
+	<!-- form sign -->
+	<div id="form" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
 
+	    <!-- Modal content-->
+	    <div class="modal-content">
+
+	      <div class="modal-body">
+	        <div class="login-box-body">
+	          <p class="login-box-msg">Đăng nhập</p>
+
+	          <form action="{{route('customer.login')}}" method="post">
+	            @csrf
+	            <div class="form-group has-feedback">
+	              <label for="">Tên tài khoản:</label>
+	              <input type="email" name="email"  class="form-control" placeholder="Email">
+	              <span class=""></span>
+	              @if ($errors->has('email'))
+	                  <span class="invalid-feedback glyphicon glyphicon-envelope " role="alert">
+	                      <strong>{{ $errors->first('email') }}</strong>
+	                  </span>
+	              @endif
+	            </div>
+	            <div class="form-group has-feedback">
+	              <label for="">Mật khẩu :</label>
+	              <input name="password" type="password"  class="form-control" placeholder="Password">
+	              @if ($errors->has('password'))
+	                  <span class="invalid-feedback " role="alert">
+	                      <strong>{{ $errors->first('password') }}</strong>
+	                  </span>
+	              @endif
+	            </div>
+
+	            <div class="row">
+	              <div class="col-xs-8">
+	                <div class="checkbox icheck">
+	                  <label for="remember">
+	                      <input  type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+	                      {{ __('Nhớ đăng nhập') }}
+	                  </label>
+	                </div>
+	              </div>
+	              <!-- /.col -->
+	              <div class="col-xs-4">
+	                <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+	              </div>
+	              <!-- /.col -->
+	            </div>
+	          </form>
+
+	          <div class="social-auth-links text-center">
+
+	            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
+	              Facebook</a>
+	            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
+	              Google+</a>
+	          </div>
+	          <!-- /.social-auth-links -->
+
+	          <a href="#" class="link">Quên mật khẩu ?</a><br>
+	          <a href="{{route('customer.register.form')}}" class="text-center link"><i></i> Tạo tài khoản ?</a>
+
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
 	</div>
@@ -105,6 +175,23 @@
 	<script src="{{asset('js/jquery.stellar.min.js')}}"></script>
 	<!-- Main -->
 	<script src="{{asset('js/main.js')}}"></script>
+
+	<!-- <script type="text/javascript">
+		$('#cart').click(function(event){
+			event.preventDefault();
+			$.ajax({
+				type:'get',
+				url : "{{route('car.index')}}",
+				data :{
+					'_token':$('meta[name="csrf-token"]').attr('content')
+				},
+				success:function($data)
+				{
+					console.log($data);
+				}
+			});
+		});
+	</script> -->
 		@yield('script')
 
 	</body>

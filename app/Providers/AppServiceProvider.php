@@ -7,6 +7,8 @@ use App\Interfaces\CustomerServiceInterface;
 use App\Services\CustomerService;
 use App\Interfaces\TourServiceInterface;
 use App\Services\TourService;
+use App\Interfaces\SearchServiceInterface;
+use App\Services\SearchService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +38,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
           TourServiceInterface::class,
           TourService::class
+        );
+        $this->app->singleton(
+          SearchServiceInterface::class,
+          SearchService::class
+
         );
 
     }

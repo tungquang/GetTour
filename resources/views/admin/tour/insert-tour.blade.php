@@ -27,10 +27,21 @@
             <div class="box-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">Tên Tour Du Lịch</label>
-                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Du lịch sinh thái">
+                <input type="text" name="name" class="form-control" value="{{old('name')}}" placeholder="Du lịch sinh thái">
                 @if($errors->has('name'))
                 <span class="text-red">
                   {{$errors->first('name')}}
+                </span>
+                @endif
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea id="description" name="description">
+                                  {{old('description')}}
+                </textarea>
+                @if($errors->has('description'))
+                <span class="text-red">
+                  {{$errors->first('description')}}
                 </span>
                 @endif
               </div>
@@ -196,6 +207,8 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
+    CKEDITOR.replace('description')
+
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
   });

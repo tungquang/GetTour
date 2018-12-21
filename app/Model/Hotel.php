@@ -15,7 +15,9 @@ class Hotel extends Model
             'promotion_price','room',
             'book','content','status',
             'star','img','note',
+            'description'
   ];
+  protected $operators = 'IN';
 
   public function getStar()
   {
@@ -26,8 +28,22 @@ class Hotel extends Model
     return $this->belongsTo('App\Model\Cites','id_province','id');
   }
 
-  public function hasRoom()
+  /*
+  * Method to get hotel has room
+  * if id = null then return all hotal has room
+  * Elss return the hotel has id was $id
+  */
+  public function hasRoom($id='')
   {
+    if($id)
+    {
+      return $this->where([
+                    'status'=>1,
+                    'id' => $id
+                  ])
+                  ->whereRaw('book < room')
+                  ->get();
+    }
     return $this->where('status' , 1)
                 ->whereRaw('book < room')
                 ->get();
@@ -55,7 +71,7 @@ class Hotel extends Model
                              ->get();
     }
     else {
-  
+
         foreach ($popularlist as $key => $value) {
           $this->object = $value->book;
           $popularlist[$key] = $this->convertToObject();
@@ -64,4 +80,50 @@ class Hotel extends Model
     return $popularlist;
 
   }
+
+  /*
+  * Method to search hotel
+  */
+  public function search($data)
+  {
+
+    //search base a tour
+    $search = $this->where(['status'=> 1]);
+    //if province is not null
+    if($data->province)
+    {
+        $search = $search->where(['id_province'=>$data->province]);
+    }
+
+    //if price_first is not null then get all tour has price_first >= unit_price
+    if ($data->price_first) {
+      $search = $search->where('unit_price','>=',$data->price_first);
+    }
+    //if price_last is not null then get all tour has price_last <= unit_price
+    if ($data->price_last) {
+      $search = $search->where('unit_price','<=',$data->price_last);
+    }
+    //if room is not null then get all tour has seat >= $room
+    if ($data->room) {
+      $search = $search->whereRaw('room - book >= ?',$data->room);
+    }
+
+    return $search->get();
+  }
+
+  /*
+  * Method to get all comment
+  */
+  public function searchByStar($data)
+  {
+    return $this->whereIn('star',$data->star)->get();
+  }
+  public function comment()
+  {
+    $comment = $this->hasMany('App\Model\Comment','id_post','id')
+                       ->where(['type'=>'hotel'])
+                       ->limit(2);
+    return $comment;
+  }
+
 }

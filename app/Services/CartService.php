@@ -153,7 +153,7 @@ class CartService implements CartServiceInterface
     {
         return abort('404','Not found cart');
     }
-    
+
     $user = Auth::guard('customer')->user();
 
     $list = Cart::getContent();

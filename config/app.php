@@ -162,9 +162,10 @@ return [
         App\Providers\UserServiceProvider::class,
         App\Providers\HotelServiceProvider::class,
         App\Providers\CarServiceProvider::class,
-        App\Providers\CartProviderService::class, 
+        App\Providers\CartProviderService::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        App\Providers\CommentSerivceProvider::class, 
 
 
     ],

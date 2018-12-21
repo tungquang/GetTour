@@ -40,6 +40,7 @@ class TourController extends Controller
         'number_seated' => 'required|min:0|max:'.$seat,
         'unit_price'    => 'required',
         'img'         =>'required',
+        'description' =>'required',
       ];
     }
     protected function messesges()
@@ -56,7 +57,8 @@ class TourController extends Controller
         'number_seated.required' => 'Yêu cầu điền số ghê đã đặt',
         'number_seated.max'      => 'Số ghế đặt quá nhiều',
         'unit_price.required'    => 'Yêu cầu điền giá Tour',
-        'img.required'                 =>'Thiếu ảnh đại diện Tour',
+        'img.required'           =>'Thiếu ảnh đại diện Tour',
+        'description.required'   => 'Thiếu mô tả cơ bản'
       ];
     }
 
@@ -98,6 +100,7 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
+      $this->validator($request->all(),$request->seat)->validate();
       return $this->response->store($request);
     }
 
@@ -153,6 +156,7 @@ class TourController extends Controller
                 'number_seated' => $request->number_seated,
                 'note' => $request->note,
                 'promotion_price' => $request->promotion_price,
+                'description' => $request->description
       ];
       $this->validator($data,$request->seat)->validate();
       return $this->response->update($request, $id);

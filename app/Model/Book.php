@@ -25,4 +25,5 @@ class Book extends Model
   {
     return $this->belongsTo('App\Model\Car','book','id');
   }
+  
 }

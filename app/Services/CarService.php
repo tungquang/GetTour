@@ -56,19 +56,19 @@ use App\Interfaces\CarServiceInterface;
              'id_type'=> $request->id_type,
              'name'=> $request->name,
              'content'=> $request->content,
-             'soghe'=> $request->soghe,
+             'seat'=> $request->seat,
              'unit_price'=> $request->unit_price,
              'book'=> $request->book,
              'img' => $this->getInf($request->img)['name'],
              'note' => $request->note,
+             'description' => $request->description
          ];
+
      try {
-
-       $this->car->create($data);
-
+        $this->car->create($data);
      } catch (\Exception $e) {
 
-       return view('errors.notfound');
+       abort('403','Error 403');
      }
 
      $this->putFile('public',$request->img);
@@ -127,11 +127,13 @@ use App\Interfaces\CarServiceInterface;
        'id_type'=> $request->id_type,
        'name'=> $request->name,
        'content'=> $request->content,
-       'soghe'=> $request->soghe,
+       'seat'=> $request->seat,
        'unit_price'=> $request->unit_price,
        'book'=> $request->book,
        'img' => $img,
        'note' => $request->note,
+       'description' => $request->description
+
      ];
        $data['id'] = $id;
        $this->car->updateOrCreateNew($data);

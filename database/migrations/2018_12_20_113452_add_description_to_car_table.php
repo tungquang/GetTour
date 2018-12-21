@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComments2Table extends Migration
+class AddDescriptionToCarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateComments2Table extends Migration
      */
     public function up()
     {
-        Schema::create('comments2', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('car', function (Blueprint $table) {
+            $table->string('description');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateComments2Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments2');
+        Schema::table('car', function (Blueprint $table) {
+            $table->string('description');
+        });
     }
 }

@@ -17,8 +17,8 @@
       <div class="container">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title container" style="text-algin:center;">
-              <img height="50%" width="50%" src="{{Storage::disk('local')->url($car->img)}}" alt="">
+            <h3 class="box-title container center" style="text-align: center;">
+              <img height="50%" width="300px" src="{{Storage::disk('local')->url($car->img)}}" alt="">
             </h3>
           </div>
           <!-- /.box-header -->
@@ -34,6 +34,17 @@
                 @if($errors->has('name'))
                 <span class="text-red">
                   {{$errors->first('name')}}
+                </span>
+                @endif
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea id="description" name="description" value="{{$car->content}}" >
+                                  {{$car->description}}
+                </textarea>
+                @if($errors->has('description'))
+                <span class="text-red">
+                  {{$errors->first('description')}}
                 </span>
                 @endif
               </div>
@@ -78,11 +89,11 @@
               <div class="row">
 
                 <div class="form-group col-xs-4">
-                  <label for="soghe">Số ghế </label>
-                  <input type="text" name="soghe" id="soghe" value="{{$car->soghe}}" class="form-control">
-                  @if($errors->has('soghe'))
+                  <label for="seat">Số ghế </label>
+                  <input type="text" name="seat" id="seat" value="{{$car->seat}}" class="form-control">
+                  @if($errors->has('seat'))
                   <span class="text-red">
-                    {{$errors->first('soghe')}}
+                    {{$errors->first('seat')}}
                   </span>
                   @endif
                 </div>
@@ -145,6 +156,8 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
+    CKEDITOR.replace('description')
+
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
     //select type
