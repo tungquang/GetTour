@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('content')
 <section class="content-header">
-  
+
     <h1>
       Quản lý tour
 
@@ -17,7 +17,7 @@
       <div class="container">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title container" style="text-algin:center;">
+            <h3 class="box-title container" style="text-align:center;">
               <img height="50%" width="50%" src="{{Storage::disk('local')->url($tour->img)}}" alt="">
             </h3>
           </div>
@@ -34,6 +34,17 @@
                 @if($errors->has('name'))
                 <span class="text-red">
                   {{$errors->first('name')}}
+                </span>
+                @endif
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea id="description" name="description" value="{{$tour->description}}" >
+                                  {{$tour->description}}
+                </textarea>
+                @if($errors->has('description'))
+                <span class="text-red">
+                  {{$errors->first('description')}}
                 </span>
                 @endif
               </div>
@@ -191,6 +202,7 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
+    CKEDITOR.replace('description')
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
     //select type

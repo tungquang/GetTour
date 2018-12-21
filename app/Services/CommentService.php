@@ -48,25 +48,7 @@ class CommentService implements CommentServiceInterface
     //check exit post
     $post = $this->checkPostExit($id_post,$type);
     // /// check comment 1;
-    if($request->user)
-    {
-      $data =[
-        'id_comment' => $id_post,
-        'id_user' => $user['user']->id,
-        'content' => $request->content,
-        'admin'   => $user['admin']
-      ];
-      $comment = $this->comment1->create($data);
-      try {
 
-      } catch (\Exception $e) {
-         $comment = false;
-      }
-
-
-      return response()->json($comment);
-    }
-    // esle then create comment
     $data =[
       'id_post' => $id_post,
       'type'    => $type,
@@ -74,9 +56,37 @@ class CommentService implements CommentServiceInterface
       'content' => $request->content,
       'admin'   => $user['admin']
     ];
+
     $comment = $this->comment->create($data);
 
-    $view = view('page.comment-render')->render();
+    $view = view('page.comment-render')
+            ->with([
+              'comment' => [
+                0 => $comment
+              ]])
+            ->render();
+
+    return response()->json($view);
+  }
+
+  public function getMoreComment($request,$type,$id_post)
+  {
+
+    $flage = $this->checkPostExit($id_post,$type);
+    $array = [
+      'id_post' => $id_post,
+      'type'    => $type,
+    ];
+    if($flage)
+    {
+      $comment = $this->comment->getMore($array,$request->id_last,3);
+    }
+
+    $view = view('page.comment-render')
+            ->with([
+              'comment' => $comment
+            ])
+            ->render();
     return response()->json($view);
   }
  /*

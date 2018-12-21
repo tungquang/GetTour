@@ -35,6 +35,7 @@ class HotelController extends Controller
         'room'      => 'required |min:1',
         'unit_price'    => 'required',
         'img'         =>'required',
+        'description' =>'required',
       ];
     }
     protected function messesges()
@@ -49,6 +50,7 @@ class HotelController extends Controller
         'room.min'            => 'Số phòng không hợp lệ!',
         'unit_price.required' => 'Yêu cầu điền giá Hotel',
         'img.required'        =>'Thiếu ảnh đại diện Hotel',
+        'description.required'   => 'Thiếu mô tả cơ bản'
       ];
     }
 
@@ -145,6 +147,7 @@ class HotelController extends Controller
         'room' => $request->room,
         'note' => $request->note,
         'promotion_price' => $request->promotion_price,
+        'description' => $request->description
       ];
 
       $this->validator($data)->validate();

@@ -87,6 +87,7 @@ class HotelService implements HotelServiceInterface
                   'room' => $request->room,
                   'note' => $request->note,
                   'promotion_price' => $request->promotion_price,
+                  'description' => $request->description,
                 ];
     $this->putFile('public',$request->img);
     $this->hotel->create($data);
@@ -101,7 +102,18 @@ class HotelService implements HotelServiceInterface
    */
   public function show($id)
   {
-      return view('page.hotel-detail');
+      $hotel = $this->hotel->getbyIdOrfind($id);
+      if($hotel)
+      {
+        return view('page.hotel-detail')
+              ->with([
+                'hotel' =>$hotel,
+                'cites' => Cites::all(),
+                'star'  => Star::all()
+        ]);
+      }
+      abort('404','Not found');
+
   }
 
   /**
@@ -159,6 +171,7 @@ class HotelService implements HotelServiceInterface
       'room' => $request->room,
       'note' => $request->note,
       'promotion_price' => $request->promotion_price,
+      'description' => $request->description
     ];
       $data['id'] = $id;
 

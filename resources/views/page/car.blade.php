@@ -31,7 +31,7 @@
 							<div class="col-md-6 col-sm-6 animate-box">
 							<div class="hotel-entry">
 								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/'.$object->img)}});">
-									<p class="price"><span>$120</span><small> /night</small></p>
+									<p class="price"><span>{{number_format($object->unit_price)}}</span><small> /km</small></p>
 								</a>
 								<div class="desc">
 									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
@@ -48,18 +48,7 @@
 
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<ul class="pagination">
-							<li class="disabled"><a href="#">&laquo;</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">&raquo;</a></li>
-						</ul>
-					</div>
-				</div>
+
 			</div>
 
 			<!-- SIDEBAR-->

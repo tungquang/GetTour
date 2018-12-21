@@ -74,13 +74,19 @@
           </div>
           <div class="tab-content">
             <div id="flight" class="tab-pane fade in active">
-              <form method="get" action="" class="colorlib-form">
+              <form method="post" action="{{route('search.tour')}}" class="colorlib-form" id="search-tour">
+                @csrf
                       <div class="row">
                         <div class="col-md-3">
                            <div class="form-group">
                           <label for="date">Địa điểm:</label>
                           <div class="form-field">
-                            <input type="text" id="location" class="form-control" placeholder="Search Location">
+                            <select class="form-control select" name="province">
+                              <option value="">Chọn địa điểm bạn muốn đến</option>
+                              @foreach($cites as $ci)
+                               <option value="{{$ci->id}}">{{$ci->name}}</option>
+                              @endforeach
+                            </select>
                           </div>
                         </div>
                         </div>
@@ -90,7 +96,7 @@
                             <label for="day">Day</label>
                             <div class="form-field">
                               <i class="icon icon-calendar2"></i>
-                              <input type="number" id="day" min="1" class="form-control day" placeholder="Day" name="day">
+                              <input type="number" id="day" min="1" class="form-control day select" placeholder="Số ngày du lịch" name="day">
                             </div>
                           </div>
                         </div>
@@ -99,12 +105,11 @@
                             <label for="type_tour">Kiểu Tour:</label>
                             <div class="form-field">
                               <i class="icon fa fa-angle-down"></i>
-                              <select name="type_tour" id="type_tour" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5+</option>
+                              <select name="type_tour" id="type_tour" class="form-control select">
+                                <option value="">Chọn kiểu tour mà bạn muốn đi</option>
+                                @foreach($typetour as $type)
+                                  <option value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
                               </select>
                             </div>
                           </div>
@@ -114,7 +119,7 @@
                             <label for="seat">Còn trống</label>
                             <div class="form-field">
                               <i class="icon icon-arrow-down3"></i>
-                              <input type="number" id="seat" min="1" class="form-control seat" placeholder="10" name="seat">
+                              <input type="number" min="1" class="form-control seat select" placeholder="Số vị trí trống ?" name="seat">
                             </div>
 
                           </div>
@@ -127,7 +132,8 @@
                </div>
                <!-- search hotel  -->
                <div id="hotel" class="tab-pane fade">
-                <form method="post" class="colorlib-form">
+                <form method="post" action="{{route('search.hotel')}}" class="colorlib-form" id="search-hotel">
+                  @csrf
                       <div class="row">
                         <div class="col-md-2">
                              <div class="booknow">
@@ -139,16 +145,21 @@
                          <div class="form-group">
                            <label for="province">Địa điểm:</label>
                            <div class="form-field">
-                             <input type="text" id="province" name="province" class="form-control" placeholder="Search Location">
+                             <select class="form-control select" name="province">
+                               <option value="">Chọn địa điểm muốn thuê khách sạn</option>
+                               @foreach($cites as $ci)
+                                <option value="{{$ci->id}}">{{$ci->name}}</option>
+                               @endforeach
+                             </select>
                            </div>
                          </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label for="price_first">Từ:</label>
+                            <label for="price_first">Giá Từ:</label>
                             <div class="form-field">
                               <i class="icon icon-calendar2"></i>
-                              <input type="text" id="price_first" name="price_first" class="form-control date" placeholder="1 000 000">
+                              <input type="text" id="price_first" name="price_first" class="form-control select" placeholder="Giá thấp nhất">
                             </div>
                           </div>
                         </div>
@@ -157,7 +168,7 @@
                             <label for="price_last">Đến</label>
                             <div class="form-field">
                               <i class="icon icon-calendar2"></i>
-                              <input type="text" id="price_last" name="price_last" class="form-control date" placeholder="2 000 000">
+                              <input type="text" id="price_last" name="price_last" class="form-control select" placeholder="Giá cao nhất">
                             </div>
                           </div>
                         </div>
@@ -169,13 +180,19 @@
                 </div>
              <!-- search car -->
              <div id="car" class="tab-pane fade">
-              <form method="post" class="colorlib-form">
+              <form method="post" action="{{route('search.car')}}" class="colorlib-form">
+                @csrf
                       <div class="row">
                        <div class="col-md-3">
                         <div class="form-group">
                           <label for="id_type">Kiểu</label>
                           <div class="form-field">
-                            <input type="text" id="id_type" name="id_type" class="form-control" placeholder="Search Location">
+                            <select class="form-control select" name="type">
+                              <option value="">Chọn kiểu xe mà bạn muốn</option>
+                              @foreach($typecar as $ty)
+                               <option value="{{$ty->id}}">{{$ty->name}}</option>
+                              @endforeach
+                            </select>
                           </div>
                         </div>
                        </div>
@@ -184,7 +201,7 @@
                           <label for="price">Giá</label>
                           <div class="form-field">
                             <i class="icon icon-calendar2"></i>
-                            <input type="text" id="price" name="price" class="form-control date" placeholder="2 000 000">
+                            <input type="text" id="price" name="price" class="form-control select" placeholder="Giá tiền thấp nhất">
                           </div>
                         </div>
                       </div>
@@ -193,7 +210,7 @@
                           <label for="seat">Số ghế</label>
                           <div class="form-field">
                             <i class="icon icon-calendar2"></i>
-                            <input type="text" id="seat" class="form-control date" placeholder="2">
+                            <input type="text" name="seat" class="form-control select" placeholder="Số ghế xe bạn yêu cầu">
                           </div>
                         </div>
                       </div>
@@ -273,7 +290,7 @@
             <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
             <h2>{{$object->name}}</h2>
             <span class="city">{{$object->getProvince->name}}</span>
-            <span class="price">{{$object->unit_price}}</span>
+            <span class="price">{{number_format($object->unit_price)}}\người</span>
           </span>
         </a>
         @endif
@@ -475,13 +492,13 @@
               <div class="item">
                 <div class="hotel-entry">
                 <a href="{{route('hotel.show',['id'=>$object->id])}}" class="hotel-img" style="background-image: url({{'/storage/'.$object->img}});">
-                  <p class="price"><span>$120</span><small> /night</small></p>
+                  <p class="price"><span>{{number_format($object->unit_price)}}</span><small> /Đêm</small></p>
                 </a>
                 <div class="desc">
                   <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
                   <h3><a href="{{route('hotel.show',['id'=>$object->id])}}">{{$object->name}}</a></h3>
                   <span class="place">{{$object->getProvince->name}}</span>
-                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                  <p>{{$object->descripttion}}</p>
                 </div>
               </div>
               </div>
@@ -499,7 +516,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center colorlib-heading animate-box">
-        <h2>Danh sách xe </h2>
+        <h2>Danh sách xe được yêu cầu nhiều</h2>
         <p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
       </div>
     </div>
@@ -511,7 +528,7 @@
             <div class="item">
               <div class="hotel-entry">
               <a href="{{route('car.show',['id'=>$object->id])}}" class="hotel-img" style="background-image: url({{'/storage/'.$object->img}});">
-                <p class="price"><span>$120</span><small> /night</small></p>
+                <p class="price"><span>{{number_format($object->unit_price)}}</span><small> /night</small></p>
               </a>
               <div class="desc">
                 <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
@@ -595,7 +612,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-1.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -603,7 +620,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-2.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -611,7 +628,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-3.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -619,7 +636,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-4.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -676,7 +693,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-5.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -684,7 +701,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-6.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -692,7 +709,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-7.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -700,7 +717,7 @@
                     <a  href="tours.html" class="f-tour-img" style="background-image: url(/storage/tour-8.jpg);">
                       <div class="desc">
                         <h3>Rome - 5 Days</h3>
-                        <p class="price"><span>$120</span> <small>/ person</small></p>
+                        <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ person</small></p>
                       </div>
                     </a>
                   </div>
@@ -762,6 +779,7 @@
         <h2>Sign Up for a Newsletter</h2>
         <p>Sign up for our mailing list to get latest updates and offers.</p>
         <form class="form-inline qbstp-header-subscribe">
+          @csrf
           <div class="row">
             <div class="col-md-12 col-md-offset-0">
               <div class="form-group">

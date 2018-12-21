@@ -46,7 +46,7 @@
                       </td>
                       <td>{{$car->name}}</td>
                       <td>{{$car->unit_price}}</td>
-                      <td>{{$car->soghe}}</td>
+                      <td>{{$car->seat}}</td>
                       <td>{{$car->book}}</td>
                       <td>{{$car->unit}}</td>
                       <td>{{$car->note}}</td>

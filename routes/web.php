@@ -19,10 +19,11 @@ Route::get('/home','HomeController@index')->name('home.page');
 Route::get('/page/hotel','HomeController@hotel')->name('hotel.page');
 Route::get('/page/car','HomeController@car')->name('car.page');
 Route::get('/page/tour','HomeController@tour')->name('tour.page');
-Route::get('/page/blog','HomeController@blog')->name('blog.page');
+
 Route::get('/page/contact','HomeController@contact')->name('contact.page');
-Route::get('/page/service','HomeController@service')->name('service.page');
+
 Route::post('/page/{type}/{id_post}','HomeController@comment')->name('comment.post');
+Route::post('/page/{type}/{id_post}/more','HomeController@getMoreComment')->name('get.more.comment');
 
 
 Auth::routes();
@@ -38,6 +39,11 @@ Route::prefix('/cart')->group(function(){
   Route::get('remove','CartController@remove')->name('cart.remove');
   Route::get('submit','CartController@submit')->name('cart.submit');
 });
+
+//searrch
+Route::post('search/tour','SearchController@searchTour')->name('search.tour');
+Route::post('search/hotel','SearchController@searchHotel')->name('search.hotel');
+Route::post('search/car','SearchController@searchCar')->name('search.car');
 
 
 Route::prefix('customer')->group(function(){

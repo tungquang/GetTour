@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostTable extends Migration
+class AddDescriptionToCarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePostTable extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('car', function (Blueprint $table) {
+            $table->string('description');
         });
     }
 
@@ -26,6 +25,8 @@ class CreatePostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post');
+        Schema::table('car', function (Blueprint $table) {
+            $table->string('description');
+        });
     }
 }

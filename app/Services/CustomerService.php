@@ -49,7 +49,7 @@ use App\Traits\StorageFunction;
    */
    public function indexBan()
    {
-     $user = $this->user($id);
+     $user = Auth::user();
 
      $customer = $this->customer->getBan();
 
@@ -74,7 +74,7 @@ use App\Traits\StorageFunction;
     {
         $user = $this->user($id);
     }
-    
+
      if ($customer) {
 
        return view('admin.customer.profile')

@@ -103,10 +103,10 @@
     <div class="col-xs-6">
       <p class="lead chose-pay">Payment Methods:</p>
       <input type="text" name="payment" value="{{$bill->pay}}" class="hidden">
-      <img id="1" class="payment" src="{{Storage::disk('local')->url('mastercard.png')}}" alt="Mastercard">
-      <img id="2" class="payment" src="{{Storage::disk('local')->url('visa.png')}}" alt="Visa">
-      <img id="3" class="payment" src="{{Storage::disk('local')->url('american-express.png')}}" alt="American Express">
-      <img id="4" class="payment" src="{{Storage::disk('local')->url('paypal2.png')}}" alt="Paypal">
+      <img id="payment-1" class="payment" src="{{Storage::disk('local')->url('mastercard.png')}}" alt="Mastercard">
+      <img id="payment-2" class="payment" src="{{Storage::disk('local')->url('visa.png')}}" alt="Visa">
+      <img id="payment-3" class="payment" src="{{Storage::disk('local')->url('american-express.png')}}" alt="American Express">
+      <img id="payment-4" class="payment" src="{{Storage::disk('local')->url('paypal2.png')}}" alt="Paypal">
       <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
         Yêu cầu bạn chọn phương thức thanh toán để tạo sự tiện lợi
       </p>
@@ -169,9 +169,11 @@
 @section('script')
   <script type="text/javascript">
     $(function(){
-      $idpay = $('input[name=payment]').val();
-      $('.payment').attr('style','opacity:0.2');
-      $('#'+$idpay).attr('style','opacity:1');
+      var $idpay = $('input[name=payment]').val();
+      $id = '#payment-'+$idpay;
+      console.log($id);
+      $('.payment').attr('style','opacity:0.1');
+      $($id).attr('style','opacity:1;border:1px solid red');
 
     });
     $('#print').click(function(){

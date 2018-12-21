@@ -54,7 +54,7 @@ class CartController extends Controller
     /* Method to create a bill
     */
     public function submit()
-    {      
+    {
       $payment = $_GET['payment'];
       return $this->response->submit($payment);
     }

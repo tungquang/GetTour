@@ -35,6 +35,17 @@
                 @endif
               </div>
               <div class="form-group">
+                <label for="description">Mô tả cơ bản</label>
+                <textarea id="description" name="description" placeholder="">
+                                  {{old('description')}}
+                </textarea>
+                @if($errors->has('description'))
+                <span class="text-red">
+                  {{$errors->first('description')}}
+                </span>
+                @endif
+              </div>
+              <div class="form-group">
                 <label for="content">Thông tin xe</label>
                 <textarea id="content" name="content" id="content" placeholder="">
                                   {{old('content')}}
@@ -73,11 +84,11 @@
               </div>
               <div class="row">
                 <div class="form-group col-xs-6">
-                  <label for="soghe">Số ghế </label>
-                  <input type="number" name="soghe" id="soghe" value="{{old('soghe')}}" class="form-control">
-                  @if($errors->has('soghe'))
+                  <label for="seat">Số ghế </label>
+                  <input type="number" name="seat" id="seat" value="{{old('seat')}}" class="form-control">
+                  @if($errors->has('seat'))
                   <span class="text-red">
-                    {{$errors->first('soghe')}}
+                    {{$errors->first('seat')}}
                   </span>
                   @endif
                 </div>
@@ -131,6 +142,7 @@
   $(function () {
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
+    CKEDITOR.replace('description')
     CKEDITOR.replace('content')
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
