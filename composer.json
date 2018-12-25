@@ -9,6 +9,7 @@
         "darryldecode/cart": "~4.0",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "zizaco/entrust": "5.2.x-dev"

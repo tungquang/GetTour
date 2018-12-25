@@ -27,18 +27,31 @@
 			<div class="col-md-9">
 				<div class="row">
 					<div class="wrap-division">
+						<div class="col-md-12 col-md-offset-0 heading2 animate-box fadeInUp animated-fast">
+							<h2>Danh sách các các xe</h2>
+						</div>
+						@if(isset($alert))
+						<div class="panel-header clearfix">
+							<h3>{{$alert}} </h3>
+						</div>
+					@endif
+					</div>
+				</div>
+				<div class="row">
+					<div class="wrap-division">
+
 						@foreach($list as $object)
-							<div class="col-md-6 col-sm-6 animate-box">
+							<div class="col-md-6 col-sm-6 animate-box box">
 							<div class="hotel-entry">
-								<a href="hotel-room.html" class="hotel-img" style="background-image: url({{asset('storage/'.$object->img)}});">
+								<a href="{{route('car.show',['id' => $object->id])}}" class="hotel-img" style="background-image: url({{asset('storage/'.$object->img)}});">
 									<p class="price"><span>{{number_format($object->unit_price)}}</span><small> /km</small></p>
 								</a>
 								<div class="desc">
-									<p class="star"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span> 545 Reviews</p>
-									<h3><a href="hotel-room.html">{{$object->name}}</a></h3>
-									<span class="place">Số ghế : {{$object->soghe}}</span>
+									<p>{{$object->getType->name}}</p>
+									<h3><a href="{{route('car.show',['id' => $object->id])}}">{{$object->name}}</a></h3>
+									<p >Số ghế : {{$object->seat}}</p>
 									<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-									<a class="cart" href="{{'product='.$object->id.'&&type=car'.'&&customer=1'}}" >
+									<a class="cart" href="{{'product='.$object->id.'&&type=car'}}" >
 										<button type="button" name="button" class="btn btn-primary">Đặt xe</button>
 									</a>
 								</div>
@@ -56,19 +69,20 @@
 				<div class="sidebar-wrap">
 					<div class="side search-wrap animate-box">
 						<h3 class="sidebar-heading">Tìm kiếm xe</h3>
-						<form method="post" class="colorlib-form">
+						<form method="post" class="colorlib-form" action="{{route('search.car')}}">
+							@csrf
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
 													<label for="id_type">Loại xe</label>
 													<div class="form-field">
 														<i class="icon icon-arrow-down3"></i>
-														<select name="id_type" id="id_type" class="form-control">
-															<option value="#">1</option>
-															<option value="#">2</option>
-															<option value="#">3</option>
-															<option value="#">4</option>
-															<option value="#">5+</option>
+														<select name="id_type" id="id_type" class="form-control select">
+															<option value="">Chọn loại xe bạn muốn</option>
+															@foreach($typecar as $type)
+																<option value="{{$type->id}}">{{$type->name}}</option>
+															@endforeach
+
 														</select>
 													</div>
 												</div>
@@ -87,13 +101,7 @@
 													<label for="price">Giá</label>
 													<div class="form-field">
 														<i class="icon icon-arrow-down3"></i>
-														<select name="price" id="price" class="form-control">
-															<option value="#">1</option>
-															<option value="#">2</option>
-															<option value="#">3</option>
-															<option value="#">4</option>
-															<option value="#">5+</option>
-														</select>
+														<input type="text" name="price" class="form-control" placeholder="Giá xe nhỏ nhất">
 													</div>
 												</div>
 											</div>

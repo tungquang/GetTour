@@ -18,7 +18,7 @@
 
     <!-- Profile Image -->
     <div class="box box-primary">
-      <div class="box-body box-profile">
+      <div class="box-body box-profile">F=
 
         @if($customer->detail)
           <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$customer->detail->img)}}" alt="User profile picture">
@@ -192,7 +192,7 @@
               <label for="file" class="col-sm-2 control-label">Ảnh đại diện</label>
 
               <div class="col-sm-10">
-                <input type="file" name="file" class="form-control user-image" id="file">
+                <input type="file" name="photo" class="form-control user-image">
               </div>
             </div>
             <div class="form-group">

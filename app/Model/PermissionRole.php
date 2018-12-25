@@ -16,4 +16,9 @@ class PermissionRole extends Model
                 'role_id'=>$role
       ])->first();
   }
+
+  public function getPermission()
+  {
+    return $this->hasOne('App\Model\Permission','permission_id','id');
+  }
 }

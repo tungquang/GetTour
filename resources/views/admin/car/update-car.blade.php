@@ -61,12 +61,12 @@
               </div>
 
               <div class="form-group dropzone" id="my-awesome-dropzone" >
-                <label for="img">Ảnh đại diện</label>
-                <input type="file" name="img" id="img">
+                <label for="photo">Ảnh đại diện</label>
+                <input type="file" name="photo" id="photo">
 
-                @if($errors->has('img'))
+                @if($errors->has('photo'))
                 <span class="text-red">
-                  {{$errors->first('img')}}
+                  {{$errors->first('photo')}}
                 </span>
                 @endif
               </div>

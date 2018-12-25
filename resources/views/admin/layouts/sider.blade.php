@@ -47,10 +47,24 @@
               <i class="fa fa-files-o"></i>
               <span>Role and Permission</span>
               <span class="pull-right-container">
-                <span class="label label-primary pull-right">4</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
           </li>
+          <li class="treeview">
+              <a href="">
+                <i class="fa fa-user"></i>
+                <span>Topic</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('topic.index')}}"><i class="fa fa-circle-o"></i> Danh sách Topic</a></li>
+                <li><a href="{{route('topic.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
+
+              </ul>
+            </li>
 
         @endif
         @if(Auth::user()->can('user'))
@@ -59,7 +73,7 @@
               <i class="fa fa-user"></i>
               <span>Quản lý nhân viên</span>
               <span class="pull-right-container">
-                <span class="label label-primary pull-right">4</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">

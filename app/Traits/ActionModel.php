@@ -12,8 +12,7 @@ trait ActionModel
 
   public function checkExists($data)
   {
-    return $this->where($data)
-                ->first();
+    return $this->where($data)->first();
   }
   public function getAll($limit = 0)
   {
@@ -21,7 +20,6 @@ trait ActionModel
     {
       return $this->where(['status' => 1])->get();
     }
-
     return $this->where(['status'=>1])
                          ->orderBy('id','desc')
                          ->limit($limit)
@@ -30,19 +28,13 @@ trait ActionModel
   }
   public function getbyIdOrfind($id = '',array $data=[])
   {
-    if ($id == '') {
-
-      return $this->where($data)->get();
-    }
-    else {
-      $dataCheck = [
-        'id'     => $id,
-        'status' => 1,
-      ];
-
-      $obj = $this->checkExists($dataCheck);
-      return $obj;
-    }
+      if ($id !== '') {
+        $data = [
+          'id'     => $id,
+          'status' => 1,
+        ];
+      }
+      return $this->where($data)->first();
   }
 
   public function DeleteOrGet($id,$status)

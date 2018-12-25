@@ -8,81 +8,90 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-  public function __construct(RoleServiceInterface $response)
-  {
-    $this->middleware('auth');
-    $this->middleware('role:own');
-    $this->response = $response;
-  }
+    public function __construct(RoleServiceInterface $roleService)
+    {
+        $this->middleware('role:own');
+        $this->roleService = $roleService;
+    }
 
-  protected function validator($data)
-  {
-    return Validator::make($data,$this->rules(),$this->messesges());
-  }
+    private function validator($data)
+    {
+        return Validator::make($data,$this->rules(),$this->messesges());
+    }
 
-  protected function rules()
-  {
-    return [
-      'name'            => 'required|string|max:255',
-      'display_name'    => 'required|string|max:255',
+    private function rules()
+    {
+        return [
+          'name'            => 'required|string|max:255',
+          'display_name'    => 'required|string|max:255',
 
-    ];
-  }
+        ];
+    }
 
-  protected function messesges()
-  {
-    return [
-      'name.required'       => 'Yêu cầu điền tên Quyền',
-      'display_name.required'    => 'Tên hiển thị ',
-    ];
-  }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private function messesges()
+    {
+        return [
+          'name.required'       => 'Yêu cầu điền tên Quyền',
+          'display_name.required'    => 'Tên hiển thị ',
+        ];
+    }
+
     public function index()
     {
-      return $this->response->index();
+        return $this->roleService->index();
     }
     /**
      * Store the specified resource in role.
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\roleService
      */
 
     public function store(Request $request)
     {
-      return $this->response->store($request);
+        $this->validator($request->all())->validate();
+        try {
+          $this->roleService->store($request);
+        } catch (\Exception $e) {
+          abort('404',$e->getMessage());
+        }
+        return redirect()->route('role.index');
     }
     /**
      * Update the specified resource in role.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
      */
     public function update(Request $request, $id)
     {
-        $this->validator($request->all())->validate();
-        return $this->response->update($request, $id);
+        abort('404','Method not allow');
     }
 
     /**
      * Remove the specified resource from role.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\roleService
      */
     public function destroy($id)
     {
-        return $this->response->destroy($id);
+        try {
+          $view = $this->roleService->destroy($id);
+        } catch (\Exception $e) {
+          $view = false;
+        }
+        return response()->json($view);
     }
 
     public function attachToPermission(Request $request, $id)
     {
-      return $this->response->attachToPermission($request, $id);
+        try {
+          return $this->roleService->attachToPermission($request, $id);
+        } catch (\Exception $e) {
+          return response()->json($value = false);
+        }
     }
 }

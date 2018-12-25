@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\CartServiceInterface;
-use App\Services\CartService;
+use App\Services\Cart\CartService;
 
 class CartProviderService extends ServiceProvider
 {

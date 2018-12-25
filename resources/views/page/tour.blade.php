@@ -32,7 +32,7 @@
         <div class="row">
           <div class="wrap-division">
             @foreach($list as $object)
-            <div class="col-md-6 col-sm-6 animate-box">
+            <div class="col-md-6 col-sm-6 animate-box box">
               <div class="tour">
                 <a href="{{route('tour.show',['id'=>$object->id])}}" class="tour-img" style="background-image: url({{asset('/storage/'.$object->img)}});">
                   <p class="price"><span>{{number_format($object->unit_price)}}</span> <small>/ {{$object->day}} Ngày</small></p>
@@ -41,6 +41,7 @@
                   <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
                   <h2><a href="{{route('tour.show',['id'=>$object->id])}}">{{$object->name}}</a></h2>
                   <h4 class="city">{{$object->getProvince->name}}</h4>
+                  <p class="city">Còn trống : {{$object->seat - $object->book}}</p>
                   <p>{!!$object->description!!}</p>
 
                 </span>

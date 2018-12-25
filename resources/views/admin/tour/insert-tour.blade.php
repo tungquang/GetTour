@@ -1,5 +1,6 @@
 @extends('admin.layout')
 @section('content')
+{{$errors}}
 <section class="content-header">
 
     <h1>
@@ -79,11 +80,11 @@
               </div>
 
               <div class="form-group dropzone" id="my-awesome-dropzone" >
-                <label for="img">Ảnh đại diện</label>
-                <input type="file" name="img" id="img">
-                @if($errors->has('img'))
+                <label for="photo">Ảnh đại diện</label>
+                <input type="file" name="photo" id="photo" required>
+                @if($errors->has('photo'))
                 <span class="text-red">
-                  {{$errors->first('img')}}
+                  {{$errors->first('photo')}}
                 </span>
                 @endif
               </div>
@@ -154,8 +155,8 @@
                   @endif
                 </div>
                 <div class="form-group col-xs-4">
-                  <label for="number_seated">Số ghế đặt</label>
-                  <input type="number" name="number_seated" id="number_seated" value="" class="form-control">
+                  <label for="book">Số ghế đặt</label>
+                  <input type="number" name="book" id="book" value="" class="form-control">
 
                 </div>
               </div>

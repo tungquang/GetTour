@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\CommentService;
+use App\Services\Comment\CommentService;
 use App\Interfaces\CommentServiceInterface;
 
 class CommentSerivceProvider extends ServiceProvider

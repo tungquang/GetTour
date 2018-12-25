@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\HotelServiceInterface;
-use App\Services\HotelService;
+use App\Services\Hotel\HotelService;
 
 class HotelServiceProvider extends ServiceProvider
 {

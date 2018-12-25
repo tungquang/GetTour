@@ -59,12 +59,12 @@
                 <div class="col-md-12">
                   <div class="wrap-division">
   									<div class="col-md-12 col-md-offset-0 heading2 animate-box fadeInUp animated-fast">
-  										<h4>Thông tin khách sạn</h4>
+  										<h4>Thông tin tour</h4>
                       <div class="col-md-12 animate-box">
                         <div class="room-wrap">
                           <div class="row">
                             <div class="tab-content">
-                              <div class="active tab-pane" id="activity">
+                              <div class="active tab-pane" >
                                 <div class="content panel-heading clearfix">
                                   <ul class="">
                                     <li><span>Hình thức du lịch : </span> {{$tour->getType->name}}</li>
@@ -73,7 +73,7 @@
                                     <li><span>Số ngày đi :</span> {{$tour->day}} Ngày + Đêm</li>
                                     <li><span>Giá tour :</span> {{number_format($tour->unit_price) }} VNĐ/người</li>
                                     <li><span>Khuyến mãi :</span> {{$tour->promotion_price}}</li>
-                                    <li><span>Còn trống : </span> {{($tour->room-$tour->book)}} vé</li>
+                                    <li><span>Còn trống : </span> {{$tour->seat - $tour->book}} vé</li>
                                   </ul>
                                 </div>
                                 <div class="col-sm-3 pull-right">

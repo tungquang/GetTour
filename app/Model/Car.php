@@ -50,6 +50,14 @@ class Car extends Model
 
   }
 
+  public function comment()
+  {
+    $comment = $this->hasMany('App\Model\Comment','id_post','id')
+                       ->where(['type'=>'tour'])
+                       ->limit(2);
+    return $comment;
+  }
+
   /*
   * Method to search car
   */
@@ -58,18 +66,29 @@ class Car extends Model
 
 
     //search base a tour
-    $search = $this->where(['status'=> 1]);
+    $search = $this->where([
+      'status'=> 1,
+      'book'  => 0
+    ]);
 
     //if type car is not null
-    if($data->type)
+    if($data->id_type)
     {
-        $search = $search->where(['id_type' => $data->type]);
+        $search = $search->where(['id_type' => $data->id_type]);
     }
+
+    //if seat car is not null
+    if($data->seat)
+    {
+        $search = $search->where('seat','>=', $data->seat);
+    }
+
 
     //if price is not null then get all car has price <= $price
     if ($data->price) {
       $search = $search->where('unit_price','>=',$data->price);
     }
+
 
   return $search->get();
   }

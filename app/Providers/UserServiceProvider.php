@@ -6,9 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\UserServiceInterface;
 use App\Interfaces\RoleServiceInterface;
 use App\Interfaces\PermissionServiceInterface;
-use App\Services\UserService;
-use App\Services\RoleService;
-use App\Services\PermissionService;
+use App\Services\User\UserService;
+use App\Services\Role\RoleService;
+use App\Services\Role\PermissionService;
 
 class UserServiceProvider extends ServiceProvider
 {

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Response;
-use App\Model\Tour;
+use Illuminate\Http\Request;
 use App\Interfaces\TourServiceInterface;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,118 +11,126 @@ use Illuminate\Support\Facades\Validator;
 class TourController extends Controller
 {
 
-    public function __construct(TourServiceInterface $response,Tour $tour)
+    public function __construct(TourServiceInterface $tourSevice)
     {
-      $this->middleware('auth')->except('show');
-      $this->middleware('permission:tour')->except('show');
-      $this->middleware('permission:create-tour')->only(['store']);
-      $this->middleware('permission:edit-tour')->only(['update','edit']);
-      $this->middleware('permission:delete-tour')->only(['destroy']);
-      $this->response = $response;
-      $this->tour = $tour;
+        $this->middleware('permission:tour')->except('show');
+        $this->middleware('permission:create-tour')->only(['store']);
+        $this->middleware('permission:edit-tour')->only(['update','edit']);
+        $this->middleware('permission:delete-tour')->only(['destroy']);
+        $this->tourSevice = $tourSevice;
     }
-    protected function validator($data,$seat)
+    protected function validator($data)
     {
-      return Validator::make($data,$this->rules($seat),$this->messesges());
+        return Validator::make($data,$this->rules(),$this->messesges());
     }
-    protected function rules($seat)
+    protected function rules()
     {
-      return [
-        'name'       => 'required|string|max:255',
-        'content'    => 'required',
-        'time_in'    => 'required',
-        'time_out'   => 'required',
-        'id_province' => 'required|min:0',
-        'place'      => 'required|string|max:255',
-        'day'        => 'required|max:6',
-        'seat'       => 'required|min:2',
-        'number_seated' => 'required|min:0|max:'.$seat,
-        'unit_price'    => 'required',
-        'img'         =>'required',
-        'description' =>'required',
-      ];
+        return [
+          'name'       => 'required|string|max:255',
+          'content'    => 'required',
+          'time_in'    => 'required',
+          'time_out'   => 'required',
+          'id_province' => 'required|min:0',
+          'place'      => 'required|string|max:255',
+          'day'        => 'required|max:6',
+          'seat'       => 'required|min:2',
+          'book'       => 'required|min:0',
+          'unit_price'    => 'required',
+          'description' =>'required',
+        ];
     }
     protected function messesges()
     {
-      return [
-        'name.required'       => 'Yêu cầu điền tên Tour',
-        'content.required'    => 'Thiếu nội dung của Tour',
-        'time_in.required'    => 'Yêu cầu điền thời gian xuất phát',
-        'time_out.required'   => 'Yêu cầu điền thời gian quay về ',
-        'id_province.required' => 'Yêu cầu điền thông tin thành phố',
-        'place.required'      => 'Yêu cầu điền địa điểm ',
-        'day.required'        => 'Yêu cầu điền số ngày đi',
-        'seat.required'       => 'Yêu cầu điền số du khách',
-        'number_seated.required' => 'Yêu cầu điền số ghê đã đặt',
-        'number_seated.max'      => 'Số ghế đặt quá nhiều',
-        'unit_price.required'    => 'Yêu cầu điền giá Tour',
-        'img.required'           =>'Thiếu ảnh đại diện Tour',
-        'description.required'   => 'Thiếu mô tả cơ bản'
-      ];
+        return [
+          'name.required'       => 'Yêu cầu điền tên Tour',
+          'content.required'    => 'Thiếu nội dung của Tour',
+          'time_in.required'    => 'Yêu cầu điền thời gian xuất phát',
+          'time_out.required'   => 'Yêu cầu điền thời gian quay về ',
+          'id_province.required' => 'Yêu cầu điền thông tin thành phố',
+          'place.required'      => 'Yêu cầu điền địa điểm ',
+          'day.required'        => 'Yêu cầu điền số ngày đi',
+          'seat.required'       => 'Yêu cầu điền số du khách',
+          'book.required' => 'Yêu cầu điền số ghê đã đặt',
+          'unit_price.required'    => 'Yêu cầu điền giá Tour',
+          'description.required'   => 'Thiếu mô tả cơ bản'
+        ];
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function index()
     {
-        return $this->response->index();
+        return $this->tourSevice->index();
     }
 
     /**
      * Show the customẻ is disable
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function indexBan()
     {
-        return $this->response->indexBan();
+        return $this->tourSevice->indexBan();
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function create()
     {
-      return $this->response->create();
+        return $this->tourSevice->create();
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function store(Request $request)
     {
-      $this->validator($request->all(),$request->seat)->validate();
-      return $this->response->store($request);
+        $this->validator($request->all())->validate();
+        try {
+          $this->tourSevice->store($request);
+        } catch (\Exception $e) {
+          abort('404',$e->getMessage());
+        }
+        return redirect()->route('tour.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function show($id)
     {
-        return $this->response->show($id);
+        try {
+          return $this->tourSevice->show($id);
+        } catch (\Exception $e) {
+          abort('404',$e->getMessage());
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function edit($id)
     {
-        return $this->response->edit($id);
+      try {
+        return $this->tourSevice->edit($id);
+      } catch (\Exception $e) {
+        abort('404',$e->getMessage());
+      }
     }
 
     /**
@@ -131,50 +138,32 @@ class TourController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
     public function update(Request $request, $id)
     {
-      $img = true;
-      $tour = $this->tour->getbyIdOrfind($id);
-      if(!$tour)
-      {
-        return view('errors.notfound');
-      }
-      $data = [
-                'id_province' => $request->id_province,
-                'id_type'=> $request->id_type,
-                'name'=> $request->name,
-                'time_in'=> $request->time_in,
-                'time_out'=> $request->time_out,
-                'place'=> $request->place,
-                'day'=> $request->day,
-                'seat'=> $request->seat,
-                'unit_price'=> $request->unit_price,
-                'content'=> $request->content,
-                'img' => $img,
-                'number_seated' => $request->number_seated,
-                'note' => $request->note,
-                'promotion_price' => $request->promotion_price,
-                'description' => $request->description
-      ];
-      $this->validator($data,$request->seat)->validate();
-      return $this->response->update($request, $id);
+        $this->validator($request->all())->validate();
+        try {
+          $this->tourSevice->update($request, $id);
+        } catch (\Exception $e) {
+          abort('404',$e->getMessage());
+        }
+        return redirect()->route('tour.edit',['tour'=>$id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\tourSevice
      */
      public function destroy($id)
      {
          if(!isset($_GET['status']))
          {
-           return Response::json(['errors'=>'Thao tác không thành công']);
+           return tourSevice::json(['errors'=>'Thao tác không thành công']);
          }
-         return $this->response->destroy($id,$_GET['status']);
+         return $this->tourSevice->destroy($id,$_GET['status']);
      }
 
 

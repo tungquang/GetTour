@@ -82,7 +82,6 @@
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('js/demo.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/dropzone/dropzone.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/toastr/toastr.min.js')}}">
 
 </script>

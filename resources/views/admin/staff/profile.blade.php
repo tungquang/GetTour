@@ -21,13 +21,12 @@
     <!-- Profile Image -->
     <div class="box box-primary">
       <div class="box-body box-profile">
-        @if($user->detail)
+
+        @if($staff->detail)
           <img class="profile-user-img img-responsive img-circle" src="{{asset('/storage/'.$staff->detail->img)}}" alt="User profile picture">
         @else
           <img src="{{asset('/storage/default-user.png')}}" class="profile-user-img img-responsive img-circle" alt="User Image">
         @endif
-
-
         <h3 class="profile-username text-center">{{$staff->name}}</h3>
 
         <p class="text-muted text-center">Software Engineer</p>
@@ -215,10 +214,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="file" class="col-sm-2 control-label">Ảnh đại diện</label>
-
+              <label for="phot" class="col-sm-2 control-label">Ảnh đại diện</label>
               <div class="col-sm-10">
-                <input type="file" name="file" class="form-control" id="file">
+                <input type="file" name="photo" class="form-control" id="photo">
               </div>
             </div>
             <div class="form-group">

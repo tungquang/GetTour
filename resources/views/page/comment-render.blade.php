@@ -1,7 +1,7 @@
 @foreach($comment as $com)
 <div class="post comment" id="comment-{{$com->id}}">
   <div class="user-block row ">
-    <img class="img-circle img-bordered-sm"  src="{{url('/storage/1544717424-daidien.jpg')}}" alt="user image">
+    <img class="img-circle img-bordered-sm"  src="{{url('/storage/'.$com->user->detail->img)}}" alt="user image">
         <span class="username">
           <a href="#">{{$com->user->name}}</a>
 

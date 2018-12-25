@@ -289,6 +289,7 @@
       $url   = $(this).attr('href');
       $perIn = $('#permission-in-'+$rol).val();
       $perOut = $('#permission-out-'+$rol).val();
+
       $.ajax({
         url:$url,
         type:'post',
@@ -300,6 +301,7 @@
         },
         success:function($data)
         {
+          console.log($data);
           if(!$data)
           {
             toastr.warning('Thao tác không thành công !');
