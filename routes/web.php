@@ -25,7 +25,6 @@ Route::get('/page/contact','HomeController@contact')->name('contact.page');
 Route::post('/page/{type}/{id_post}','HomeController@comment')->name('comment.post');
 Route::post('/page/{type}/{id_post}/more','HomeController@getMoreComment')->name('get.more.comment');
 
-
 Auth::routes();
 
 
@@ -60,7 +59,8 @@ Route::resources([
             'tour'      => 'TourController',
             'hotel'     => 'HotelController',
             'car'       => 'CarController',
-            'role'      => 'RoleController'
+            'role'      => 'RoleController',
+            'topic'     => 'TopicController'
           ]);
 
 Route::get('city/{nation}','CityController@index');
@@ -90,3 +90,4 @@ Route::get('trash/staff','UserController@indexBan')->name('staff.trash');
 Route::get('trash/tour','TourController@indexBan')->name('tour.trash');
 Route::get('trash/hotel','HotelController@indexBan')->name('hotel.trash');
 Route::get('trash/car','CarController@indexBan')->name('car.trash');
+Route::get('trash/topic','TopicController@indexBan')->name('topic.trash');

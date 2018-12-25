@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-      public function __construct(CustomerServiceInterface $response)
+      public function __construct(CustomerServiceInterface $customerService)
       {
         $this->middleware('customer-auth')->only(['show','update']);
-        $this->middleware('auth')->except(['show','update','index']);
+        $this->middleware('auth')->except(['show','update']);
         $this->middleware('permission:delete-customer')->only(['destroy','indexBan']);
-        $this->response = $response;
+        $this->customerService = $customerService;
       }
       protected function validator(array $data,$rules)
       {
@@ -43,60 +43,59 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function index()
     {
-        return $this->response->index();
+        return $this->customerService->index();
     }
 
     /**
      * Show the customẻ is disable
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function indexBan()
     {
-        return $this->response->indexBan();
+        return $this->customerService->indexBan();
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function store(Request $request)
     {
-        //
+        abort('404','Not found method');
     }
-    public function attachToRole($request, $id)
-    {
-      return $this->response->attachToRole($request, $id);
-    }
+
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function show($id)
     {
-
-        return $this->response->show($id);
-
+        try {
+          return $this->customerService->show($id);
+        } catch (\Exception $e) {
+          abort('404',$e->getMessage());
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function edit($id)
     {
-        dd('xxx1');
+        abort('404','Not found method');
     }
 
     /**
@@ -104,20 +103,24 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function update(Request $request, $id)
     {
-
         $this->validator($request->all(),$this->rulesDetail())->validate();
 
-        return $this->response->update($request, $id);
+        try {
+            $this->customerService->update($request, $id);
+        } catch (\Exception $e) {
+            abort('404',$e->getMessage());
+        }
+        return redirect()->route('customer.show',['customer'=>$id]);
     }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\customerService
      */
     public function destroy($id)
     {
@@ -125,6 +128,6 @@ class CustomerController extends Controller
         {
           return Response::json(['errors'=>'Thao tác không thành công']);
         }
-        return $this->response->destroy($id,$_GET['status']);
+        return $this->customerService->destroy($id,$_GET['status']);
     }
 }

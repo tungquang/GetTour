@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\EntrustRole;
 use App\Model\Permission;
+use App\Model\PermissionRole;
 
 class Role extends EntrustRole
 {
@@ -24,5 +25,6 @@ class Role extends EntrustRole
   {
     return $this->belongsToMany(Permission::class);
   }
- 
+
+
 }

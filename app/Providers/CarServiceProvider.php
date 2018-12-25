@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\CarService;
+use App\Services\Car\CarService;
 use App\Interfaces\CarServiceInterface;
 
 class CarServiceProvider extends ServiceProvider

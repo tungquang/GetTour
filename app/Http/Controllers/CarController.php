@@ -5,20 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interfaces\CarServiceInterface;
 use Illuminate\Support\Facades\Validator;
-use App\Model\Car;
-use Response;
 
 class CarController extends Controller
 {
-  public function __construct(CarServiceInterface $response,Car $car)
+  public function __construct(CarServiceInterface $carService)
   {
     $this->middleware('auth')->except(['show']);
     $this->middleware('permission:car')->except(['show']);
     $this->middleware('permission:create-car')->only(['store']);
     $this->middleware('permission:edit-car')->only(['update','edit']);
     $this->middleware('permission:delete-car')->only(['destroy']);
-    $this->response = $response;
-    $this->car = $car;
+    $this->carService = $carService;
+
   }
 
   protected function validator($data)
@@ -31,10 +29,8 @@ class CarController extends Controller
     return [
       'name'        => 'required|string|max:255',
       'content'     => 'required',
-      'img'         => 'required|string|max:255',
       'seat'        => 'required|min:2',
       'unit_price'  => 'required',
-      'img'         =>'required',
       'description' =>'required'
     ];
   }
@@ -46,76 +42,81 @@ class CarController extends Controller
       'seat.required'          => 'Số ghế đặt không phù hợp',
       'seat.min'               => 'Số ghế đặt không phù hợp',
       'unit_price.required'    => 'Yêu cầu điền giá Tour',
-      'img.required'           =>'Thiếu ảnh đại diện Tour',
       'description.required'   => 'Thiếu mô tả cơ bản'
     ];
   }
 
+
   /**
    * Display a listing of the resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function index()
   {
 
-      return $this->response->index();
+      return $this->carService->index();
   }
 
   /**
    * Show the customẻ is disable
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function indexBan()
   {
-      return $this->response->indexBan();
+      return $this->carService->indexBan();
   }
 
   /**
    * Show the form for creating a new resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function create()
   {
-      return $this->response->create();
+      return $this->carService->create();
   }
 
   /**
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function store(Request $request)
   {
       $this->validator($request->all())->validate();
-      return $this->response->store($request);
+
+      try {
+           $this->carService->handingAttributes($request);
+      } catch (\Exception $e) {
+
+        abort('403',$e->getMessage());
+      }
+      return redirect()->route('car.index');
   }
 
   /**
    * Display the specified resource.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function show($id)
   {
-
+    return $this->carService->show($id);
   }
 
   /**
    * Show the form for editing the specified resource.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function edit($id)
   {
-
-      return $this->response->edit($id);
-
+      return $this->carService->edit($id);
   }
 
   /**
@@ -123,43 +124,37 @@ class CarController extends Controller
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
   public function update(Request $request, $id)
   {
-    if(!$request->img)
-    {
-      $img = $this->car->find($id)->img;
-    }
-    $img = true;
-    $data = [
-          'id_type'=> $request->id_type,
-          'name'=> $request->name,
-          'content'=> $request->content,
-          'seat'=> $request->seat,
-          'unit_price'=> $request->unit_price,
-          'book'=> $request->book,
-          'img' => $img,
-          'note' => $request->note,
-          'description' => $request->description
-        ];
-      $this->validator($data)->validate();
-      return $this->response->update($request, $id);
+
+      $this->validator($request->all())->validate();
+      try {
+        $this->carService->update($request, $id);
+      } catch (\Exception $e) {
+
+        abort('403',$e->getMessage());
+      }
+
+      return redirect()->route('car.edit',['id'=>$id]);
+
+
   }
 
   /**
    * Remove the specified resource from storage.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\carService
    */
    public function destroy($id)
    {
        if(!isset($_GET['status']))
        {
-         return Response::json(['errors'=>'Thao tác không thành công']);
+         return carService::json(['errors'=>'Thao tác không thành công']);
        }
-       return $this->response->destroy($id,$_GET['status']);
+       return $this->carService->destroy($id,$_GET['status']);
    }
 
 }

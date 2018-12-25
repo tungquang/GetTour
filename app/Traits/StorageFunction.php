@@ -1,7 +1,8 @@
 <?php
 namespace App\Traits;
-use Storage;
 
+
+use Storage;
 /**
  *
  */
@@ -16,46 +17,30 @@ trait StorageFunction
   /*
   @return App/Services
   */
-  public function getInf($file)
-	{
-		return [
-			'name' =>time().'-'.$file->getClientOriginalName(),
-			'size' =>$file->getClientSize(),
-			'type' =>$file->guessClientExtension(),
-		];
-	}
 	public function putFile($disk,$file)
 	{
-
-    try {
-      $nameFile = $this->getInf($file);
-      $flage = Storage::disk($disk)
-                             ->put(
-                               $nameFile['name'],
-                               file_get_contents($file)
-                             );
-      if(!$flage)
-      {
-        throw new \Exception("Error Processing Request", 1);
-      }
-      return $nameFile;
-
-
-    } catch (\Exception $e) {
-      return false;
-    }
+      try {
+            $nameFile = time().'-'.$file->getClientOriginalName();
+            if($this->hasImage($file))
+            {
+               Storage::disk($disk)->put(
+                    $nameFile,
+                    file_get_contents($file)
+                );
+                return $nameFile;
+            }
+            throw new \Exception("Error Processing Request", 1);
+        } catch (\Exception $e) {
+          return '';
+        }
 
 
 	}
-
   public function hasImage($file)
   {
-    $type = ['png','jpg','jpeg'];
-
-    $inforFile = $this->getInf($file);
-
-    $flage = (in_array($inforFile['type'],$type)) ? $inforFile : false;
-
+    $type = ['png','jpg','jpeg','gif'];
+    $typeFile = $file->getClientOriginalExtension();
+    $flage = (in_array($typeFile,$type)) ? true : false;
     return $flage;
   }
 }

@@ -11,9 +11,6 @@ interface CustomerServiceInterface
 
   public function update($request,$id);
 
-  public function destroy($id,$status);
-
-  public function attachToRole($request, $id);
-  
+  public function destroy($id,$status);  
 
 }

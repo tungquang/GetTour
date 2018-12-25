@@ -12,7 +12,7 @@ interface CarServiceInterface
 
   public function create();
 
-  public function store($request);
+  public function handingAttributes($request);
 
   public function show($id);
 

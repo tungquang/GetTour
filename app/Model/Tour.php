@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\DB;
 class Tour extends Model
 {
     use ActionModel;
-    protected $fillable = ['id','id_province','id_type',
-                  'name','time_in','time_out',
-                  'place','day','seat','unit_price',
-                  'content','img','book',
-                  'type_car','type_hotel',
-                  'book','description'
+    protected $fillable = ['id_province','id_type','name','time_in','time_out',
+                  'place','day','seat','unit_price','content','img','book',
+                  'type_car','type_hotel','description'
                 ];
     protected $table = 'tour';
     /*Method to get type tour with TyperTour relatioship

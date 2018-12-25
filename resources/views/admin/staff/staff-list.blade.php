@@ -207,13 +207,14 @@
           },
           success:function($data)
           {
+            console.log($data);
 
             if(!$data)
             {
               toastr.warning('Thao tác không thành công !');
             }
             else {
-              console.log($data);
+
               $('.list').html('');
               $('.list').append($data);
               toastr.success('Thao tác thành công !');

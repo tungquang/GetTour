@@ -55,7 +55,20 @@ class CartController extends Controller
     */
     public function submit()
     {
-      $payment = $_GET['payment'];
-      return $this->response->submit($payment);
+      try {
+
+        if(!$_GET['payment'])
+        {
+          throw new \Exception("Payment not exit", 1);
+
+        }
+        return $this->response->submit($_GET['payment']);
+
+      } catch (\Exception $e) {
+
+        abort('403',$e->getMessage());
+      }
+
+
     }
 }

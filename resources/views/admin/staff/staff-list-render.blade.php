@@ -11,7 +11,7 @@
         <div class="form-group">
           <select class="form-control" name="" id="role-in-{{$staff->id}}">
             @foreach($role as $ro)
-              <option value="{{$ro->id}}">{{$ro->name}}</option>
+              <option value="{{$ro->id}}">{{$ro->display_name}}</option>
             @endforeach
               <option value="20">Test</option>
           </select>

@@ -59,7 +59,7 @@ use App\Interfaces\SearchServiceInterface;
        $hotel = $this->hotel->search($request);
      }
 
-     $alert = 'Thông báo có '.$hotel->count(). ' Tour được tìm thấy';
+     $alert = 'Thông báo có '.$hotel->count(). ' khách sạn được tìm thấy';
      return view('page.hotel')
                 ->with([
                   'list' => $hotel,
@@ -75,8 +75,15 @@ use App\Interfaces\SearchServiceInterface;
    */
    public function searchCar($request)
    {
-     dd($request->all());
+
      $car = $this->car->search($request);
-     dd($car);
+
+     $alert = 'Thông báo có '.$car->count(). ' xe được tìm thấy';
+     return view('page.car')
+                ->with([
+                  'list' => $car,
+                  'alert' => $alert,
+                  'typecar' => TypeCar::all(),
+                ]);
    }
  }

@@ -65,7 +65,7 @@
                         <div class="room-wrap">
                           <div class="row">
                             <div class="tab-content">
-                              <div class="active tab-pane" id="activity">
+                              <div class="active tab-pane" >
                                 <div class="content panel-heading clearfix">
                                   <ul class="">
                                     <li><span>Tên khách sạn : </span> {{$hotel->name}}</li>
@@ -343,27 +343,102 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-  $('a[class=cart]').click(function(event){
+ var angle = function($this){
 
-    event.preventDefault();
+   if($this.children('i').hasClass('fa-angle-down'))
+   {
+     $this.children('i').removeClass('fa-angle-down');
+     $this.children('i').addClass('fa-angle-up');
+   }
+   else {
+     $this.children('i').removeClass('fa-angle-up');
+     $this.children('i').addClass('fa-angle-down');
+   }
+   // $('#more-comment').fadeToggle(600);
 
-    $url = "{{url('cart/add')}}?" + $(this).attr('href');
-    $.ajax({
-      url:$url,
-      type:'get',
-      success:function($data)
-      {
-        console.log($data);
-        if($data)
-        {
-          toastr.success('Yêu cầu của bạn đã được thêm !');
-        }
-        else
-        {
-          toastr.warning('Yêu cầu của bạn không thành công');
-        }
-      }
-    });
-  });
+ };
+   $('.more-comment').click(function(){
+     event.preventDefault();
+     angle();
+   });
+   $('.submit-comment').click(function(event){
+     event.preventDefault();
+     $url = "{{route('comment.post',['type' => 'tour','id_post' => $hotel->id])}}";
+     $comment = $(this).parent().prev().children('input[name=content]');
+     $user = $(this).parent().prev().children('input[name=user]').val();
+
+     $.ajax({
+       type:'post',
+       url : $url,
+
+       data : {
+         'content' : $comment.val(),
+         'user'    : $user,
+         '_token'  : $('input[name=_token]').val(),
+
+       },
+       success:function($data)
+       {
+
+         if(!$data.errors && $data!=false)
+         {
+
+           $('#activity').append($data);
+           $comment.val(" ");
+         }
+         else
+         {
+           if(($data.errors)=='sign')
+           {
+             $('#click-form').trigger( "click" );
+           }
+         }
+       }
+     });
+
+   });
+   $('#more-comment').click(function(event){
+
+     event.preventDefault();
+
+     var element = $('.comment').last().attr('id') ;
+     var last  = element.split('-');
+
+     $.ajax({
+       type:'post',
+       url : "{{route('get.more.comment',['type' => 'tour','id_post' => $hotel->id])}}",
+       data:{
+         '_token'  : $('input[name=_token]').val(),
+         'id_last' : last[1]
+       },
+       success:function($data)
+       {
+         $('#activity').append($data);
+
+       }
+     });
+   });
+   $('a[class=cart]').click(function(event){
+
+     event.preventDefault();
+
+     $url = "{{url('cart/add')}}?" + $(this).attr('href');
+     $.ajax({
+       url:$url,
+       type:'get',
+       success:function($data)
+       {
+         console.log($data);
+         if($data)
+         {
+           toastr.success('Yêu cầu của bạn đã được thêm !');
+         }
+         else
+         {
+           toastr.warning('Yêu cầu của bạn không thành công');
+         }
+       }
+     });
+   });
 </script>
 @endsection

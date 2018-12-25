@@ -82,19 +82,12 @@
               </div>
 
               <div class="form-group dropzone" id="my-awesome-dropzone" >
-                <label for="img">Ảnh đại diện</label>
-                <input type="file" name="img" id="img">
-
-                @if($errors->has('img'))
-                <span class="text-red">
-                  {{$errors->first('img')}}
-                </span>
-                @endif
+                <label for="photo">Ảnh đại diện</label>
+                <input type="file" name="photo" id="photo">
               </div>
               <div class="form-group">
                 <label for="country">Thành phố</label>
                 <select name="id_province" class="form-control select2" style="width: 100%;" id="{{$tour->id_province-1}}">
-
                   @foreach($city as $cy)
                     <option value="{{$cy->id}}">{{$cy->name}}</option>
                   @endforeach
@@ -149,8 +142,8 @@
                   @endif
                 </div>
                 <div class="form-group col-xs-4">
-                  <label for="number_seated">Số ghế đặt</label>
-                  <input type="number" name="number_seated" id="number_seated" value="{{$tour->book}}" class="form-control">
+                  <label for="book">Số ghế đặt</label>
+                  <input type="number" name="book" id="book" value="{{$tour->book}}" class="form-control">
 
                 </div>
               </div>

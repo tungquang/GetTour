@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Model\Topic;
 use App\Model\Cites;
 use App\Model\TypeCar;
 use App\Model\TypeTour;
@@ -22,12 +23,13 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Hotel $hotel,Tour $tour,Car $car,CommentServiceInterface $comment)
+    public function __construct(Hotel $hotel,Tour $tour,Car $car,Topic $topic,CommentServiceInterface $comment)
     {
       $this->hotel = $hotel;
       $this->tour = $tour;
       $this->car = $car ;
       $this->comment = $comment;
+      $this->topic = $topic;
 
     }
 
@@ -41,6 +43,7 @@ class HomeController extends Controller
       $hotel = $this->hotel->getPopularHotel(4);
       $tour   = $this->tour->getPopularTour(8);
       $car    = $this->car->getPopularCar(6);
+
       return view('page.home')
                   ->with([
                     'hotel' => $hotel,
@@ -48,8 +51,8 @@ class HomeController extends Controller
                     'car'   => $car,
                     'cites' => Cites::all(),
                     'typecar'  => TypeCar::all(),
-                    'typetour' => TypeTour::all()
-
+                    'typetour' => TypeTour::all(),
+                    'topics'    => $this->topic->home()
                   ]);
     }
 

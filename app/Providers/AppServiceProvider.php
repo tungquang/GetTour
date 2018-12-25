@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\CustomerServiceInterface;
-use App\Services\CustomerService;
+use App\Services\Customer\CustomerService;
 use App\Interfaces\TourServiceInterface;
-use App\Services\TourService;
+use App\Services\Tour\TourService;
 use App\Interfaces\SearchServiceInterface;
 use App\Services\SearchService;
+use App\Interfaces\TopicServiceInterface;
+use App\Services\Topic\TopicService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -44,6 +46,12 @@ class AppServiceProvider extends ServiceProvider
           SearchService::class
 
         );
+
+        $this->app->singleton(
+          TopicServiceInterface::class,
+          TopicService::class
+        );
+
 
     }
 }

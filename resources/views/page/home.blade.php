@@ -4,19 +4,7 @@
   <aside id="colorlib-hero">
     <div class="flexslider">
       <ul class="slides">
-        <li style="background-image: url({{Storage::disk('local')->url('img_bg_1.jpg')}});">
-          <div class="overlay"></div>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
-                <div class="slider-text-inner text-center">
-                  <h2>2 Days Tour</h2>
-                  <h1>Amazing Maldives Tour</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
+      
         <li style="background-image: url({{Storage::disk('local')->url('img_bg_2.jpg')}});">
           <div class="overlay"></div>
           <div class="container-fluid">
