@@ -75,8 +75,9 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         // $this->validator($request->all())->validate();
-        return response()->json($request->type);
-        return $this->topicService->store($request);
+
+        $this->topicService->store($request);
+        return redirect()->route('topic.index');
     }
 
     /**

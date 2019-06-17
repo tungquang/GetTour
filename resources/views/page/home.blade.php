@@ -4,48 +4,24 @@
   <aside id="colorlib-hero">
     <div class="flexslider">
       <ul class="slides">
-      
-        <li style="background-image: url({{Storage::disk('local')->url('img_bg_2.jpg')}});">
+        @foreach($topics as $topic)
+        <li style="background-image: url({{Storage::url($topic->img)}});">
           <div class="overlay"></div>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
                 <div class="slider-text-inner text-center">
-                  <h2>10 Days Cruises</h2>
-                  <h1>From Greece to Spain</h1>
+                  <h2>2 Days Tour</h2>
+                  <h1>{{$topic->content}}</h1>
                 </div>
               </div>
             </div>
           </div>
         </li>
-        <li style="background-image: url({{Storage::disk('local')->url('img_bg_5.jpg')}});">
-          <div class="overlay"></div>
-          <div class="container-fluids">
-            <div class="row">
-              <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
-                <div class="slider-text-inner text-center">
-                  <h2>Explore our most tavel agency</h2>
-                  <h1>Our Travel Agency</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li style="background-image: url({{Storage::disk('local')->url('img_bg_4.jpg')}});">
-          <div class="overlay"></div>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
-                <div class="slider-text-inner text-center">
-                  <h2>Experience the</h2>
-                  <h1>Best Trip Ever</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        </ul>
-      </div>
+        @endforeach
+
+      </ul>
+    </div>
   </aside>
   <!-- end sider -->
   <!-- search -->
@@ -55,8 +31,8 @@
         <div class="search-wrap">
           <div class="container">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#flight"><i class="flaticon-plane"></i> Tour</a></li>
-              <li><a data-toggle="tab" href="#hotel"><i class="flaticon-resort"></i> Hotel</a></li>
+              <li class="active"><a data-toggle="tab" href="#flight"><i class="fa fa-map"></i> Tour</a></li>
+              <li><a data-toggle="tab" href="#hotel"><i class="fa fa-hotel"></i> Hotel</a></li>
               <li><a data-toggle="tab" href="#car"><i class="fa fa-car"></i> Car Rent</a></li>
             </ul>
           </div>
@@ -231,7 +207,7 @@
         <div class="col-md-3 animate-box text-center">
           <div class="services">
             <span class="icon">
-              <i class="flaticon-boat"></i>
+              <i class="fa fa-ship"></i>
             </span>
             <h3>Our Cruises</h3>
             <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies</p>
@@ -263,8 +239,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center colorlib-heading animate-box">
-          <h2>Địa điểm phổ biến để du lịch</h2>
-          <p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <h2>Những địa điểm phổ biến</h2>
+          <p>Những địa điểm  được tìm kiếm nhiều nhất </p>
         </div>
       </div>
     </div>
@@ -296,86 +272,35 @@
     </div>
   </div>
   <div class="tour-wrap">
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-1.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Athens, Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-2.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Thailand</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-3.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Philippines</h2>
-        <span class="city">Lipa, Philippines</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-4.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-5.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-6.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-7.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
-    <a href="#" class="tour-entry animate-box">
-      <div class="tour-img" style="background-image: url(/storage/tour-8.jpg);">
-      </div>
-      <span class="desc">
-        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-        <h2>Family Tour in Greece</h2>
-        <span class="city">Athens, Greece</span>
-        <span class="price">$450</span>
-      </span>
-    </a>
+    @foreach($topics as $topic)
+      <a href="#" class="tour-entry animate-box">
+        <div class="tour-img" style="background-image:  url({{Storage::url($topic->img)}});">
+        </div>
+        <span class="desc">
+          <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
+          <h2>{{$topic->content}}</h2>
+          <span class="city">Athens, Greece</span>
+          <span class="price">$450</span>
+        </span>
+      </a>
+    @endforeach
+      <a href="#" class="tour-entry animate-box">
+        <div class="tour-img">
+        </div>
+        <span class="desc">
+          <p class="star">
+            <span>
+              <i class="icon-star-full"></i>
+              <i class="icon-star-full"></i>
+              <i class="icon-star-full"></i>
+              <i class="icon-star-full"></i>
+              <i class="icon-star-full"></i>
+            </span> 545 Reviews</p>
+          <h2>{{$topic->content}}</h2>
+          <span class="city">Athens, Greece</span>
+          <span class="price">$450</span>
+        </span>
+      </a>
   </div>
 </div>
 <div id="colorlib-blog">
@@ -447,14 +372,14 @@
               <div class="text-rights">
                 <h3 class="title">Just hurry up limited offer!</h3>
                 <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p><a href="#" class="btn btn-primary">Book Now</a> <a href="#" class="btn btn-primary btn-outline">Read more</a></p>
+                <p><a href="#" class="btn btn-primary">Đặt ngay</a> <a href="#" class="btn btn-primary btn-outline">Đọc thêm</a></p>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-6 animate-box">
           <div class="video-wrap">
-            <div class="video colorlib-video" style="background-image: url(/storage/img_bg_2.jpg);">
+            <div class="video colorlib-video" style="background-image: url({{Storage::url($topic->img)}});">
               <a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo"><i class="fa  fa-caret-square-o-left"></i></a>
               <div class="video-overlay"></div>
             </div>
@@ -468,7 +393,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center colorlib-heading animate-box">
-          <h2>Recommended Hotels</h2>
+          <h2>Một số khách sạn được đề xuất</h2>
           <p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
         </div>
       </div>
@@ -586,7 +511,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center colorlib-heading animate-box">
-          <h2>Most Popular Travel Countries</h2>
+          <h2>
+            29/5000
+            Các quốc gia du lịch phổ biến nhất</h2>
           <p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
         </div>
       </div>

@@ -14,7 +14,6 @@
 Route::get('/', 'HomeController@index');
 
 ///Home page
-
 Route::get('/home','HomeController@index')->name('home.page');
 Route::get('/page/hotel','HomeController@hotel')->name('hotel.page');
 Route::get('/page/car','HomeController@car')->name('car.page');

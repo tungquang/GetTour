@@ -56,7 +56,7 @@
                               </select>
                             </div>
 
-                            <button type="submit" name="button" class="btn btn-success">Tạo mới</button>
+                            <button type="submit" name="create" class="btn btn-success">Tạo mới</button>
                           </form>
                         </p>
                       </div>
@@ -90,8 +90,8 @@
                     <th>Ảnh</th>
                     <th>Nội dung</th>
                     <th>Cập nhật</th>
-                    <th>Cài đặt</th>
-                    <th>Xóa ảnh</th>
+                    <th>Hành động</th>
+                    <th>Vô hiệu</th>
                   </tr>
                 </thead>
                 <tbody class="list-topic">
@@ -101,15 +101,21 @@
                     <td>{{$topic->content}}</td>
                     <td>{{$topic->created_at}}</td>
                     <td>
-                      <button class="online btn btn-success" title="Cài đặt làm hình nền">
-                        <i class="fa fa-cog"></i>
-                      </button>
+                      @if(!$topic->online)
+                        <button class="online btn btn-success" title="Cài đặt làm hình nền">
+                          Enable
+                        </button>
+                      @else
+                        <button class="online btn btn-warning" title="Cài đặt làm hình nền">
+                          Disable
+                        </button>
+                      @endif
                       <button data-toggle="modal" data-target="#home-view-{{$topic->id}}" class="update btn btn-primary" title="xem chi tiết">
                         <i class="fa fa-eye"></i>
                       </button>
                     </td>
                     <td>
-                        <button class="delete btn btn-danger">
+                        <button class="delete btn btn-warning">
                           <i class="fa fa-trash"></i>
                         </button>
                     </td>
@@ -123,25 +129,29 @@
                             <h4 class="modal-title">Update</h4>
                           </div>
                           <div class="modal-body">
-                            <form action="{{route('topic.update',['topic' => $topic->id])}}" method="post">
-                              @csrf
-                              @method('put')
-                              <input type="text" name="id_topic" class="hidden" value="{{$topic->id}}">
-                              <div class="form-group">
-                                <label for="img">Ảnh</label>
-                                <h3 style="text-align: center;">
-                                  <img height="300px" width="500px" src="{{asset('/storage/'.$topic->img)}}" title="Ảnh" disable="true">
-                                </h3>
-                              </div>
-                              <div class="form-group">
-                                <label for="display_name">Nội dung cập nhật</label>
-                                <input type="text" name="content"  value="{{$topic->content}}" class="form-control" requrie>
-                                @if($errors->has('content'))
-                                  <span>{{$errors->first('content')}}</span>
-                                @endif
-                              </div>
-                            </form>
-                            <button type="submit" name="button" class="btn btn-success">Cập nhật</button>
+                            <div>
+                              <form action="{{route('topic.update',['topic' => $topic->id])}}" method="post">
+                                @csrf
+                                @method('put')
+                                <input type="text" name="id_topic" class="hidden" value="{{$topic->id}}">
+                                <div class="form-group">
+                                  <label for="img">Ảnh</label>
+                                  <h3 style="text-align: center;">
+                                    <img height="300px" width="500px" src="{{asset('/storage/'.$topic->img)}}" title="Ảnh" disable="true">
+                                  </h3>
+                                </div>
+                                <div class="form-group">
+                                  <label for="display_name">Nội dung cập nhật</label>
+                                  <input type="text" name="content"  value="{{$topic->content}}" class="form-control" requrie>
+                                  @if($errors->has('content'))
+                                    <span>{{$errors->first('content')}}</span>
+                                  @endif
+                                </div>
+                                <button type="submit" name="button" class="btn btn-success">Cập nhật</button>
+                              </form>
+                            </div>
+
+
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -189,9 +199,15 @@
                       <td>{{$topic->content}}</td>
                       <td>{{$topic->created_at}}</td>
                       <td>
-                        <button class="online btn btn-success" title="Cài đặt làm hình nền">
-                          <i class="fa fa-cog"></i>
-                        </button>
+                        @if(!$topic->online)
+                          <button class="online btn btn-success" title="Cài đặt làm hình nền">
+                            Enable
+                          </button>
+                        @else
+                          <button class="online btn btn-warning" title="Cài đặt làm hình nền">
+                            Disable
+                          </button>
+                        @endif
                         <button data-toggle="modal" data-target="#tour-view-{{$topic->id}}" class="update btn btn-primary" title="xem chi tiết">
                           <i class="fa fa-eye"></i>
                         </button>
@@ -270,7 +286,7 @@
                     <th>Ảnh</th>
                     <th>Nội dung</th>
                     <th>Cập nhật</th>
-                    <th>Cài đặt</th>
+                    <th>Hành động</th>
                     <th>Xóa ảnh</th>
                   </tr>
                 </thead>
@@ -281,9 +297,15 @@
                     <td>{{$topic->content}}</td>
                     <td>{{$topic->created_at}}</td>
                     <td>
-                      <button class="online btn btn-success" title="Cài đặt làm hình nền">
-                        <i class="fa fa-cog"></i>
-                      </button>
+                      @if(!$topic->online)
+                        <button class="online btn btn-success" title="Cài đặt làm hình nền">
+                          Enable
+                        </button>
+                      @else
+                        <button class="online btn btn-warning" title="Cài đặt làm hình nền">
+                          Disable
+                        </button>
+                      @endif
                       <button data-toggle="modal" data-target="#travel-view-{{$topic->id}}" class="update btn btn-primary" title="xem chi tiết">
 
                         <i class="fa fa-eye"></i>
@@ -373,9 +395,15 @@
                     <td>{{$topic->content}}</td>
                     <td>{{$topic->created_at}}</td>
                     <td>
-                      <button class="online btn btn-success" title="Cài đặt làm hình nền">
-                        <i class="fa fa-cog"></i>
-                      </button>
+                      @if(!$topic->online)
+                        <button class="online btn btn-success" title="Cài đặt làm hình nền">
+                          Enable
+                        </button>
+                      @else
+                        <button class="online btn btn-warning" title="Cài đặt làm hình nền">
+                          Disable
+                        </button>
+                      @endif
                       <button data-toggle="modal" data-target="#hotel-view-{{$topic->id}}" class="update btn btn-primary" title="xem chi tiết">
 
                         <i class="fa fa-eye"></i>
@@ -464,9 +492,15 @@
                     <td><img height="50px" width="50px" src="{{asset('/storage/'.$topic->img)}}" alt=""> </td>
                     <td>{{$topic->created_at}}</td>
                     <td>
-                      <button class="online btn btn-success" title="Cài đặt làm hình nền">
-                        <i class="fa fa-cog"></i>
-                      </button>
+                      @if(!$topic->online)
+                        <button class="online btn btn-success" title="Cài đặt làm hình nền">
+                          Enable
+                        </button>
+                      @else
+                        <button class="online btn btn-warning" title="Cài đặt làm hình nền">
+                          Disable
+                        </button>
+                      @endif
                       <button data-toggle="modal" data-target="#home-view-{{$topic->id}}" class="update btn btn-primary" title="xem chi tiết">
 
                         <i class="fa fa-eye"></i>
@@ -502,6 +536,21 @@
     $('.list-show').DataTable({
     })
   });
+
+  function setOnline($button)
+  {
+    if($button.hasClass('btn-warning'))
+    {
+      $button.removeClass('btn-warning');
+      $button.addClass('btn-success');
+      $button.text('Enable');
+    }
+    else if($button.hasClass('btn-success')){
+      $button.removeClass('btn-success');
+      $button.addClass('btn-warning');
+      $button.text('Disable');
+    }
+  }
   $('.delete').click(function(){
     $parent = $(this).parent().parent().attr('id');
     $id = $parent.split('-')[1];
@@ -531,6 +580,7 @@
   $('.online').click(function(){
     $parent = $(this).parent().parent().attr('id');
     $id = $parent.split('-');
+    console.log($parent);
     $.ajax({
       type:'get',
       url :"{{url('/topic')}}/"+$id[1] + '?type=' +$id[0],
@@ -539,15 +589,15 @@
       },
       success:function($data)
       {
-        console.log($data);
         if(!$data)
         {
             toastr.warning('Thao tác không thành công ! Xin kiểm tra lại topic');
         }
         else
         {
-          $('#'+$data).remove('');
-          toastr.success('Topic đã được cập nhật');
+          $button = $('#'+$parent +' .online');
+          setOnline($button);
+          toastr.success('Topic đã được cập nhật xxx');
         }
       }
     });
@@ -559,7 +609,7 @@
     $token = $(this).parent().children('input[name=_token]').val();
     $method = $(this).parent().children('input[name=_method]').val();
     $content = $(this).parent().children('div').eq(1).children('input[name=content]').val();
-    console.log($url);
+
     $.ajax({
       type:'post',
       url : $url,
@@ -570,7 +620,6 @@
       },
       success:function($data)
       {
-
         if($data)
         {
           $('#'+$data.id).children().eq(1).text($data.content);

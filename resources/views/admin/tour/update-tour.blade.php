@@ -38,8 +38,8 @@
                 @endif
               </div>
               <div class="form-group">
-                <label for="description">Mô tả</label>
-                <textarea id="description" name="description" value="{{$tour->description}}" >
+                <label for="description">Mô tả (không vượt quá 255 kí tự)</label>
+                <textarea id="description" name="description" value="{{$tour->description}}" class="form-control">
                                   {{$tour->description}}
                 </textarea>
                 @if($errors->has('description'))
@@ -87,9 +87,9 @@
               </div>
               <div class="form-group">
                 <label for="country">Thành phố</label>
-                <select name="id_province" class="form-control select2" style="width: 100%;" id="{{$tour->id_province-1}}">
+                <select name="id_province" class="form-control select2" style="width: 100%;" id="{{$tour->id_province}}">
                   @foreach($city as $cy)
-                    <option value="{{$cy->id}}">{{$cy->name}}</option>
+                    <option value="{{$cy->id}}" @if($cy->id == $tour->id_province) selected @endif>{{$cy->name}}</option>
                   @endforeach
                 </select>
                 @if($errors->has('id_province'))
@@ -195,7 +195,7 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
-    CKEDITOR.replace('description')
+
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
     //select type
@@ -203,7 +203,7 @@
     $('select[name=id_type]').children('option').eq($id_type).attr('selected','selected');
     //select country
     $id_province = $('select[name=id_province]').attr('id');
-    $('select[name=id_province]').children('option').eq($id_province).attr('selected','selected');
+    // $('select[name=id_province]').children('option').eq($id_province).attr('selected','selected');
   });
 
   </script>

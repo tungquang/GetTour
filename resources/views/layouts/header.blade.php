@@ -13,13 +13,17 @@
 
             </li>
             <li class="has-dropdown @if(isset($_GET['web'])) @if($_GET['web'] == 'hotel') active @endif @endif">
-              <a href="{{route('hotel.page',['web'=>'hotel'])}}">Hotel</a>
+              <a href="{{route('hotel.page',['web'=>'hotel'])}}">Khách sạn</a>
 
             </li>
-            <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'car') active @endif @endif"><a href="{{route('car.page',['web'=>'car'])}}">Travel</a></li>
-            <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'contact') active @endif @endif"><a href="{{route('contact.page',['web'=>'contact'])}}">Liên hệ</a></li>
+            <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'car') active @endif @endif"><a href="{{route('car.page',['web'=>'car'])}}">Thuê xe</a></li>
+{{--            <li class="@if(isset($_GET['web'])) @if($_GET['web'] == 'contact') active @endif @endif"><a href="{{route('contact.page',['web'=>'contact'])}}">Liên hệ</a></li>--}}
             <li class=""><a href="{{route('cart.index')}}" id="cart"><i class="fa fa-cart"></i>Giỏ hàng</a></li>
-            <li>  <a href="{{route('customer.login')}}">Đăng nhập</a></li>
+            @if(Auth::guard('web')->check())
+            <li>  <a href="{{route('customer.show',['id'=>Auth::guard('web')->user()->id])}}">{{Auth::guard('web')->user()->name}}</a></li>
+              @else
+              <li>  <a href="{{route('customer.login')}}">Đăng nhập</a></li>
+            @endif
           </ul>
         </div>
       </div>

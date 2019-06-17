@@ -37,7 +37,7 @@
               </div>
               <div class="form-group">
                 <label for="description">Mô tả</label>
-                <textarea id="description" name="description">
+                <textarea id="description" name="description" class="form-control">
                                   {{old('description')}}
                 </textarea>
                 @if($errors->has('description'))
@@ -208,7 +208,7 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('content')
-    CKEDITOR.replace('description')
+
 
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()

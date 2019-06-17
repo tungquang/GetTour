@@ -47,7 +47,7 @@ class LoginCustomerController extends Controller
     public function __construct(Customer $customer)
     {
         $this->customer = $customer;
-        $this->middleware('customer')->except('logoutCustomer');
+        $this->middleware('customer:customer')->except('logoutCustomer');
 
     }
 

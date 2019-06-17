@@ -111,10 +111,9 @@
     <!-- accepted payments column -->
     <div class="col-xs-6">
       <p class="lead chose-pay">Payment Methods:</p>
-      <img id="1" class="payment" src="{{Storage::disk('local')->url('mastercard.png')}}" alt="Mastercard">
-      <img id="2" class="payment" src="{{Storage::disk('local')->url('visa.png')}}" alt="Visa">
-      <img id="3" class="payment" src="{{Storage::disk('local')->url('american-express.png')}}" alt="American Express">
-      <img id="4" class="payment" src="{{Storage::disk('local')->url('paypal2.png')}}" alt="Paypal">
+      <img id="1" class="payment" src="{{Storage::disk('local')->url('mastercard.png')}}" alt="Mastercard" style="width: 50px;">
+      <img id="2" class="payment" src="{{Storage::disk('local')->url('visa.png')}}" alt="Visa" style="width: 50px;">
+      <img id="4" class="payment" src="{{Storage::disk('local')->url('paypal2.png')}}" alt="Paypal" style="width: 50px;">
       <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
         Yêu cầu bạn chọn phương thức thanh toán để tạo sự tiện lợi
       </p>

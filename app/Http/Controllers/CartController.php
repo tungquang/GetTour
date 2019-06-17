@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function __construct(CartServiceInterface $response)
     {
-      $this->middleware('customer-auth')->only(['index','submit']);
+      $this->middleware('customer-auth:customer')->only(['index','submit']);
       $this->response = $response;
 
     }

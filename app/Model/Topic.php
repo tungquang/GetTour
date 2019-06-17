@@ -11,70 +11,43 @@ class Topic extends Model
   protected $table = 'topic';
   protected $fillable = ['id','img','content','type','id_admin','status','online'];
 
-  public function home()
+  public function getTopic($type)
   {
     return $this->where([
       'status' => 1,
-      'online'  => '1'
+      'type' => $type
     ]);
   }
-
-  public function tour()
+  public function getTopicOnline($type)
   {
-    return $this->where([
-      'status' => 1,
-      'type'   => 'tour',
-      'online'  => '1'
-    ]);
-  }
-
-  public function hotel()
-  {
-    return $this->where([
-      'status' => 1,
-      'type'   => 'hotel',
-      'online'  => '1'
-    ]);
-  }
-
-  public function travel()
-  {
-    return $this->where([
-      'status' => 1,
-      'type'   => 'travel',
-      'online'  => '1'
-    ]);
-  }
-
-  public function contact()
-  {
-    return $this->where([
-      'status' => 1,
-      'type'   => 'contact',
-      'online'  => '1'
-    ]);
+      return $this->getTopic($type)->where([
+          'online' =>1
+      ])->get();
   }
 
   public function setTopic($data,$user)
   {
     // //check exit topic
     $data['status'] = 1;
-    $topic = $this->where($data);
-    //change value of topic was used
-    $topicFirst = $this->where([
-      'online' => 1,
-      'status' => 1,
-      'type'   => $data['type']
-    ]);
-    $topicFirst->update([
-      'online'   => 0,
-      'id_admin' => $user->id
-    ]);
+    $topic = $this->where($data)->first();
+    if($topic->online){
+        //change value of topic was used
 
-    return $topic->update([
-      'online' => 1,
-      'id_admin' => $user->id
-    ]);
+
+       $result= $topic->update([
+            'online'   => 0,
+            'id_admin' => $user->id
+        ]);
+    }else {
+        $result= $topic->update([
+            'online' => 1,
+            'id_admin' => $user->id
+        ]);
+    }
+
+
+
+    return $result;
 
   }
 

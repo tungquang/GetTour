@@ -30,16 +30,6 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-
-        <li class="">
-        <a href="{{route('home.page')}}">
-          <i class="fa fa-dashboard"></i> <span>Trang chủ</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-
-      </li>
       @if(Auth::user())
         @if(Auth::user()->hasRole(['own']))
           <li class="">
@@ -53,14 +43,14 @@
           </li>
           <li class="treeview">
               <a href="">
-                <i class="fa fa-user"></i>
-                <span>Topic</span>
+                <i class="fa fa-file"></i>
+                <span>Chủ đề trang</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{route('topic.index')}}"><i class="fa fa-circle-o"></i> Danh sách Topic</a></li>
+                <li><a href="{{route('topic.index')}}"><i class="fa fa-circle-o"></i> Danh sách Chủ đề</a></li>
                 <li><a href="{{route('topic.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
 
               </ul>
@@ -88,7 +78,7 @@
         <li class="treeview">
           <a href="">
             <i class="fa fa-train"></i>
-            <span>Quản lý tour</span>
+            <span>Quản lý du lịch</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -98,7 +88,7 @@
             <li><a href="{{route('tour.index')}}"><i class="fa fa-circle-o"></i> Danh sách Tour</a></li>
 
             @if(Auth::user()->can('create-tour'))
-            <li><a href="{{route('tour.create')}}"><i class="fa fa-circle-o"></i> Tour Mới</a></li>
+            <li><a href="{{route('tour.create')}}"><i class="fa fa-circle-o"></i> Thêm tour du lịch</a></li>
             <li><a href="{{route('tour.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
           </ul>
@@ -110,15 +100,15 @@
 
           <a href="">
             <i class="fa fa-car"></i>
-            <span>Quản lý Car</span>
+            <span>Quản lý thuê xe</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('car.index')}}"><i class="fa fa-circle-o"></i> Danh sách Car</a></li>
+            <li><a href="{{route('car.index')}}"><i class="fa fa-circle-o"></i> Danh sách xe</a></li>
             @if(Auth::user()->can('create-car'))
-            <li><a href="{{route('car.create')}}"><i class="fa fa-circle-o"></i> Car Mới</a></li>
+            <li><a href="{{route('car.create')}}"><i class="fa fa-circle-o"></i> Thêm mới xe </a></li>
             <li><a href="{{route('car.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
 
@@ -136,10 +126,10 @@
           </a>
           <ul class="treeview-menu">
 
-            <li><a href="{{route('hotel.index')}}"><i class="fa fa-circle-o"></i> Danh sách Hotel</a></li>
+            <li><a href="{{route('hotel.index')}}"><i class="fa fa-circle-o"></i> Danh sách khách sạn</a></li>
 
             @if(Auth::user()->can('create-hotel'))
-            <li><a href="{{route('hotel.create')}}"><i class="fa fa-circle-o"></i> Hotel Mới</a></li>
+            <li><a href="{{route('hotel.create')}}"><i class="fa fa-circle-o"></i> Thêm mới khách sạn</a></li>
             <li><a href="{{route('hotel.trash')}}"><i class="fa fa-trash"></i> Thùng rác</a></li>
             @endif
           </ul>
@@ -150,6 +140,9 @@
         <li class="treeview">
           <a href="">
             <i class="fa fa-users"></i> <span>Quản lý khách hàng</span>
+            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('customer')}}"><i class="fa fa-circle-o"></i> Danh sách khách hàng</a></li>
@@ -164,12 +157,15 @@
 
           <a href="{{url('customer')}}">
             <i class="fa fa-table"></i> <span>Quản lý hóa đơn</span>
+            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
           </a>
 
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Thống kê hóa đơn</a></li>
+{{--            <li><a href=""><i class="fa fa-circle-o"></i> Thống kê hóa đơn</a></li>--}}
             <li><a href="{{route('bill.new')}}"><i class="fa fa-file"></i> Hóa đơn cần duyệt</a></li>
-            <li><a href="{{route('bill.checked')}}"><i class="fa fa-file"></i> Hóa đơn  duyệt</a></li>
+            <li><a href="{{route('bill.checked')}}"><i class="fa fa-file"></i> Hóa đơn đã duyệt</a></li>
           </ul>
         </li>
         @endif

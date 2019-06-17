@@ -92,6 +92,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validator($request->all())->validate();
         $this->userService->update($request, $id);
         try {

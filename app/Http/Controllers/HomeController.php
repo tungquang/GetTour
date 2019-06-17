@@ -52,7 +52,7 @@ class HomeController extends Controller
                     'cites' => Cites::all(),
                     'typecar'  => TypeCar::all(),
                     'typetour' => TypeTour::all(),
-                    'topics'    => $this->topic->home()
+                    'topics'    => $this->topic->getTopicOnline('home')
                   ]);
     }
 
@@ -68,7 +68,8 @@ class HomeController extends Controller
       return view('page.hotel')->with([
         'list'     => $list,
         'star'     => Star::all(),
-        'cites'    => Cites::all()
+        'cites'    => Cites::all(),
+          'topics'    => $this->topic->getTopicOnline('hotel')
       ]);
     }
 
@@ -85,7 +86,8 @@ class HomeController extends Controller
             ->with([
                 'list'     => $list,
                 'typetour' => TypeTour::all(),
-                'cites'    => Cites::all()
+                'cites'    => Cites::all(),
+                'topics'    => $this->topic->getTopicOnline('tour')
       ]);
     }
 
@@ -101,6 +103,7 @@ class HomeController extends Controller
       return view('page.car')->with([
         'list' => $list,
         'typecar' => TypeCar::all(),
+          'topics'    => $this->topic->getTopicOnline('travel')
       ]);
 
     }

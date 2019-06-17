@@ -9,8 +9,8 @@
           <div class="row">
             <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
               <div class="slider-text-inner text-center">
-                <h2>by colorlib.com</h2>
-                <h1>Hotel Overview</h1>
+                <h2>by GetTour</h2>
+                <h1>Tổng quan về khách sạn</h1>
               </div>
             </div>
           </div>

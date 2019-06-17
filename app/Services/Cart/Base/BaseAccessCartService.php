@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\Cart\Base\;
+namespace App\Services\Cart\Base;
 
 use Cart;
 use Auth;

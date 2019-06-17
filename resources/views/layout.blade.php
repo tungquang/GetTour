@@ -154,34 +154,34 @@
 	</div>
 
 	<!-- jQuery -->
-	<script src="{{asset('js/jquery.min.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.min.js')}}"></script>
 	<script src="{{asset('js/toastr/toastr.min.js')}}"></script>
 	<!-- jQuery Easing -->
-	<script src="{{asset('js/jquery.easing.1.3.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.easing.1.3.js')}}"></script>
 	<!-- Bootstrap -->
-	<script src="{{asset('js/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('vendors/js/bootstrap.min.js')}}"></script>
 	<!-- Waypoints -->
-	<script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.waypoints.min.js')}}"></script>
 	<!-- Flexslider -->
-	<script src="{{asset('js/jquery.flexslider-min.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.flexslider-min.js')}}"></script>
 	<!-- Owl carousel -->
-	<script src="{{asset('js/owl.carousel.min.js')}}"></script>
+	<script src="{{asset('vendors/js/owl.carousel.min.js')}}"></script>
 	<!-- Magnific Popup -->
-	<script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
-	<script src="{{asset('js/magnific-popup-options.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.magnific-popup.min.js')}}"></script>
+	<script src="{{asset('vendors/js/magnific-popup-options.js')}}"></script>
 	<!-- Date Picker -->
-	<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+	<script src="{{asset('vendors/js/bootstrap-datepicker.js')}}"></script>
 	<!-- Stellar Parallax -->
-	<script src="{{asset('js/jquery.stellar.min.js')}}"></script>
+	<script src="{{asset('vendors/js/jquery.stellar.min.js')}}"></script>
 	<!-- Main -->
-	<script src="{{asset('js/main.js')}}"></script>
+	<script src="{{asset('vendors/js/main.js')}}"></script>
 
 	<!-- <script type="text/javascript">
 		$('#cart').click(function(event){
 			event.preventDefault();
 			$.ajax({
 				type:'get',
-				url : "{{route('car.index')}}",
+				url : "",
 				data :{
 					'_token':$('meta[name="csrf-token"]').attr('content')
 				},

@@ -98,7 +98,7 @@ class TourController extends Controller
         try {
           $this->tourSevice->store($request);
         } catch (\Exception $e) {
-          abort('404',$e->getMessage());
+          abort('403',$e->getMessage());
         }
         return redirect()->route('tour.index');
     }
@@ -114,7 +114,7 @@ class TourController extends Controller
         try {
           return $this->tourSevice->show($id);
         } catch (\Exception $e) {
-          abort('404',$e->getMessage());
+          abort('403',$e->getMessage());
         }
     }
 
@@ -129,7 +129,7 @@ class TourController extends Controller
       try {
         return $this->tourSevice->edit($id);
       } catch (\Exception $e) {
-        abort('404',$e->getMessage());
+        abort('403',$e->getMessage());
       }
     }
 
@@ -142,11 +142,11 @@ class TourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validator($request->all())->validate();
+                $this->validator($request->all())->validate();
         try {
           $this->tourSevice->update($request, $id);
         } catch (\Exception $e) {
-          abort('404',$e->getMessage());
+          abort('403',$e->getMessage());
         }
         return redirect()->route('tour.edit',['tour'=>$id]);
     }

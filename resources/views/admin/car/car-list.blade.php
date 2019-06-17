@@ -42,7 +42,7 @@
                   @foreach($list as $car)
                     <tr id="{{$car->id}}" class="car">
                       <td>
-                        <img height="50px" width="50px" src="{{Storage::disk('local')->url('public/'.$car->img)}}"/>
+                        <img height="50px" width="50px" src="{{Storage::disk('local')->url($car->img)}}"/>
                       </td>
                       <td>{{$car->name}}</td>
                       <td>{{$car->unit_price}}</td>

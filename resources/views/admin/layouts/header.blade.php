@@ -111,7 +111,7 @@
             @if($user->detail)
               <img src="{{asset('/storage/'.$user->detail->img)}}" class="user-image" alt="User Image">
             @else
-              <img src="{{asset('/storage/default-user.png')}}" class="user-image" alt="User Image">
+              <img src="{{asset('/storage/user-detail.jpg')}}" class="user-image" alt="User Image">
             @endif
 
             <span class="hidden-xs">

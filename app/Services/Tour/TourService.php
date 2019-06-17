@@ -2,6 +2,7 @@
 namespace App\Services\Tour;
 
 use App\Model\Tour;
+use App\Model\Topic;
 use App\Interfaces\TourServiceInterface;
 use App\Services\Tour\Base\BaseAccessTourService;
 /**
@@ -10,9 +11,10 @@ use App\Services\Tour\Base\BaseAccessTourService;
 class TourService extends BaseAccessTourService implements TourServiceInterface
 {
 
-  public function __construct(Tour $tour)
+  public function __construct(Tour $tour, Topic $topic)
   {
       $this->tour = $tour;
+      $this->topic = $topic;
   }
   public function index()
   {
@@ -75,7 +77,8 @@ class TourService extends BaseAccessTourService implements TourServiceInterface
       return view('page.tour-detail')->with([
           'tour'     => $this->object,
           'cites'    => $this->cites()->get(),
-          'typetour' => $this->type()->get()
+          'typetour' => $this->type()->get(),
+          'topics'    => $this->topic->getTopicOnline('tour')
       ]);
   }
 

@@ -1,24 +1,29 @@
 @extends('layout')
 @section('content')
-<aside id="colorlib-hero">
-  <div class="flexslider">
-    <ul class="slides">
-      <li style="background-image: url({{asset('/storage/img_bg_3.jpg')}});">
-        <div class="overlay"></div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
-              <div class="slider-text-inner text-center">
-                <h2></h2>
-                <h1>Tour du lịch </h1>
+  <!-- sider -->
+  <aside id="colorlib-hero">
+    <div class="flexslider">
+      <ul class="slides">
+        @foreach($topics as $topic)
+          <li style="background-image: url({{Storage::url($topic->img)}});">
+            <div class="overlay"></div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
+                  <div class="slider-text-inner text-center">
+                    <h2>2 Days Tour</h2>
+                    <h1>{{$topic->content}}</h1>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </li>
+          </li>
+        @endforeach
+
       </ul>
     </div>
-</aside>
+  </aside>
+  <!-- end sider -->
 
 <div class="colorlib-wrap">
   <div class="container">
@@ -42,7 +47,7 @@
                   <h2><a href="{{route('tour.show',['id'=>$object->id])}}">{{$object->name}}</a></h2>
                   <h4 class="city">{{$object->getProvince->name}}</h4>
                   <p class="city">Còn trống : {{$object->seat - $object->book}}</p>
-                  <p>{!!$object->description!!}</p>
+                  <p>{{$object->description}}</p>
 
                 </span>
                 <div class="desc">

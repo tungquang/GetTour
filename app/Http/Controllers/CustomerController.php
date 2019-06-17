@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Response;
 use App\Interfaces\CustomerServiceInterface;
@@ -12,7 +13,7 @@ class CustomerController extends Controller
 {
       public function __construct(CustomerServiceInterface $customerService)
       {
-        $this->middleware('customer-auth')->only(['show','update']);
+        $this->middleware('customer-auth:customer')->only(['show','update']);
         $this->middleware('auth')->except(['show','update']);
         $this->middleware('permission:delete-customer')->only(['destroy','indexBan']);
         $this->customerService = $customerService;
@@ -107,14 +108,23 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validator($request->all(),$this->rulesDetail())->validate();
+        if(isset($request->password)){
+             $this->validator(
+                 $request->all(),
+                 ['password' => 'required|string|min:6|confirmed']
+             )->validate();
+             $message = 'Cập nhật mật khẩu thành công';
+         } else {
+            $this->validator($request->all(),$this->rulesDetail())->validate();
+            $message = 'Cập nhật thông tin chi tiết thành công';
+        }
 
         try {
             $this->customerService->update($request, $id);
         } catch (\Exception $e) {
             abort('404',$e->getMessage());
         }
-        return redirect()->route('customer.show',['customer'=>$id]);
+        return redirect()->route('customer.show',['customer'=>$id])->withErrors(['success' => $message]);
     }
     /**
      * Remove the specified resource from storage.

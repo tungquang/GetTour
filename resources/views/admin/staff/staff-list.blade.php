@@ -149,7 +149,7 @@
         'autoWidth'   : false
       })
     });
-    $('.staff').dblclick(function(){
+    $('.list').delegate('.staff','dblclick',function(){
       var $id = $(this).attr('id');
       if ($id) {
         window.location.replace("{{url('staff')}}/"+$id);

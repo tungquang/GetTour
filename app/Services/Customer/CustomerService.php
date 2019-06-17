@@ -1,7 +1,9 @@
 <?php
 namespace App\Services\Customer;
 
+use Exception;
 use Response;
+use Illuminate\Support\Facades\Hash;
 use App\Model\Customer;
 use App\Interfaces\CustomerServiceInterface;
 use App\Services\Customer\Base\BaseAccessCustomerService;
@@ -56,22 +58,26 @@ use App\Services\Customer\Base\BaseAccessCustomerService;
 
        if(!$customer)
        {
-         throw new \Exception("Account not found", 1);
+         throw new Exception("Account not found", 1);
        }
-       $detail = $request->except(['_method','_token','gender','name','email','photo']);
-       $detail['id']  = $id;
-       $account = $request->only(['name','email']);
 
-       // If has file then the new avatar will be update
-       if ($request->photo)
-       {
-         $this->UploadFile($request);
-         if ($this->img !== '')
-         {
-           $detail['img'] = $this->img;
-         }
+       $detail = $request->except(['_method','_token','gender','name','email','photo']);
+       if(!isset($request->password)) {
+           $detail['id'] = $id;
+           $account = $request->only(['name', 'email']);
+           // If has file then the new avatar will be update
+           if ($request->photo) {
+               $this->UploadFile($request);
+               if ($this->img !== '') {
+                   $detail['img'] = $this->img;
+               }
+           }
+           $this->detail()->updateOrCreateNew($detail);
+
+       } else {
+           $account['password'] = Hash::make($request->password);
        }
-       $this->detail()->updateOrCreateNew($detail);
+
        $customer->update($account);
    }
    /*Method to acttive or disable a account

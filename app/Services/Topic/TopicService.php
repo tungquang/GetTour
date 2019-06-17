@@ -18,12 +18,13 @@ use App\Interfaces\TopicServiceInterface;
      */
      public function index()
      {
+
          return view('admin.topic.topic')->with([
-             'home'    => $this->topic->home()->get(),
-             'tour'    => $this->topic->tour()->get(),
-             'hotel'   => $this->topic->hotel()->get(),
-             'travel'  => $this->topic->travel()->get(),
-             'contact' => $this->topic->contact()->get(),
+             'home'    => $this->topic->getTopic('home')->get(),
+             'tour'    => $this->topic->getTopic('tour')->get(),
+             'hotel'   => $this->topic->getTopic('hotel')->get(),
+             'travel'  => $this->topic->getTopic('travel')->get(),
+             'contact' => $this->topic->getTopic('contact')->get(),
              'user'    => $this->user()
           ]);
      }
@@ -43,18 +44,14 @@ use App\Interfaces\TopicServiceInterface;
 
      public function store($request)
      {
-       dd($request->all());
-       $this->UploadFile();
+       $this->UploadFile($request);
        $data = [
-         'img'       => $img['name'],
+         'img'       => $this->img,
          'content'   =>$request->content,
          'id_admin'  => $this->user()->id,
          'type'      => $request->type
        ];
-
        $this->topic->create($data);
-
-      return redirect()->route('topic.index');
      }
      public function create()
      {
@@ -82,6 +79,7 @@ use App\Interfaces\TopicServiceInterface;
      }
      public function update($request,$id)
      {
+
        $topic = $this->topic->getbyIdOrFind($id);
        if($topic)
        {
@@ -103,6 +101,7 @@ use App\Interfaces\TopicServiceInterface;
      }
      public function destroy($id,$satus)
      {
+
        $topic = $this->topic->DeleteOrGet($id,$satus);
        if ($topic) {
           $type = $this->topic->find($id)->type;
