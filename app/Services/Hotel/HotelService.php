@@ -78,6 +78,7 @@ class HotelService extends BaseAccessHotelService implements HotelServiceInterfa
   public function show($id)
   {
     $this->checkExits($id);
+    
     return view('page.hotel-detail')->with([
           'hotel' => $this->object,
           'cites' => $this->cites()->get(),

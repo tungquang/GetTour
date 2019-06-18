@@ -108,8 +108,9 @@ class HotelController extends Controller
      */
     public function show($id)
     {
+        
         try {
-          $this->hotelService->show($id);
+          return $this->hotelService->show($id);
         } catch (\Exception $e) {
           abort('404',$e->getMessage());
         }
