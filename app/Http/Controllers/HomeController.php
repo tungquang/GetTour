@@ -43,7 +43,7 @@ class HomeController extends Controller
       $hotel = $this->hotel->getPopularHotel(4);
       $tour   = $this->tour->getPopularTour(8);
       $car    = $this->car->getPopularCar(6);
-
+      
       return view('page.home')
                   ->with([
                     'hotel' => $hotel,

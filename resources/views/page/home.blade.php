@@ -284,23 +284,7 @@
         </span>
       </a>
     @endforeach
-      <a href="#" class="tour-entry animate-box">
-        <div class="tour-img">
-        </div>
-        <span class="desc">
-          <p class="star">
-            <span>
-              <i class="icon-star-full"></i>
-              <i class="icon-star-full"></i>
-              <i class="icon-star-full"></i>
-              <i class="icon-star-full"></i>
-              <i class="icon-star-full"></i>
-            </span> 545 Reviews</p>
-          <h2>{{$topic->content}}</h2>
-          <span class="city">Athens, Greece</span>
-          <span class="price">$450</span>
-        </span>
-      </a>
+      
   </div>
 </div>
 <div id="colorlib-blog">
@@ -379,7 +363,7 @@
         </div>
         <div class="col-md-6 animate-box">
           <div class="video-wrap">
-            <div class="video colorlib-video" style="background-image: url({{Storage::url($topic->img)}});">
+            <div class="video colorlib-video" style="background-image: url();">
               <a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo"><i class="fa  fa-caret-square-o-left"></i></a>
               <div class="video-overlay"></div>
             </div>
