@@ -8,10 +8,10 @@ use Auth;
 use App\Model\Star;
 use App\Model\Cites;
 use App\Model\Nations;
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
 
-abstract class BaseAccessHotelService extends AccessUploadFile
+abstract class BaseAccessHotelService extends UploadFile
 {
   protected $object;
 

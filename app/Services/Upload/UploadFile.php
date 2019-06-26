@@ -1,12 +1,12 @@
 <?php
-namespace App\Services\File;
+namespace App\Services\Upload;
 
 /**
  *
  */
 use App\Traits\StorageFunction;
 
-class AccessUploadFile
+class UploadFile
 {
     use StorageFunction;
     private $disk = 'public';

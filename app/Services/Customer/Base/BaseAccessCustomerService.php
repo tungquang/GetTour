@@ -7,9 +7,9 @@ namespace App\Services\Customer\Base;
 use Auth;
 use App\Model\CustomerDetail;
 use App\Model\Cites;
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
-abstract class BaseAccessCustomerService extends AccessUploadFile
+abstract class BaseAccessCustomerService extends UploadFile
 {
   protected $user;
 

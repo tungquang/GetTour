@@ -9,9 +9,9 @@ use App\Model\Cites;
 use App\Model\Role;
 use App\Model\RoleUser;
 use App\Model\UserDetail;
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
-abstract class BaseAccessUserService extends AccessUploadFile
+abstract class BaseAccessUserService extends UploadFile
 {
   protected $user;
 

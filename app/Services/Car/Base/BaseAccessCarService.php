@@ -4,9 +4,9 @@ namespace App\Services\Car\Base;
 /**
  *
  */
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
-abstract class BaseAccessCarService extends AccessUploadFile
+abstract class BaseAccessCarService extends UploadFile
 {
   protected $object;
 

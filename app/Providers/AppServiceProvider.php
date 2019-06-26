@@ -11,6 +11,8 @@ use App\Interfaces\SearchServiceInterface;
 use App\Services\SearchService;
 use App\Interfaces\TopicServiceInterface;
 use App\Services\Topic\TopicService;
+use App\Interfaces\HomeServiceInterface;
+use App\Services\Home\HomeService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -50,6 +52,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
           TopicServiceInterface::class,
           TopicService::class
+        );
+
+        $this->app->singleton(
+            HomeServiceInterface::class,
+            HomeService::class
         );
 
 

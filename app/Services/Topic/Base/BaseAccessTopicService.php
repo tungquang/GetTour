@@ -5,9 +5,9 @@ namespace App\Services\Topic\Base;
  *
  */
 use Auth;
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
-abstract class BaseAccessTopicService extends AccessUploadFile
+abstract class BaseAccessTopicService extends UploadFile
 {
     protected $object;
     protected $user;

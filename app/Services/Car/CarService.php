@@ -81,6 +81,7 @@ use App\Interfaces\CarServiceInterface;
 
    public function show($id)
    {
+
        $car = $this->checkExit($id);
 
        return view('page.car-detail')->with([

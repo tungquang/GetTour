@@ -9,9 +9,9 @@ use Auth;
 use App\Model\TypeTour;
 use App\Model\Nations;
 use App\Model\Cites;
-use App\Services\File\AccessUploadFile;
+use App\Services\Upload\UploadFile;
 
-abstract class BaseAccessTourService extends AccessUploadFile
+abstract class BaseAccessTourService extends UploadFile
 {
   protected $object;
 
